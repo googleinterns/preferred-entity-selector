@@ -114,7 +114,7 @@ function addRemovefunc ()
 {
     window.close()
     chrome.tabs.executeScript({
-        file: 'OUlist_content.js'
+        file: 'OUListContent.js'
       }); 
 }
 
