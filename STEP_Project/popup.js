@@ -1,4 +1,5 @@
 var pageType = undefined;
+
 /** Enum for page types. */
 const PAGE_TYPES = {
   ORG_LIST_PAGE: 0,
@@ -24,13 +25,13 @@ function findPagecase(givenurl)
   let settingspage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/appsettings\/[0-9]+\/.+/g);
   let onoffpage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/settings\/serviceonoff.*/g);
   pageType = PAGE_TYPES.OTHER;
-  if (orgunitspage != null) 
+  if (orgunitspage !== null) 
   {
     pageType = PAGE_TYPES.ORG_LIST_PAGE;
   }
-  else if (settingspage != null || onoffpage != null)
+  else if (settingspage !== null || onoffpage !== null)
   {
-    pageType=PAGE_TYPES.SETTINGS_PAGE;
+    pageType = PAGE_TYPES.SETTINGS_PAGE;
   }
   return pageType;
 }
@@ -54,7 +55,7 @@ function checkTabUrl()
  */
 function waitForPagecase()
 {
-  if( pageType == undefined)
+  if( pageType === undefined)
   {
     setTimeout(waitForPagecase, 50);
   }
@@ -78,9 +79,9 @@ function disableButtons(selectButton, addRemoveButton, pageType)
   /**
    * Settings page case --> disable Add/Remove
    */
-  if (pageType ==PAGE_TYPES.SETTINGS_PAGE) 
+  if (pageType === PAGE_TYPES.SETTINGS_PAGE) 
   { 
-    if(addRemoveButton != null)
+    if(addRemoveButton !== null)
     {
       addRemoveButton.classList.add('disabled');
       addRemoveButton.disabled = true;
@@ -90,9 +91,9 @@ function disableButtons(selectButton, addRemoveButton, pageType)
 /**
  * OU list page case --> disable select
  */
-  if (pageType ==PAGE_TYPES.ORG_LIST_PAGE)
+  if (pageType === PAGE_TYPES.ORG_LIST_PAGE)
   {
-    if(selectButton != null)
+    if(selectButton !== null)
     {
       selectButton.classList.add('disabled');
       selectButton.disabled = true;
@@ -119,3 +120,4 @@ function addRemovefunc ()
         file: 'content.js'
       }); 
 }
+
