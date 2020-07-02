@@ -14,7 +14,10 @@ const PAGE_TYPES = {
 }()
 );
 
-//Checks url of the current tab to detect settings or OU list page
+/**
+ * Checks url of the current tab to detect settings or OU list page
+ * @param {string} givenurl - url of current page
+ */
 function findPagecase(givenurl)
 {
   let orgunitspage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/orgunits/g);
@@ -32,7 +35,9 @@ function findPagecase(givenurl)
   return pageType;
 }
 
-// Asynchronous function, calls waitForPagecase for value to be defined
+/**
+ * Asynchronous function, calls waitForPagecase for value to be defined
+ */
 function checkTabUrl()
 {
   chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
@@ -41,9 +46,11 @@ function checkTabUrl()
 });
 waitForPagecase();
 }
- 
-//waits for pageType to become defined
-//once value is defined, calls "disableButtons" to disable based on url
+
+/**
+ * waits for pageType to become defined
+ * once value is defined, calls "disableButtons" to disable based on url
+ */
 function waitForPagecase()
 {
   if( pageType == undefined)
@@ -58,11 +65,18 @@ function waitForPagecase()
   }
 }
 
-//disable select or add/remove button based on url
-//if neither url matches, background.js disables the extension.
+/**
+ * disable select or add/remove button based on url
+ * if neither url matches, background.js disables the extension.
+ * @param {button object} s - the select button
+ * @param {button object} ar - the add/remove button
+ * @param {integer} pageType - type of page user is on
+ */
 function disableButtons(s, ar, pageType)
 {
-  // Settings page case --> disable Add/Remove
+  /**
+   * Settings page case --> disable Add/Remove
+   */
   if (pageType ==PAGE_TYPES.SETTINGS_PAGE) 
   { 
     if(null != s)
@@ -76,7 +90,9 @@ function disableButtons(s, ar, pageType)
     }
   }
 
-  // OU list page case --> disable select
+/**
+ * OU list page case --> disable select
+ */
   if (pageType ==PAGE_TYPES.ORG_LIST_PAGE)
   {
     if(null != s)
@@ -91,12 +107,18 @@ function disableButtons(s, ar, pageType)
   }
 }
 
-//attach listener to add/remove button
+/**
+ * attach listener to add/remove button
+ * @param {button object} ar - add/remove button
+ */
 function injectContent(ar)
 {
   ar.addEventListener('click', addRemovefunc);     
 }
-//inject content.js into DOM on click of the add/remove button
+
+/**
+ * inject content.js into DOM on click of the add/remove button
+ */
 function addRemovefunc () 
 {
     window.close()
@@ -104,6 +126,3 @@ function addRemovefunc ()
         file: 'content.js'
       }); 
 }
-
-
-

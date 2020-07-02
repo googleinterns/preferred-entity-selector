@@ -1,4 +1,6 @@
-//testing function findPagecase
+/**
+ * testing function findPagecase
+ */
 describe('Testing pageType that determines enabling/disabling of buttons depending on URL', ()=>{
   it('Should enable Settings button on appSettings url (case 1)', ()=>{
     let pageType = findPagecase("https://admin.google.com/u/4/ac/appsettings/725740718362/videoSettings");
@@ -24,7 +26,9 @@ describe('Testing pageType that determines enabling/disabling of buttons dependi
   })
 })
 
-//testing function disableButtons
+/**
+ * testing function disableButtons
+ */
 
 describe('Testing enabling and disabling of buttons depending on pageType', ()=>{
   it('Should disable add/remove button on settings url for pageType 1', ()=>{ 
