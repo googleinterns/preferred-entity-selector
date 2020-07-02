@@ -2,10 +2,9 @@
  * Function that will later have Add/Remove functionality
  * @param {JS event} event - expect click event
  */
-function arButtonClick (event) 
+function addRemoveButtonClick (event) 
 {
-    if (!event.target.matches('BUTTON')) return
-    alert("hello");
+    if (!event.target.matches('BUTTON')) return;
 }
 
 /**
@@ -34,6 +33,6 @@ function addButtons(OUs, numRows)
 (function()
 {
     let tabl = document.querySelector('table[role=grid]');
-    tabl.addEventListener('click',arButtonClick); //event delegation
+    tabl.addEventListener('click',addRemoveButtonClick); //event delegation
 }()
 );
