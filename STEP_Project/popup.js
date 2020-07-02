@@ -80,13 +80,9 @@ function disableButtons(selectButton, addRemoveButton, pageType)
    */
   if (pageType ==PAGE_TYPES.SETTINGS_PAGE) 
   { 
-    if(selectButton != null)
-    {
-      selectButton.style.backgroundColor = "#4385f5";
-    }
     if(addRemoveButton != null)
     {
-      addRemoveButton.style.backgroundColor = "#7eaaf8";
+      addRemoveButton.classList.add('disabled');
       addRemoveButton.disabled = true;
     }
   }
@@ -98,12 +94,8 @@ function disableButtons(selectButton, addRemoveButton, pageType)
   {
     if(selectButton != null)
     {
-      selectButton.style.backgroundColor = "#7eaaf8";
+      selectButton.classList.add('disabled');
       selectButton.disabled = true;
-    }
-    if(addRemoveButton != null)
-    {
-      addRemoveButton.style.backgroundColor = "#4385f5";
     }
   }
 }
