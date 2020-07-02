@@ -1,3 +1,5 @@
+let ar = document.getElementById("addRemove");
+let s = document.getElementById("select");
 /**
  * testing function findPagecase
  */
@@ -30,35 +32,43 @@ describe('Testing pageType that determines enabling/disabling of buttons dependi
  * testing function disableButtons
  */
 
-describe('Testing enabling and disabling of buttons depending on pageType', ()=>{
+describe('Testing enabling and disabling of buttons depending on pageType', ()=>
+{
+  beforeEach(function() 
+  {
+    //back to default for future tests
+    s = document.getElementById("select");
+    ar = document.getElementById("addRemove");
+  });
+
+  afterEach(function() 
+  {
+    //back to default for future tests
+    if (s !== null)
+    {
+      s.disabled = false;
+    }
+    if (ar !== null)
+    {
+      ar.disabled = false;
+    }
+  });
+
   it('Should disable add/remove button on settings url for pageType 1', ()=>{ 
-    let ar = document.getElementById("addRemove");
-    let s = document.getElementById("select");
     disableButtons(s, ar, 1);
     expect(ar.disabled).toBeTruthy();
-    ar.disabled = false; //back to default for future tests
   })
+
   it('Should disable select button on settings url for pageType 0', ()=>{ 
-    let ar = document.getElementById("addRemove");
-    let s = document.getElementById("select");
     disableButtons(s, ar, 0);
     expect(s.disabled).toBeTruthy();
-    s.disabled = false; //back to default for future tests
   })
+
   it('Should disable neither buttons for pageType 2 as any other url disables extension', ()=>{ 
-    let ar = document.getElementById("addRemove");
-    let s = document.getElementById("select");
     disableButtons(s, ar, 2);
     expect(s.disabled).toBeFalsy();
     expect(ar.disabled).toBeFalsy();
-    s.disabled = false; //back to default for future tests
-    ar.disabled = false; //back to default for future tests
-    ar.remove();
     s.remove();
+    ar.remove();
   })
 })
-
- 
-
- 
-  
