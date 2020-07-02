@@ -4,7 +4,7 @@
  */
 function addRemoveButtonClick (event) 
 {
-    if (!event.target.matches('BUTTON')) return;
+    if (event.target.getAttribute("class")!=='bClass') return;
 }
 
 /**
@@ -21,7 +21,7 @@ function addButtons(OUs, numRows)
         let temp = row.getElementsByClassName('bClass');
         if (temp.length == 0)
         {
-            const button = document.createElement('BUTTON');
+            const button = document.createElement('td');
             button.innerHTML = 'click me';
             button.setAttribute('class','bClass');
             row = OUs[i];
