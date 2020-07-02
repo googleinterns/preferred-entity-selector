@@ -1,4 +1,11 @@
-var pagecase = undefined;
+var pageType = undefined;
+/** Enum for page types. */
+const PAGE_TYPES = {
+  ORG_LIST_PAGE: 0,
+  SETTINGS_PAGE: 1, // includes onoff page
+  OTHER: 2,
+};
+
 (function()
 {
   checkTabUrl();
@@ -13,16 +20,16 @@ function findPagecase(givenurl)
   let orgunitspage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/orgunits/g);
   let settingspage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/appsettings\/[0-9]+\/.+/g);
   let onoffpage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/settings\/serviceonoff.*/g);
-  pagecase = 2;
+  pageType = PAGE_TYPES.OTHER;
   if (orgunitspage != null) 
   {
-    pagecase = 0;
+    pageType = PAGE_TYPES.ORG_LIST_PAGE;
   }
   else if (settingspage !=null || onoffpage != null)
   {
-    pagecase=1;
+    pageType=PAGE_TYPES.SETTINGS_PAGE;
   }
-  return pagecase;
+  return pageType;
 }
 
 // Asynchronous function, calls waitForPagecase for value to be defined
@@ -35,11 +42,11 @@ function checkTabUrl()
 waitForPagecase();
 }
  
-//waits for pagecase to become defined
+//waits for pageType to become defined
 //once value is defined, calls "disableButtons" to disable based on url
 function waitForPagecase()
 {
-  if( pagecase == undefined)
+  if( pageType == undefined)
   {
     setTimeout(waitForPagecase, 50);
   }
@@ -47,16 +54,16 @@ function waitForPagecase()
   {
     s = document.getElementById("select");
     ar = document.getElementById("addRemove");
-    disableButtons(s, ar, pagecase);
+    disableButtons(s, ar, pageType);
   }
 }
 
 //disable select or add/remove button based on url
 //if neither url matches, background.js disables the extension.
-function disableButtons(s, ar, pagecase)
+function disableButtons(s, ar, pageType)
 {
   // Settings page case --> disable Add/Remove
-  if (pagecase ==1) 
+  if (pageType ==PAGE_TYPES.SETTINGS_PAGE) 
   { 
     if(null != s)
     {
@@ -70,7 +77,7 @@ function disableButtons(s, ar, pagecase)
   }
 
   // OU list page case --> disable select
-  if (pagecase ==0)
+  if (pageType ==PAGE_TYPES.ORG_LIST_PAGE)
   {
     if(null != s)
     {
