@@ -76,9 +76,8 @@ function waitForPagecase()
  */
 function disableButtons(selectButton, addRemoveButton, pageType)
 {
-  /**
-   * Settings page case --> disable Add/Remove
-   */
+
+//Settings page case --> disable Add/Remove
   if (pageType === PAGE_TYPES.SETTINGS_PAGE) 
   { 
     if(addRemoveButton !== null)
@@ -88,9 +87,7 @@ function disableButtons(selectButton, addRemoveButton, pageType)
     }
   }
 
-/**
- * OU list page case --> disable select
- */
+//OU list page case --> disable select
   if (pageType === PAGE_TYPES.ORG_LIST_PAGE)
   {
     if(selectButton !== null)
