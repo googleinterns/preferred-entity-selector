@@ -9,8 +9,8 @@ const PAGE_TYPES = {
 (function()
 {
   checkTabUrl();
-  ar = document.getElementById("addRemove");
-  injectContent(ar);
+  addRemoveButton = document.getElementById("addRemove");
+  injectContent(addRemoveButton);
 }()
 );
 
@@ -28,7 +28,7 @@ function findPagecase(givenurl)
   {
     pageType = PAGE_TYPES.ORG_LIST_PAGE;
   }
-  else if (settingspage !=null || onoffpage != null)
+  else if (settingspage != null || onoffpage != null)
   {
     pageType=PAGE_TYPES.SETTINGS_PAGE;
   }
@@ -40,11 +40,12 @@ function findPagecase(givenurl)
  */
 function checkTabUrl()
 {
-  chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-  let url = tabs[0].url;
-  findPagecase(url);
-});
-waitForPagecase();
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => 
+  {
+    let url = tabs[0].url;
+    findPagecase(url);
+  });
+  waitForPagecase();
 }
 
 /**
@@ -59,34 +60,34 @@ function waitForPagecase()
   }
   else
   {
-    s = document.getElementById("select");
-    ar = document.getElementById("addRemove");
-    disableButtons(s, ar, pageType);
+    selectButton = document.getElementById("select");
+    addRemoveButton = document.getElementById("addRemove");
+    disableButtons(selectButton, addRemoveButton, pageType);
   }
 }
 
 /**
  * disable select or add/remove button based on url
  * if neither url matches, background.js disables the extension.
- * @param {button object} s - the select button
- * @param {button object} ar - the add/remove button
+ * @param {button object} selectButton - the select button
+ * @param {button object} addRemoveButton - the add/remove button
  * @param {integer} pageType - type of page user is on
  */
-function disableButtons(s, ar, pageType)
+function disableButtons(selectButton, addRemoveButton, pageType)
 {
   /**
    * Settings page case --> disable Add/Remove
    */
   if (pageType ==PAGE_TYPES.SETTINGS_PAGE) 
   { 
-    if(null != s)
+    if(selectButton != null)
     {
-      s.style.backgroundColor = "#4385f5";
+      selectButton.style.backgroundColor = "#4385f5";
     }
-    if(null != ar)
+    if(addRemoveButton != null)
     {
-      ar.style.backgroundColor = "#7eaaf8";
-      ar.disabled = true;
+      addRemoveButton.style.backgroundColor = "#7eaaf8";
+      addRemoveButton.disabled = true;
     }
   }
 
@@ -95,25 +96,25 @@ function disableButtons(s, ar, pageType)
  */
   if (pageType ==PAGE_TYPES.ORG_LIST_PAGE)
   {
-    if(null != s)
+    if(selectButton != null)
     {
-      s.style.backgroundColor = "#7eaaf8";
-      s.disabled = true;
+      selectButton.style.backgroundColor = "#7eaaf8";
+      selectButton.disabled = true;
     }
-    if(null != ar)
+    if(addRemoveButton != null)
     {
-      ar.style.backgroundColor = "#4385f5";
+      addRemoveButton.style.backgroundColor = "#4385f5";
     }
   }
 }
 
 /**
  * attach listener to add/remove button
- * @param {button object} ar - add/remove button
+ * @param {button object} addRemoveButton - add/remove button
  */
-function injectContent(ar)
+function injectContent(addRemoveButton)
 {
-  ar.addEventListener('click', addRemovefunc);     
+  addRemoveButton.addEventListener('click', addRemovefunc);     
 }
 
 /**
