@@ -24,12 +24,13 @@ function findPagecase(givenurl)
   let orgunitspage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/orgunits/g);
   let settingspage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/appsettings\/[0-9]+\/.+/g);
   let onoffpage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/settings\/serviceonoff.*/g);
+  let firstsettingspage = givenurl.match(/admin.google.com\/ac\/appsettings\/[0-9]+\/.+/g);
   pageType = PAGE_TYPES.OTHER;
   if (orgunitspage !== null) 
   {
     pageType = PAGE_TYPES.ORG_LIST_PAGE;
   }
-  else if (settingspage !== null || onoffpage !== null)
+  else if (settingspage !== null || onoffpage !== null || firstsettingspage != null)
   {
     pageType = PAGE_TYPES.SETTINGS_PAGE;
   }
