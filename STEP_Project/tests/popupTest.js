@@ -14,6 +14,11 @@ describe('Testing pageType that determines enabling/disabling of buttons dependi
     expect(pageType).toEqual(1);
   })
 
+  it('Should enable Settings button on appsettings url WITHOUT u/[num](case 1)', ()=>{
+    let pageType = findPageType("https://admin.google.com/ac/appsettings/725740718362/videoSettings");
+    expect(pageType).toEqual(1);
+  })
+
   it('Should enable Add/Remove button on OUlist url (case 0)', ()=>{
     let pageType = findPageType("https://admin.google.com/u/4/ac/orgunits");
     expect(pageType).toEqual(0);
