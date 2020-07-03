@@ -1,29 +1,29 @@
 let ar = document.getElementById("addRemove");
 let s = document.getElementById("select");
 /**
- * testing function findPagecase
+ * testing function findPageType
  */
 describe('Testing pageType that determines enabling/disabling of buttons depending on URL', ()=>{
   it('Should enable Settings button on appSettings url (case 1)', ()=>{
-    let pageType = findPagecase("https://admin.google.com/u/4/ac/appsettings/725740718362/videoSettings");
+    let pageType = findPageType("https://admin.google.com/u/4/ac/appsettings/725740718362/videoSettings");
     expect(pageType).toEqual(1);
   })
 
   it('Should enable Settings button on settings/serviceonoff url (case 1)', ()=>{
-    let pageType = findPagecase("https://admin.google.com/u/4/ac/settings/serviceonoff?iid=646&aid=725740718362");
+    let pageType = findPageType("https://admin.google.com/u/4/ac/settings/serviceonoff?iid=646&aid=725740718362");
     expect(pageType).toEqual(1);
   })
 
   it('Should enable Add/Remove button on OUlist url (case 0)', ()=>{
-    let pageType = findPagecase("https://admin.google.com/u/4/ac/orgunits");
+    let pageType = findPageType("https://admin.google.com/u/4/ac/orgunits");
     expect(pageType).toEqual(0);
   })
   it('Should disable extension on any other admin console url (case 2)', ()=>{
-    let pageType = findPagecase("https://admin.google.com/u/4/ac/apps");
+    let pageType = findPageType("https://admin.google.com/u/4/ac/apps");
     expect(pageType).toEqual(2);
   })
   it('Should disable extension on any other console url (case 2)', ()=>{
-    let pageType = findPagecase("https://github.com/");
+    let pageType = findPageType("https://github.com/");
     expect(pageType).toEqual(2);
   })
 })
