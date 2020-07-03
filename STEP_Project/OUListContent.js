@@ -15,6 +15,7 @@ function addRemoveButtonClick (event)
  */
 function addButtons(OUs, numRows)
 {
+    //skip the first row as that's the heading row and does not represent an OU.
     for (let i = 1; i < numRows; i++) 
     {
         let row = OUs[i];
