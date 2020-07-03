@@ -42,21 +42,20 @@ describe('Testing enabling and disabling of buttons depending on pageType', ()=>
   beforeEach(function() 
   {
     //back to default for future tests
+    const arButton = document.createElement('BUTTON')
+    arButton.setAttribute("id", "addRemove");
+    const sButton = document.createElement('BUTTON')
+    sButton.setAttribute("id", "select");
+    document.body.appendChild(arButton);
+    document.body.appendChild(sButton);
     s = document.getElementById("select");
     ar = document.getElementById("addRemove");
   });
 
   afterEach(function() 
   {
-    //back to default for future tests
-    if (s !== null)
-    {
-      s.disabled = false;
-    }
-    if (ar !== null)
-    {
-      ar.disabled = false;
-    }
+    document.getElementById("select").remove();
+    document.getElementById("addRemove").remove();
   });
 
   it('Should disable add/remove button on settings url for pageType 1', ()=>{ 
@@ -73,7 +72,5 @@ describe('Testing enabling and disabling of buttons depending on pageType', ()=>
     disableButtons(s, ar, 2);
     expect(s.disabled).toBeFalsy();
     expect(ar.disabled).toBeFalsy();
-    s.remove();
-    ar.remove();
   })
 })
