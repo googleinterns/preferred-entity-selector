@@ -19,11 +19,11 @@ const PAGE_TYPES = {
  * Checks url of the current tab to detect settings or OU list page
  * @param {string} givenurl - url of current page
  */
-function findPagecase(givenurl)
+function findPageType(givenurl)
 {
-  let orgunitspage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/orgunits/g);
-  let settingspage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/appsettings\/[0-9]+\/.+/g);
-  let onoffpage = givenurl.match(/admin.google.com\/u\/[0-9]+\/ac\/settings\/serviceonoff.*/g);
+  let orgunitspage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/orgunits/g);
+  let settingspage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/appsettings\/[0-9]+\/.+/g);
+  let onoffpage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/settings\/serviceonoff.*/g);
   pageType = PAGE_TYPES.OTHER;
   if (orgunitspage !== null) 
   {
@@ -44,7 +44,7 @@ function checkTabUrl()
   chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => 
   {
     let url = tabs[0].url;
-    findPagecase(url);
+    findPageType(url);
   });
   waitForPagecase();
 }
