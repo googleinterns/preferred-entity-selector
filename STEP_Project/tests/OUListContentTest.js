@@ -5,8 +5,22 @@ let numRows;
 describe('Testing the initButtons function', ()=>{
     beforeEach(function()
     {
-        tabl = document.querySelector('table[role=grid]');
+        tabl = document.createElement('table');
+        for (let i = 0; i < 3; i++)
+        {
+            tabl.insertRow();
+        }
         OUs = tabl.rows;
+        numRows = OUs.length;
+
+    })
+
+    afterEach(function()
+    {
+        for (let i = 0; i < numRows; i++)
+        {
+            tabl.deleteRow(0);
+        }
     })
 
     it('Should not add a button to the first row', ()=>{
@@ -17,6 +31,7 @@ describe('Testing the initButtons function', ()=>{
     })
 
     it('Should add a button to every row after that', ()=>{
+        initButtons(tabl);
         let row = OUs[1];
         let temp = row.getElementsByClassName('bClass');
         expect(temp.length).toEqual(1);
@@ -29,9 +44,22 @@ describe('Testing the initButtons function', ()=>{
 describe('Testing the addButtons function', ()=>{
     beforeEach(function()
     {
-        tabl = document.querySelector('table[role=grid]');
+        tabl = document.createElement('table');
+        for (let i = 0; i < 3; i++)
+        {
+            tabl.insertRow();
+        }
         OUs = tabl.rows;
         numRows = OUs.length;
+        initButtons(tabl);
+    })
+
+    afterEach(function()
+    {
+        for (let i = 0; i < numRows; i++)
+        {
+            tabl.deleteRow(0);
+        }
     })
 
     it('Should not add a button to the first row', ()=>{
@@ -100,31 +128,21 @@ describe('Testing monitorChanges function (mutation observer)', ()=>{
     {
         tabl = document.querySelector('table[role=grid]');
         OUs = tabl.rows;
-        numRows = OUs.length;
     })
 
-    it('Should add a button to a new row automatically', ()=>{
+    it('Sanity check to ensure that a new row is getting added', ()=>{
+        initButtons(tabl);
         monitorChanges();
         tabl.insertRow();
-        let numRows = OUs.length;
-        expect(numRows).toEqual(4);
-
-        //setTimeout required due to asynchronous behaviour 
-        setTimeout(function()
-        { 
-                let row = OUs[3];
-                let temp = row.getElementsByClassName('bClass');
-                expect(temp.length).toEqual(1);
-        }, 3000);      
+        numRows = OUs.length;
+        expect(numRows).toEqual(4);  
     })
 
-    it('Should not result in 0 buttons in any row (except row 0) or more than 1 button in any row', ()=>{
-
+    it('Should not result in 0 buttons in any row (except row 0) or more than 1 button in any row and should add a button to a new row automatically', ()=>{
         let row = OUs[0];
         let temp = row.getElementsByClassName('bClass');
         expect(temp.length).toEqual(0);
-
-        for (let i = 1; i < numRows-1; i++)
+        for (let i = 1; i < numRows; i++)
         {
             let row = OUs[i];
             let temp = row.getElementsByClassName('bClass');
@@ -133,3 +151,6 @@ describe('Testing monitorChanges function (mutation observer)', ()=>{
         tabl.remove();
     })
 }) 
+
+
+
