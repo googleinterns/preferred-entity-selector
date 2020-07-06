@@ -1,5 +1,4 @@
-let ar = document.getElementById("addRemove");
-let s = document.getElementById("select");
+
 /**
  * testing function findPageType
  */
@@ -38,15 +37,14 @@ describe('Testing pageType that determines enabling/disabling of buttons dependi
  */
 function initTest()
 {
-  const arButton = document.createElement('BUTTON')
-  arButton.setAttribute("id", "addRemove");
-  const sButton = document.createElement('BUTTON')
-  sButton.setAttribute("id", "select");
-  document.body.appendChild(arButton);
-  document.body.appendChild(sButton);
-  s = document.getElementById("select");
-  ar = document.getElementById("addRemove");
+  const addRemoveButton = document.createElement('BUTTON')
+  addRemoveButton.setAttribute("id", "addRemove");
+  const selectButton = document.createElement('BUTTON')
+  selectButton.setAttribute("id", "select");
+  document.body.appendChild(addRemoveButton);
+  document.body.appendChild(selectButton);
 }
+
 function restoreDOM()
 {
   document.getElementById("select").remove();
@@ -58,6 +56,8 @@ describe('Testing enabling and disabling of buttons depending on pageType', ()=>
   beforeEach(function() 
   {
     initTest();
+    selectButton = document.getElementById("select");
+    addRemoveButton = document.getElementById("addRemove");
   });
 
   afterEach(function() 
@@ -66,18 +66,18 @@ describe('Testing enabling and disabling of buttons depending on pageType', ()=>
   });
 
   it('Should disable add/remove button on settings url for pageType 1', ()=>{ 
-    disableButtons(s, ar, 1);
-    expect(ar.disabled).toBeTruthy();
+    disableButtons(selectButton, addRemoveButton, 1);
+    expect(addRemoveButton.disabled).toBeTruthy();
   })
 
   it('Should disable select button on settings url for pageType 0', ()=>{ 
-    disableButtons(s, ar, 0);
-    expect(s.disabled).toBeTruthy();
+    disableButtons(selectButton, addRemoveButton, 0);
+    expect(selectButton.disabled).toBeTruthy();
   })
 
   it('Should disable neither buttons for pageType 2 as any other url disables extension', ()=>{ 
-    disableButtons(s, ar, 2);
-    expect(s.disabled).toBeFalsy();
-    expect(ar.disabled).toBeFalsy();
+    disableButtons(selectButton, addRemoveButton, 2);
+    expect(selectButton.disabled).toBeFalsy();
+    expect(addRemoveButton.disabled).toBeFalsy();
   })
 })
