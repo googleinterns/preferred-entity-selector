@@ -13,16 +13,15 @@ function addRemoveButtonClick (event)
  */
 function initButtons(tabl)
 {
-    let OUs = tabl.rows;
-    let numOUs = OUs.length;
-    let numRows = numOUs-1;
-    addButtons(OUs,numRows);
+    let orgUnits = tabl.rows;
+    let numOrgUnits = orgUnits.length;
+    let numRows = numOrgUnits-1;
+    addButtons(orgUnits,numRows);
 
-    /**
-     * This is to handle an edge case:
-     * It deals with the last row in the table that doesn't actually correspond to an OU
-     */
-    let row = OUs[numOUs-1];
+    // This is to handle an edge case:
+    // It deals with the last row in the table that doesn't actually correspond to an OU
+    
+    let row = orgUnits[numOrgUnits-1];
     const button = document.createElement('p');
     button.setAttribute('class','bClass');
     row.appendChild(button);
@@ -34,19 +33,19 @@ function initButtons(tabl)
  * @param {HTML Object} OUs - List of OUs
  * @param {integer} numRows - Number of rows
  */
-function addButtons(OUs, numRows)
+function addButtons(orgUnits, numRows)
 {
     //skip the first row as that's the heading row and does not represent an OU.
     for (let i = 1; i < numRows; i++) 
     {
-        let row = OUs[i];
+        let row = orgUnits[i];
         let temp = row.getElementsByClassName('bClass');
         if (temp.length == 0)
         {
             const button = document.createElement('td');
             button.innerHTML = 'click me';
             button.setAttribute('class','bClass');
-            row = OUs[i];
+            row = orgUnits[i];
             row.appendChild(button);
         }
     }
@@ -66,10 +65,10 @@ function monitorChanges()
     let observer = new MutationObserver(function(mutations) 
     {
         let tabl = document.querySelector('table[role=grid]');
-        let OUs = tabl.rows;
-        let numOUs = OUs.length;
+        let orgUnits = tabl.rows;
+        let numOrgUnits = orgUnits.length;
 
-        addButtons(OUs,numOUs);
+        addButtons(orgUnits,numOrgUnits);
     });
 
     observer.observe(rootNode, 
