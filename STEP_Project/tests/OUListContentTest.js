@@ -6,12 +6,12 @@ describe('Testing the initButtons function', ()=>{
     beforeEach(function()
     {
         tabl = document.createElement('table');
-        for (let i = 0; i < 3; i++)
+        numRows = 3;
+        for (let i = 0; i < numRows; i++)
         {
             tabl.insertRow();
         }
         orgUnits = tabl.rows;
-        numRows = orgUnits.length;
 
     })
 
@@ -44,13 +44,13 @@ describe('Testing the initButtons function', ()=>{
 describe('Testing the addButtons function', ()=>{
     beforeEach(function()
     {
+        numRows = 3;
         tabl = document.createElement('table');
-        for (let i = 0; i < 3; i++)
+        for (let i = 0; i < numRows; i++)
         {
             tabl.insertRow();
         }
         orgUnits = tabl.rows;
-        numRows = orgUnits.length;
         initButtons(tabl);
     })
 
