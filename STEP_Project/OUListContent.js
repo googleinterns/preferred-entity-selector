@@ -23,8 +23,13 @@ function addRemoveButtonClick (event)
     { 
         event.target.innerHTML = "-";
         event.target.setAttribute('class','mClass'); 
-        let dataname = "name";
-        if (row.children[0].children[0] !== undefined) //if there is an orgUnit tree in the DOM
+        let dataname = "";
+        if (row === undefined || row.firstChild === undefined)
+        {
+            alert("error in DOM");
+
+        }
+        else if (row.children[0].children[0] !== undefined) //if there is an orgUnit tree in the DOM
         {
             dataname = row.children[0].children[0].children[0].children[1].innerHTML;
         }
