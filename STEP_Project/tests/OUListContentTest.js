@@ -45,8 +45,7 @@ describe('Testing the initButtons and addButtons function', ()=>
         storageObj = mockChrome;
         tabl.addEventListener('click',addRemoveButtonClick);
 
-        //call addButtons with mock Storage
-        addButtons();
+        
        
     })
 
@@ -57,6 +56,8 @@ describe('Testing the initButtons and addButtons function', ()=>
 
     it('Should add "+" buttons to all rows except first', ()=>
     {
+        //call addButtons with mock Storage
+        addButtons();
         //no buttons on the first (header) row
         let row = orgUnits[0];
         let plus = row.getElementsByClassName('pClass');
@@ -74,7 +75,9 @@ describe('Testing the initButtons and addButtons function', ()=>
 
     it('Should store OU key-value pair in mock storage when "+" button clicked', ()=>
     {
-        
+        //call addButtons with mock Storage
+        addButtons();
+
         row = orgUnits[1];
         plus = row.getElementsByClassName('pClass')[0];
         expect(plus.getAttribute('class')).toEqual('pClass');
@@ -88,6 +91,9 @@ describe('Testing the initButtons and addButtons function', ()=>
     })
     it('Should change "+" button to a "-" button when clicked', ()=>
     {
+        //call addButtons with mock Storage
+        addButtons();
+
         row = orgUnits[1];
         plus = row.getElementsByClassName('pClass')[0];
         expect(plus.getAttribute('class')).toEqual('pClass');
@@ -102,6 +108,9 @@ describe('Testing the initButtons and addButtons function', ()=>
 
     it('Should remove OU key-value pair from mock storage when "-" button clicked', ()=>
     {
+        //call addButtons with mock Storage
+        addButtons();
+
         row = orgUnits[1];
         plus = row.getElementsByClassName('pClass')[0];
 
@@ -117,6 +126,9 @@ describe('Testing the initButtons and addButtons function', ()=>
 
     it('Should change the "-" button to a "+" button when clicked', ()=>
     {
+        //call addButtons with mock Storage
+        addButtons();
+        
         row = orgUnits[1];
         plus = row.getElementsByClassName('pClass')[0];
 
@@ -131,80 +143,45 @@ describe('Testing the initButtons and addButtons function', ()=>
        
     })
 
-    // it('Should not add a button to any row that has a button already', ()=>
-    // {
+    it('Should not add a button to any row that has a button already', ()=>
+    {
 
-    //     initButtons(tabl);
+        initButtons(tabl);
 
-    //     let row = orgUnits[0];
-    //     let plusButtons = row.getElementsByClassName('pClass');
-    //     let minusButtons = row.getElementsByClassName('mClass')
-    //     expect(plusButtons.length+minusButtons.length).toEqual(0);
+        let row = orgUnits[0];
+        let plusButtons = row.getElementsByClassName('pClass');
+        let minusButtons = row.getElementsByClassName('mClass')
+        expect(plusButtons.length+minusButtons.length).toEqual(0);
 
-    //     row = orgUnits[1];
-    //     plusButtons = row.getElementsByClassName('pClass');
-    //     minusButtons = row.getElementsByClassName('mClass')
-    //     expect(plusButtons.length+minusButtons.length).toEqual(1);
+        row = orgUnits[1];
+        plusButtons = row.getElementsByClassName('pClass');
+        minusButtons = row.getElementsByClassName('mClass')
+        expect(plusButtons.length+minusButtons.length).toEqual(1);
 
-    //     row = orgUnits[2];
-    //     plusButtons = row.getElementsByClassName('pClass');
-    //     minusButtons = row.getElementsByClassName('mClass')
-    //     expect(plusButtons.length+minusButtons.length).toEqual(1);
+        row = orgUnits[2];
+        plusButtons = row.getElementsByClassName('pClass');
+        minusButtons = row.getElementsByClassName('mClass')
+        expect(plusButtons.length+minusButtons.length).toEqual(1);
 
-    //     addButtons(orgUnits, numRows);
+        addButtons(orgUnits, numRows);
 
-    //     row = orgUnits[0];
-    //     plusButtons = row.getElementsByClassName('pClass');
-    //     minusButtons = row.getElementsByClassName('mClass')
-    //     expect(plusButtons.length+minusButtons.length).toEqual(0); //should not be equal to 1
+        row = orgUnits[0];
+        plusButtons = row.getElementsByClassName('pClass');
+        minusButtons = row.getElementsByClassName('mClass')
+        expect(plusButtons.length+minusButtons.length).toEqual(0); //should not be equal to 1
 
-    //     row = orgUnits[1];
-    //     plusButtons = row.getElementsByClassName('pClass');
-    //     minusButtons = row.getElementsByClassName('mClass')
-    //     expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
+        row = orgUnits[1];
+        plusButtons = row.getElementsByClassName('pClass');
+        minusButtons = row.getElementsByClassName('mClass')
+        expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
 
-    //     row = orgUnits[2];
-    //     plusButtons = row.getElementsByClassName('pClass');
-    //     minusButtons = row.getElementsByClassName('mClass')
-    //     expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
-    // })
+        row = orgUnits[2];
+        plusButtons = row.getElementsByClassName('pClass');
+        minusButtons = row.getElementsByClassName('mClass')
+        expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
+    })
 }) 
 
-
-//TODO: Make tests in this section independent.
-//TODO: To be modified to accommodate Chrome Storage
-
-// describe('Testing monitorChanges function (mutation observer)', ()=>{
-//     beforeEach(function()
-//     {
-//         tabl = document.querySelector('table[role=grid]');
-//         orgUnits = tabl.rows;
-//     })
-
-//     it('Sanity check to ensure that a new row is getting added', ()=>{
-//         initButtons(tabl);
-//         monitorChanges();
-//         tabl.insertRow();
-//         numRows = orgUnits.length;
-//         expect(numRows).toEqual(4);  
-//         let row = orgUnits[0];
-//         let temp = row.getElementsByClassName('bClass');
-//         expect(temp.length).toEqual(0);
-//     })
-
-//     it('Should not result in 0 buttons in any row (except row 0) or more than 1 button in any row and should add a button to a new row automatically', ()=>{
-//         let row = orgUnits[0];
-//         let temp = row.getElementsByClassName('bClass');
-//         expect(temp.length).toEqual(0);
-//         for (let i = 1; i < numRows; i++)
-//         {
-//             let row = orgUnits[i];
-//             let temp = row.getElementsByClassName('bClass');
-//             expect(temp.length).toEqual(1);
-//         }
-//         tabl.remove();
-//     })
-// }) 
 
 
 
