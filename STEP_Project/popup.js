@@ -12,6 +12,8 @@ const PAGE_TYPES = {
   checkTabUrl();
   addRemoveButton = document.getElementById("addRemove");
   injectContent(addRemoveButton);
+  let selectButton = document.getElementById("select");
+  injectSelectContent(selectButton);
 }()
 );
 
@@ -108,7 +110,7 @@ function injectContent(addRemoveButton)
 }
 
 /**
- * inject content.js into DOM on click of the add/remove button
+ * inject OUListContent.js into DOM on click of the add/remove button
  */
 function addRemovefunc () 
 {
@@ -118,3 +120,21 @@ function addRemovefunc ()
       }); 
 }
 
+/**
+ * attach listener to select button
+ * @param {button object} selectButton
+ */
+function injectSelectContent(selectButton)
+{
+  selectButton.addEventListener('click', selectFunc);     
+}
+
+/**
+ * inject OUSelectContent.js into DOM on click of the select button
+ */
+function selectFunc() 
+{
+    chrome.tabs.executeScript({
+        file: 'OUSelectContent.js'
+      }); 
+}
