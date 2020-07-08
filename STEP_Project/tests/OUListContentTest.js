@@ -14,7 +14,7 @@ describe('Testing the initButtons and addButtons function', ()=>
             tabl.insertRow();
         }
         orgUnits = tabl.rows;
-        for(let i = 0; i < numRows; i++)
+        for (let i = 0; i < numRows; i++)
         {
             orgUnits[i].setAttribute("data-row-id", i);
         }

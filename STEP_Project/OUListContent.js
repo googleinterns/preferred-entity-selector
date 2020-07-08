@@ -24,7 +24,7 @@ function addRemoveButtonClick (event)
         event.target.innerHTML = "-";
         event.target.setAttribute('class','mClass'); 
         let dataname = "name";
-        if (row.children[0].children[0] !== undefined) //if there is an OU tree in the DOM
+        if (row.children[0].children[0] !== undefined) //if there is an orgUnit tree in the DOM
         {
             dataname = row.children[0].children[0].children[0].children[1].innerHTML;
         }
@@ -42,7 +42,7 @@ function addRemoveButtonClick (event)
 
 /**
  * Adds a button to every visible row when the page is first loaded.
- * @param {HTML Object} tabl - contains OU rows
+ * @param {HTML Object} tabl - contains orgUnit rows
  */
 function initButtons(tabl)
 {
@@ -51,7 +51,7 @@ function initButtons(tabl)
     let numRows = numOrgUnits-1;
     
     // This is to handle an edge case:
-    // It deals with the last row in the table that doesn't actually correspond to an OU
+    // It deals with the last row in the table that doesn't actually correspond to an orgUnit
     let row = orgUnits[numOrgUnits-1];
     const button = document.createElement('p');
     button.setAttribute('class','pClass');
@@ -60,14 +60,18 @@ function initButtons(tabl)
     addButtons();
 }
 
+/**
+ * 
+ * @param {dictionary} data - This is the collection of key-value pairs of preferred entities.
+ */
 function addButtonsToRows(data)
 {
     let tabl = document.querySelector('table[role=grid]');
     let orgUnits = tabl.rows;
-    let numOUs = orgUnits.length;
-    let numRows = numOUs;
+    let numOrgUnits = orgUnits.length;
+    let numRows = numOrgUnits;
   
-    //skip the first row as that's the heading row and does not represent an OU.
+    //skip the first row as that's the heading row and does not represent an orgUnit.
     for (let i = 1; i < numRows; i++) 
     {
         let row = orgUnits[i];
