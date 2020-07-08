@@ -1,10 +1,43 @@
+let OBJ;
+if (chrome.storage != undefined)
+{
+    OBJ = chrome.storage.sync;
+}
+
 /**
  * Function that will later have Add/Remove functionality
  * @param {JS event} event - expect click event
  */
 function addRemoveButtonClick (event) 
 {
-    if (event.target.getAttribute("class")!=='bClass') return;
+    let classname = event.target.getAttribute('class')
+    if (classname !="pClass" && classname !="mClass")
+    {
+        return;
+    }
+
+    let row = event.target.parentElement;
+    var dataid = row.getAttribute("data-row-id");
+
+    if (classname=="pClass")
+    { 
+        event.target.innerHTML="-";
+        event.target.setAttribute('class','mClass'); 
+        let dataname = "name";
+        if (row.children[0].children[0] != undefined) //if there is an OU tree in the DOM
+        {
+            dataname = row.children[0].children[0].children[0].children[1].innerHTML;
+        }
+        OBJ.set({[dataid]: dataname});
+        return;
+    }
+    else
+    {
+        event.target.innerHTML="+";
+        event.target.setAttribute('class','pClass');
+        OBJ.remove(dataid);
+        return;
+    }
 }
 
 /**
@@ -16,35 +49,45 @@ function initButtons(tabl)
     let orgUnits = tabl.rows;
     let numOrgUnits = orgUnits.length;
     let numRows = numOrgUnits-1;
-    addButtons(orgUnits,numRows);
-
+    
     // This is to handle an edge case:
     // It deals with the last row in the table that doesn't actually correspond to an OU
-    
     let row = orgUnits[numOrgUnits-1];
     const button = document.createElement('p');
-    button.setAttribute('class','bClass');
+    button.setAttribute('class','pClass');
     row.appendChild(button);
+
+    addButtons();
 }
 
-/**
- * This adds a button to every row in the table
- * If the row already has a button, it skips that row
- * @param {HTML Object} OUs - List of OUs
- * @param {integer} numRows - Number of rows
- */
-function addButtons(orgUnits, numRows)
+function addButtonsToRows(data)
 {
+    let tabl = document.querySelector('table[role=grid]');
+    let orgUnits = tabl.rows;
+    let numOUs = orgUnits.length;
+    let numRows = numOUs;
+  
     //skip the first row as that's the heading row and does not represent an OU.
     for (let i = 1; i < numRows; i++) 
     {
         let row = orgUnits[i];
-        let temp = row.getElementsByClassName('bClass');
-        if (temp.length == 0)
+        let temp = row.getElementsByClassName('pClass');
+        let temp2 = row.getElementsByClassName('mClass');
+        if (temp.length == 0 && temp2.length==0)
         {
             const button = document.createElement('td');
-            button.innerHTML = 'click me';
-            button.setAttribute('class','bClass');
+            let dataid = row.getAttribute("data-row-id");
+            let dataname = data[dataid]
+            button.setAttribute('class','pClass');
+            if (dataname!=undefined)
+            {
+                button.innerHTML = "-";
+                button.setAttribute('class','mClass');
+            }
+            else
+            {
+                button.innerHTML="+";
+            }        
             row = orgUnits[i];
             row.appendChild(button);
         }
@@ -52,12 +95,23 @@ function addButtons(orgUnits, numRows)
 }
 
 /**
+ * This adds a button to every row in the table
+ * If the row already has a button, it skips that row
+ */
+function addButtons()
+{
+    OBJ.get(null, addButtonsToRows);
+}
+
+/**
  * This function implements Mutation Observer
- * It checks if new OUs are visible and adds buttons to new rows if required
+ * It checks if new orgUnits are visible and adds buttons to new rows if required
  */
 function monitorChanges()
 {
-    let allRowNodes = document.querySelectorAll("tbody[role=rowgroup]");
+    // let allRowNodes = document.querySelectorAll("tbody[role=rowgroup]");
+    let allRowNodes = document.querySelectorAll("tbody");
+
     let rootNode = allRowNodes[0];
 
     let MutationObserver = window.MutationObserver;
@@ -68,7 +122,7 @@ function monitorChanges()
         let orgUnits = tabl.rows;
         let numOrgUnits = orgUnits.length;
 
-        addButtons(orgUnits,numOrgUnits);
+        addButtons();
     });
 
     observer.observe(rootNode, 
@@ -82,6 +136,13 @@ function monitorChanges()
 
 (function()
 {
+    let p = document.getElementsByClassName("pClass")
+    let m = document.getElementsByClassName("mClass") 
+    if (p.length!=0 || m.length!=0)
+    {
+        return
+    }
+
     let tabl = document.querySelector('table[role=grid]');
     tabl.addEventListener('click',addRemoveButtonClick); //event delegation
     initButtons(tabl);
