@@ -44,9 +44,6 @@ describe('Testing the initButtons and addButtons function', ()=>
         //initialize arguments for addButtons
         storageObj = mockChrome;
         tabl.addEventListener('click',addRemoveButtonClick);
-
-        
-       
     })
 
     afterEach(function()
@@ -181,7 +178,3 @@ describe('Testing the initButtons and addButtons function', ()=>
         expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
     })
 }) 
-
-
-
-
