@@ -4,6 +4,7 @@ let numRows;
 
 describe('Testing the initButtons and addButtons function', ()=>
 {
+    let mockChrome;
     beforeEach(function()
     {
         numRows = 3;
@@ -19,17 +20,9 @@ describe('Testing the initButtons and addButtons function', ()=>
             orgUnits[i].setAttribute("data-row-id", i);
         }
         document.body.appendChild(tabl);
-    })
 
-    afterEach(function()
-    {
-        tabl.remove();
-    })
-
-    it('Should add "+" buttons to all rows except first, should store OU on clicking "+" button and change button to "-", should remove OU from storage on clicking "-"', ()=>
-    {
-        //initialize mock storage
-        var mockChrome = {
+         //initialize mock storage
+         mockChrome = {
             dict: {},
             get : function(arg1, arg2)
             {
@@ -51,27 +44,51 @@ describe('Testing the initButtons and addButtons function', ()=>
         //initialize arguments for addButtons
         storageObj = mockChrome;
         tabl.addEventListener('click',addRemoveButtonClick);
-        let OUs = tabl.rows;
-        let numRows = OUs.length;
 
         //call addButtons with mock Storage
-        addButtons(tabl, OUs, numRows, mockChrome);
+        addButtons();
+       
+    })
 
+    afterEach(function()
+    {
+        tabl.remove();
+    })
+
+    it('Should add "+" buttons to all rows except first', ()=>
+    {
         //no buttons on the first (header) row
-        let row = OUs[0];
+        let row = orgUnits[0];
         let plus = row.getElementsByClassName('pClass');
         let minus = row.getElementsByClassName('mClass');
         expect(plus.length+minus.length).toEqual(0);
 
         //check that there are "+" buttons on each row
-        for (i = 1; i < 3; i++ )
+        for (i = 1; i < numRows; i++ )
         {
-            row = OUs[i];
+            row = orgUnits[i];
             plus = row.getElementsByClassName('pClass');
             expect(plus.length).toEqual(1);
         }
+    })
 
-        row = OUs[1];
+    it('Should store OU key-value pair in mock storage when "+" button clicked', ()=>
+    {
+        
+        row = orgUnits[1];
+        plus = row.getElementsByClassName('pClass')[0];
+        expect(plus.getAttribute('class')).toEqual('pClass');
+
+        //add OU to preferred entities by clicking on plus
+        plus.click();
+
+        //check if OU is in storage
+        expect(mockChrome.dict[1] !== undefined).toBeTruthy();
+
+    })
+    it('Should change "+" button to a "-" button when clicked', ()=>
+    {
+        row = orgUnits[1];
         plus = row.getElementsByClassName('pClass')[0];
         expect(plus.getAttribute('class')).toEqual('pClass');
 
@@ -81,56 +98,76 @@ describe('Testing the initButtons and addButtons function', ()=>
         //button must have become a "-" button
         expect(plus.getAttribute('class')).toEqual('mClass');
 
-        //check if OU is in storage
-        expect(mockChrome.dict[1] !== undefined).toBeTruthy();
+    })
+
+    it('Should remove OU key-value pair from mock storage when "-" button clicked', ()=>
+    {
+        row = orgUnits[1];
+        plus = row.getElementsByClassName('pClass')[0];
+
+        //add OU to preferred entities by clicking on plus
+        plus.click();
+
+        //click again to remove OU from storage
+        plus.click();
+
+         //check if OU is in storage
+         expect(mockChrome.dict[1] === undefined).toBeTruthy();
+    })
+
+    it('Should change the "-" button to a "+" button when clicked', ()=>
+    {
+        row = orgUnits[1];
+        plus = row.getElementsByClassName('pClass')[0];
+
+        //add OU to preferred entities by clicking on plus
+        plus.click();
 
         //click again to remove OU from storage
         plus.click();
 
         //button must have become "+" button
         expect(plus.getAttribute('class')).toEqual('pClass');
-
-        //check if OU is in storage
-        expect(mockChrome.dict[1] === undefined).toBeTruthy();
+       
     })
 
-    it('Should not add a button to any row that has a button already', ()=>
-    {
+    // it('Should not add a button to any row that has a button already', ()=>
+    // {
 
-        initButtons(tabl);
+    //     initButtons(tabl);
 
-        let row = orgUnits[0];
-        let plusButtons = row.getElementsByClassName('pClass');
-        let minusButtons = row.getElementsByClassName('mClass')
-        expect(plusButtons.length+minusButtons.length).toEqual(0);
+    //     let row = orgUnits[0];
+    //     let plusButtons = row.getElementsByClassName('pClass');
+    //     let minusButtons = row.getElementsByClassName('mClass')
+    //     expect(plusButtons.length+minusButtons.length).toEqual(0);
 
-        row = orgUnits[1];
-        plusButtons = row.getElementsByClassName('pClass');
-        minusButtons = row.getElementsByClassName('mClass')
-        expect(plusButtons.length+minusButtons.length).toEqual(1);
+    //     row = orgUnits[1];
+    //     plusButtons = row.getElementsByClassName('pClass');
+    //     minusButtons = row.getElementsByClassName('mClass')
+    //     expect(plusButtons.length+minusButtons.length).toEqual(1);
 
-        row = orgUnits[2];
-        plusButtons = row.getElementsByClassName('pClass');
-        minusButtons = row.getElementsByClassName('mClass')
-        expect(plusButtons.length+minusButtons.length).toEqual(1);
+    //     row = orgUnits[2];
+    //     plusButtons = row.getElementsByClassName('pClass');
+    //     minusButtons = row.getElementsByClassName('mClass')
+    //     expect(plusButtons.length+minusButtons.length).toEqual(1);
 
-        addButtons(orgUnits, numRows);
+    //     addButtons(orgUnits, numRows);
 
-        row = orgUnits[0];
-        plusButtons = row.getElementsByClassName('pClass');
-        minusButtons = row.getElementsByClassName('mClass')
-        expect(plusButtons.length+minusButtons.length).toEqual(0); //should not be equal to 1
+    //     row = orgUnits[0];
+    //     plusButtons = row.getElementsByClassName('pClass');
+    //     minusButtons = row.getElementsByClassName('mClass')
+    //     expect(plusButtons.length+minusButtons.length).toEqual(0); //should not be equal to 1
 
-        row = orgUnits[1];
-        plusButtons = row.getElementsByClassName('pClass');
-        minusButtons = row.getElementsByClassName('mClass')
-        expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
+    //     row = orgUnits[1];
+    //     plusButtons = row.getElementsByClassName('pClass');
+    //     minusButtons = row.getElementsByClassName('mClass')
+    //     expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
 
-        row = orgUnits[2];
-        plusButtons = row.getElementsByClassName('pClass');
-        minusButtons = row.getElementsByClassName('mClass')
-        expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
-    })
+    //     row = orgUnits[2];
+    //     plusButtons = row.getElementsByClassName('pClass');
+    //     minusButtons = row.getElementsByClassName('mClass')
+    //     expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
+    // })
 }) 
 
 
