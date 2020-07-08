@@ -1,5 +1,5 @@
 let storageObj;
-if (chrome.storage != undefined)
+if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
 }
@@ -11,7 +11,7 @@ if (chrome.storage != undefined)
 function addRemoveButtonClick (event) 
 {
     let classname = event.target.getAttribute('class')
-    if (classname !="pClass" && classname !="mClass")
+    if (classname !== "pClass" && classname !== "mClass")
     {
         return;
     }
@@ -19,12 +19,12 @@ function addRemoveButtonClick (event)
     let row = event.target.parentElement;
     var dataid = row.getAttribute("data-row-id");
 
-    if (classname=="pClass")
+    if (classname === "pClass")
     { 
-        event.target.innerHTML="-";
+        event.target.innerHTML = "-";
         event.target.setAttribute('class','mClass'); 
         let dataname = "name";
-        if (row.children[0].children[0] != undefined) //if there is an OU tree in the DOM
+        if (row.children[0].children[0] !== undefined) //if there is an OU tree in the DOM
         {
             dataname = row.children[0].children[0].children[0].children[1].innerHTML;
         }
@@ -33,7 +33,7 @@ function addRemoveButtonClick (event)
     }
     else
     {
-        event.target.innerHTML="+";
+        event.target.innerHTML = "+";
         event.target.setAttribute('class','pClass');
         storageObj.remove(dataid);
         return;
@@ -71,22 +71,22 @@ function addButtonsToRows(data)
     for (let i = 1; i < numRows; i++) 
     {
         let row = orgUnits[i];
-        let temp = row.getElementsByClassName('pClass');
-        let temp2 = row.getElementsByClassName('mClass');
-        if (temp.length == 0 && temp2.length==0)
+        let plusButtons = row.getElementsByClassName('pClass');
+        let minusButtons = row.getElementsByClassName('mClass');
+        if (plusButtons.length === 0 && minusButtons.length === 0)
         {
             const button = document.createElement('td');
             let dataid = row.getAttribute("data-row-id");
             let dataname = data[dataid]
             button.setAttribute('class','pClass');
-            if (dataname!=undefined)
+            if (dataname != undefined)
             {
                 button.innerHTML = "-";
                 button.setAttribute('class','mClass');
             }
             else
             {
-                button.innerHTML="+";
+                button.innerHTML = "+";
             }        
             row = orgUnits[i];
             row.appendChild(button);
@@ -138,7 +138,7 @@ function monitorChanges()
 {
     let p = document.getElementsByClassName("pClass")
     let m = document.getElementsByClassName("mClass") 
-    if (p.length!=0 || m.length!=0)
+    if (p.length !== 0 || m.length !== 0)
     {
         return
     }

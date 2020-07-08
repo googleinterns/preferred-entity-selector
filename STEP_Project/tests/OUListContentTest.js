@@ -82,7 +82,7 @@ describe('Testing the initButtons and addButtons function', ()=>
         expect(plus.getAttribute('class')).toEqual('mClass');
 
         //check if OU is in storage
-        expect(mockChrome.dict[1]!==undefined).toBeTruthy();
+        expect(mockChrome.dict[1] !== undefined).toBeTruthy();
 
         //click again to remove OU from storage
         plus.click();
@@ -91,7 +91,7 @@ describe('Testing the initButtons and addButtons function', ()=>
         expect(plus.getAttribute('class')).toEqual('pClass');
 
         //check if OU is in storage
-        expect(mockChrome.dict[1]===undefined).toBeTruthy();
+        expect(mockChrome.dict[1] === undefined).toBeTruthy();
     })
 
     it('Should not add a button to any row that has a button already', ()=>
