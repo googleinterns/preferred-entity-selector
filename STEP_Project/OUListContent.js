@@ -1,7 +1,7 @@
-let OBJ;
+let storageObj;
 if (chrome.storage != undefined)
 {
-    OBJ = chrome.storage.sync;
+    storageObj = chrome.storage.sync;
 }
 
 /**
@@ -28,14 +28,14 @@ function addRemoveButtonClick (event)
         {
             dataname = row.children[0].children[0].children[0].children[1].innerHTML;
         }
-        OBJ.set({[dataid]: dataname});
+        storageObj.set({[dataid]: dataname});
         return;
     }
     else
     {
         event.target.innerHTML="+";
         event.target.setAttribute('class','pClass');
-        OBJ.remove(dataid);
+        storageObj.remove(dataid);
         return;
     }
 }
@@ -100,7 +100,7 @@ function addButtonsToRows(data)
  */
 function addButtons()
 {
-    OBJ.get(null, addButtonsToRows);
+    storageObj.get(null, addButtonsToRows);
 }
 
 /**

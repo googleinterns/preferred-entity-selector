@@ -49,7 +49,7 @@ describe('Testing the initButtons and addButtons function', ()=>
           };
 
         //initialize arguments for addButtons
-        OBJ = mockChrome;
+        storageObj = mockChrome;
         tabl.addEventListener('click',addRemoveButtonClick);
         let OUs = tabl.rows;
         let numRows = OUs.length;
