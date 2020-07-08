@@ -13,7 +13,7 @@ const PAGE_TYPES = {
   addRemoveButton = document.getElementById("addRemove");
   injectContent(addRemoveButton);
   let selectButton = document.getElementById("select");
-  injectSelectContent(selectButton);
+  selectListener(selectButton);
 }()
 );
 
@@ -124,7 +124,7 @@ function addRemovefunc ()
  * attach listener to select button
  * @param {button object} selectButton
  */
-function injectSelectContent(selectButton)
+function selectListener(selectButton)
 {
   selectButton.addEventListener('click', selectFunc);     
 }
