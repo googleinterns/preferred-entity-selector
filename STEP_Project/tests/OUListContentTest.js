@@ -203,8 +203,8 @@ describe('Testing monitorChanges function (mutation observer)', ()=>{
     })
 
 
-    it('Sanity check to ensure that a new row is getting added', ()=>{
-        
+    it('Should add a button to a newly visible row without adding extra buttons to other rows', ()=>{
+
         initButtons(tabl);
         monitorChanges();
         tabl.insertRow();
