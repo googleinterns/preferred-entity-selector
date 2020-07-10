@@ -71,6 +71,65 @@ describe('Testing the createForm function', ()=>{
     })
 })
 
+describe('Testing the enableApplyButton function', ()=>{
+    beforeEach(function()
+    {
+        let mockChrome = 
+        {
+            dict: {},
+            get : function(arg1, arg2)
+            {
+                arg2(this.dict);
+            },
+            set : function(pair)
+            {
+                for (let key in pair)
+                {
+                    mockChrome.dict[key] = pair[key];
+                }
+            },
+            remove : function(dataid)
+            {
+                this.dict[dataid] = undefined;
+            }
+        };
+        storageObj = mockChrome;
+
+        selectForm = document.createElement('form');
+        selectForm.setAttribute('id','radioButtons');
+        document.body.appendChild(selectForm);
+        selectForm = document.getElementById('radioButtons');
+
+        //adding three items to storage
+        storageObj.set({1: 'org1'});
+        storageObj.set({2: 'org2'});
+        storageObj.set({3: 'org3'});
+
+        let applyButton = document.createElement('button');
+        applyButton.setAttribute('id','apply');
+        document.body.appendChild(applyButton);
+        applyButton = document.getElementById("apply");
+        applyButton.disabled = true;
+    })
+
+    afterEach(function()
+    {
+        document.getElementById('radioButtons').remove();
+        document.getElementById('apply').remove();
+    })
+    
+    it('Should enable applyButton only after one of the radio buttons has been selected', ()=>{
+        
+        createForm();
+        let applyButton = document.getElementById("apply");
+        expect(applyButton.disabled).toBeTruthy();
+        selectForm.click();
+        expect(applyButton.disabled).toBeTruthy();
+        selectForm[0].checked = true;
+        selectForm.click();
+        expect(applyButton.disabled).toBeFalsy();        
+    })
+})
 
 describe('Testing the applyFunc function', ()=>{
     beforeEach(function()
