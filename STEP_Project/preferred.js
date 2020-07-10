@@ -1,4 +1,4 @@
-let storageObj;
+var storageObj;
 if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
@@ -87,8 +87,12 @@ function applyFunc()
                 break;
             }
         }
-
-        //TODO: Send dataRowId to content script (message passing)
+        
+        //send dataRowId to OUSelectContent.js to perform a click on the required OU button
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) 
+        {
+            chrome.tabs.sendMessage(tabs[0].id, {dataId: dataRowId});
+        });
     })
     return dataRowId; //required for testing purposes
 }
