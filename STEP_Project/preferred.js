@@ -9,30 +9,30 @@ if (chrome.storage !== undefined)
  */
 function createForm()
 {
-	storageObj.get(null, function (data) 
-	{ 
-		let keys = Object.keys(data);
-		let numKeys = keys.length;
+    storageObj.get(null, function (data) 
+    { 
+        let keys = Object.keys(data);
+        let numKeys = keys.length;
 
-		let selectForm = document.getElementById('radioButtons');
+        let selectForm = document.getElementById('radioButtons');
 
-		for (let i = 0; i < numKeys; i++)
-		{
-			let elt = document.createElement('input');
-			elt.setAttribute("type", "radio");
-			elt.setAttribute("value", keys[i]);
-			elt.setAttribute("name", "preferred");
+        for (let i = 0; i < numKeys; i++)
+        {
+            let elt = document.createElement('input');
+            elt.setAttribute("type", "radio");
+            elt.setAttribute("value", keys[i]);
+            elt.setAttribute("name", "preferred");
 
-			let label = document.createElement('label');
-			label.appendChild(elt);
-			let OUName = document.createTextNode(data[keys[i]]);
-	    	label.appendChild(OUName);
+            let label = document.createElement('label');
+            label.appendChild(elt);
+            let OUName = document.createTextNode(data[keys[i]]);
+            label.appendChild(OUName);
 
-			selectForm.appendChild(label);
-			let breakLine = document.createElement('br');
-			selectForm.appendChild(breakLine);
-		}
-	});
+            selectForm.appendChild(label);
+            let breakLine = document.createElement('br');
+            selectForm.appendChild(breakLine);
+        }
+    });
 }
 
 /**
@@ -41,7 +41,7 @@ function createForm()
  */
 function applyListener(applyButton)
 {
-	applyButton.addEventListener('click', applyFunc);
+    applyButton.addEventListener('click', applyFunc);
 }
 
 /**
@@ -49,38 +49,38 @@ function applyListener(applyButton)
  */
 function applyFunc()
 {
-	let selectForm = document.getElementById('radioButtons');
-	let dataRowId = null;
-	storageObj.get(null, function (data)
-	{
-		let selectForm = document.getElementById('radioButtons');
-		let numButtons = selectForm.length;
+    let selectForm = document.getElementById('radioButtons');
+    let dataRowId = null;
+    storageObj.get(null, function (data)
+    {
+        let selectForm = document.getElementById('radioButtons');
+        let numButtons = selectForm.length;
 
-		for (let i = 0; i < numButtons; i++)
-		{
-			if (selectForm[i].checked == true)
-			{
-				dataRowId = selectForm[i].value;
-				break;
-			}
-		}
+        for (let i = 0; i < numButtons; i++)
+        {
+            if (selectForm[i].checked == true)
+            {
+                dataRowId = selectForm[i].value;
+                break;
+            }
+        }
 
-		if (dataRowId == null)
-		{
-			alert('Please choose an OU');
-		}
-		else
-		{
-			//TODO: Send dataRowId to content script (message passing)
-		}
-	})
-	return dataRowId; //required for testing purposes
+        if (dataRowId == null)
+        {
+            alert('Please choose an OU');
+        }
+        else
+        {
+        //TODO: Send dataRowId to content script (message passing)
+        }
+    })
+    return dataRowId; //required for testing purposes
 }
 
 (function()
 {
-  createForm();
-  let applyButton = document.getElementById("apply");
-  applyListener(applyButton);
+    createForm();
+    let applyButton = document.getElementById("apply");
+    applyListener(applyButton);
 }()
 );
