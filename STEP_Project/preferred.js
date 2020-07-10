@@ -32,7 +32,30 @@ function createForm()
             let breakLine = document.createElement('br');
             selectForm.appendChild(breakLine);
         }
+
+        selectForm.addEventListener('click',enableApplyButton);
     });
+}
+
+/**
+ * Enables applyButton if one of the preferred entities in the form has been selected.
+ * @param {event} event - This is expected to be a click event.
+ */
+function enableApplyButton(event)
+{
+    let selectForm = document.getElementById('radioButtons');
+    let numButtons = selectForm.length;
+
+    for (let i = 0; i < numButtons; i++)
+    {
+        if (selectForm[i].checked == true)
+        {
+            let applyButton = document.getElementById("apply");
+            applyButton.disabled = false;
+            applyListener(applyButton); 
+            return;
+        }
+    }
 }
 
 /**
@@ -65,14 +88,7 @@ function applyFunc()
             }
         }
 
-        if (dataRowId == null)
-        {
-            alert('Please choose an OU');
-        }
-        else
-        {
         //TODO: Send dataRowId to content script (message passing)
-        }
     })
     return dataRowId; //required for testing purposes
 }
@@ -81,6 +97,6 @@ function applyFunc()
 {
     createForm();
     let applyButton = document.getElementById("apply");
-    applyListener(applyButton);
+    applyButton.disabled = true;
 }()
 );
