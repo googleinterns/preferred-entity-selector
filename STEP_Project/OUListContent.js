@@ -27,7 +27,6 @@ function addRemoveButtonClick (event)
         if (row === undefined || row.firstChild === undefined)
         {
             alert("error in DOM");
-
         }
         else if (row.children[0].children[0] !== undefined) //if there is an orgUnit tree in the DOM
         {

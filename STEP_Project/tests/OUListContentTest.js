@@ -178,3 +178,64 @@ describe('Testing the initButtons and addButtons function', ()=>
         expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
     })
 }) 
+
+describe('Testing monitorChanges function (mutation observer)', ()=>{
+    beforeEach(function()
+    {
+        numRows = 3;
+        tabl = document.createElement('table');
+        tabl.setAttribute("role", "grid");
+        for (let i = 0; i < numRows; i++)
+        {
+            tabl.insertRow();
+        }
+        orgUnits = tabl.rows;
+        for(let i = 0; i < numRows; i++)
+        {
+            orgUnits[i].setAttribute("data-row-id", i);
+        }
+        document.body.appendChild(tabl);
+    })
+
+    afterAll(function()
+    {
+        tabl.remove();
+    })
+
+
+    it('Should add a button to a newly visible row without adding extra buttons to other rows', ()=>{
+
+        initButtons(tabl);
+        monitorChanges();
+        tabl.insertRow();
+        for(let i = 0; i < numRows; i++)
+        {
+            orgUnits[i].setAttribute("data-row-id", i);
+        }
+        numRows = orgUnits.length;
+        expect(numRows).toEqual(4);  
+        let row = orgUnits[0];
+        let plusButtons = row.getElementsByClassName('pClass');
+        let minusButtons = row.getElementsByClassName('mClass');
+        expect(plusButtons.length+minusButtons.length).toEqual(0);
+
+        //checking that there's only one button on every present row
+        for (let i = 1; i < numRows-1; i++)
+        {
+            let row = orgUnits[i];
+            let plusButtons = row.getElementsByClassName('pClass');
+            let minusButtons = row.getElementsByClassName('mClass');
+            expect(plusButtons.length+minusButtons.length).toEqual(1);
+        }
+
+        //checking that there's a button added on the newly inserted row 
+        //requires setInterval because mutationObserver works asynchronously
+        setInterval(function()
+        { 
+            row = orgUnits[numRows-1];
+            plusButtons = row.getElementsByClassName('pClass');
+            minusButtons = row.getElementsByClassName('mClass');
+            expect(plusButtons.length+minusButtons.length).toEqual(1);
+        }, 1000);
+    })
+})
