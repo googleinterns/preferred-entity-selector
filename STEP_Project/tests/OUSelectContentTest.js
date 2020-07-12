@@ -19,7 +19,7 @@ describe('Testing selectClick function called when "select" button is clicked', 
             {
                 for (let key in pair)
                 {
-                    mockChrome.dict[key] = pair[key];
+                    this.dict[key] = pair[key];
                 }
             },
             remove : function(dataid)
@@ -54,7 +54,6 @@ describe('Testing selectClick function called when "select" button is clicked', 
     it('Should update the mock storage if entity\'s name is changed', ()=>
     {
         //check if OU is in storage
-        expect(mockChrome.dict[1]).toEqual("row1");
         tabl = document.querySelector('ul[role=group]'); 
         orgUnits = document.getElementsByTagName("li");
         row = orgUnits[1];
