@@ -53,7 +53,6 @@ describe('Testing selectClick function called when "select" button is clicked', 
     
     it('Should update the mock storage if entity\'s name is changed', ()=>
     {
-        //check if OU is in storage
         tabl = document.querySelector('ul[role=group]'); 
         orgUnits = document.getElementsByTagName("li");
         row = orgUnits[1];
@@ -74,3 +73,66 @@ describe('Testing selectClick function called when "select" button is clicked', 
         expect(mockChrome.dict[1]).toEqual("renamed");
     })
 })
+
+describe('Testing applyClick function called when "apply" button is clicked', ()=>
+{
+    let mockRuntime;
+    let request;
+    var isClicked = false;
+    beforeAll(function()
+    {
+        //initialize mock request object
+        request =
+        {
+            dataId: "dataContentId"
+        }
+
+        //initialize mock chrome to mimic chrome.runtime.onMessage
+        mockRuntime = 
+        {
+            addListener : function(messageFunction)
+            {
+                messageFunction(request);
+            }
+        };
+
+        function clickDetected(event, )
+        {
+            isClicked = true;
+        }
+        runtimeObj = mockRuntime;
+       
+        // initialize the UL to mimic the DOM of the settings page   
+        tabl = document.createElement('ul');
+        const liObj = document.createElement('li');
+
+        //liObj is the row itself
+        liObj.setAttribute("data-content-id", "dataContentId");
+
+        //liObj expected to have 2 children in the DOM
+        const childOne = document.createElement('div');
+        const childTwo = document.createElement('div');
+
+        //liObj expected to have a grandchild in the DOM
+        const grandchildTwo = document.createElement('div');
+        grandchildTwo.addEventListener('click',clickDetected);
+        childTwo.append(grandchildTwo);
+        liObj.append(childOne);
+        liObj.append(childTwo);
+        tabl.appendChild(liObj);        
+        document.body.appendChild(tabl);
+    })
+
+    afterAll(function()
+    {
+        tabl.remove();
+    })
+    
+    it('should perform a click on the required OU', ()=>
+    {
+        applySelect();
+        expect(isClicked).toBe(true);
+    })
+})
+
+

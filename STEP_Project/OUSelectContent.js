@@ -4,6 +4,12 @@ if (chrome.storage !== undefined)
     storageObj = chrome.storage.sync;
 }
 
+var runtimeObj;
+if (chrome.runtime !== undefined)
+{
+    runtimeObj = chrome.runtime.onMessage;
+}
+
 /**
  * Updates names of preferred entities in storage. 
  * This is injected when the select button is clicked.
@@ -32,19 +38,30 @@ function selectClick ()
 }
 
 /**
+ * This function is called when a message is received from the port.
+ * It performs a click on the required orgUnits button.
+ * @param {request object} request received as a message from message passing port
+ */
+function onMessageFunction(request)
+{
+    let queryVar = "[data-content-id='" + request.dataId + "']";
+    let orgUnits = document.querySelectorAll(queryVar);
+    orgUnits[0].children[1].firstChild.click();
+}
+
+/**
  * This functions adds a message listener to this content script
  * Received message is expected to be the data id from preferred.js
- * It then performs a "click" on the required OU button.
  */
 function applySelect()
 {
-  chrome.runtime.onMessage.addListener(
-    function(request) 
-    {
-      let queryVar = "[data-content-id='" + request.dataId + "']";
-      let OU = document.querySelectorAll(queryVar);
-      OU[0].children[1].children[0].click();
-    });
+    runtimeObj.addListener
+    (
+        function(request) 
+        {
+            onMessageFunction(request)
+        }
+    );
 }
 
 (function()
