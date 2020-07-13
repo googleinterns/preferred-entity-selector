@@ -1,3 +1,6 @@
+/*global storageObj,applyFunc,createForm*/
+/*eslint no-undef: "error"*/
+
 let selectForm;
 describe('Testing the createForm function', ()=>{
     beforeEach(function()
@@ -32,17 +35,17 @@ describe('Testing the createForm function', ()=>{
         storageObj.set({1: 'org1'});
         storageObj.set({2: 'org2'});
         storageObj.set({3: 'org3'});
-    })
+    });
 
     afterEach(function()
     {
         document.getElementById('radioButtons').remove();
-    })
+    });
     
     it('Should have as many valid items as in storage', ()=>{
         createForm();
 
-        numValidItems = 0;
+        let numValidItems = 0;
         for (let i = 0; i < selectForm.length; i++)
         {
             if (selectForm[i].parentElement.textContent != 'undefined')
@@ -52,13 +55,13 @@ describe('Testing the createForm function', ()=>{
         }
 
         expect(numValidItems).toEqual(3);
-    })
+    });
 
     it('Should not add keys with undefined values/keys that have been removed to the form', ()=>{
         storageObj.remove(1);
         createForm();
 
-        numValidItems = 0;
+        let numValidItems = 0;
         for (let i = 0; i < selectForm.length; i++)
         {
             if (selectForm[i].parentElement.textContent != 'undefined')
@@ -68,10 +71,10 @@ describe('Testing the createForm function', ()=>{
         }
 
         expect(numValidItems).toEqual(2);
-    })
-})
+    });
+});
 
-describe('Testing the enableApplyButton function', ()=>{
+describe('Testing the applyFunc function', ()=>{
     beforeEach(function()
     {
         let mockChrome = 
@@ -108,28 +111,28 @@ describe('Testing the enableApplyButton function', ()=>{
         let applyButton = document.createElement('button');
         applyButton.setAttribute('id','apply');
         document.body.appendChild(applyButton);
-        applyButton = document.getElementById("apply");
+        applyButton = document.getElementById('apply');
         applyButton.disabled = true;
-    })
+    });
 
     afterEach(function()
     {
         document.getElementById('radioButtons').remove();
         document.getElementById('apply').remove();
-    })
+    });
     
     it('Should enable applyButton only after one of the radio buttons has been selected', ()=>{
         
         createForm();
-        let applyButton = document.getElementById("apply");
+        let applyButton = document.getElementById('apply');
         expect(applyButton.disabled).toBeTruthy();
         selectForm.click();
         expect(applyButton.disabled).toBeTruthy();
         selectForm[0].checked = true;
         selectForm.click();
         expect(applyButton.disabled).toBeFalsy();        
-    })
-})
+    });
+});
 
 describe('Testing the applyFunc function', ()=>{
     beforeEach(function()
@@ -164,12 +167,12 @@ describe('Testing the applyFunc function', ()=>{
         storageObj.set({1: 'org1'});
         storageObj.set({2: 'org2'});
         storageObj.set({3: 'org3'});
-    })
+    });
 
     afterEach(function()
     {
         document.getElementById('radioButtons').remove();
-    })
+    });
 
     it('Should return the dataRowId of the chosen entity', ()=>{
         createForm();
@@ -178,5 +181,5 @@ describe('Testing the applyFunc function', ()=>{
         let dataRowId = applyFunc();
 
         expect(dataRowId).toEqual('1');
-    })
-})
+    });
+});
