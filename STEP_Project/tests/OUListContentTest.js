@@ -1,11 +1,11 @@
-/*global storageObj,initButtons,addButtons,addRemoveButtonClick,monitorChanges*/
+/*global storageObj,addButtons,addRemoveButtonClick,monitorChanges*/
 /*eslint no-undef: "error"*/
 
 let tabl;
 let orgUnits;
 let numRows;
 
-describe('Testing the initButtons and addButtons function', ()=>
+describe('Testing the addButtons function', ()=>
 {
     let mockChrome;
     beforeEach(function()
@@ -145,8 +145,7 @@ describe('Testing the initButtons and addButtons function', ()=>
 
     it('Should not add a button to any row that has a button already', ()=>
     {
-
-        initButtons(tabl);
+        addButtons();
 
         let row = orgUnits[0];
         let plusButtons = row.getElementsByClassName('pClass');
@@ -208,7 +207,7 @@ describe('Testing monitorChanges function (mutation observer)', ()=>{
 
     it('Should add a button to a newly visible row without adding extra buttons to other rows', ()=>{
 
-        initButtons(tabl);
+        addButtons();
         monitorChanges();
         tabl.insertRow();
         for(let i = 0; i < numRows; i++)
