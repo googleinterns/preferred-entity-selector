@@ -1,4 +1,4 @@
-let storageObj;
+var storageObj;
 if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
