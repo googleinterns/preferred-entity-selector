@@ -10,23 +10,23 @@ if (chrome.storage !== undefined)
  */
 function addRemoveButtonClick (event) 
 {
-    let classname = event.target.getAttribute('class')
-    if (classname !== "pClass" && classname !== "mClass")
+    let classname = event.target.getAttribute('class');
+    if (classname !== 'pClass' && classname !== 'mClass')
     {
         return;
     }
 
     let row = event.target.parentElement;
-    var dataid = row.getAttribute("data-row-id");
+    var dataid = row.getAttribute('data-row-id');
 
-    if (classname === "pClass")
+    if (classname === 'pClass')
     { 
-        event.target.innerHTML = "-";
+        event.target.innerHTML = '-';
         event.target.setAttribute('class','mClass'); 
-        let dataname = "";
+        let dataname = '';
         if (row === undefined || row.firstChild === undefined)
         {
-            alert("error in DOM");
+            alert('error in DOM');
         }
         else if (row.children[0].children[0] !== undefined) //if there is an orgUnit tree in the DOM
         {
@@ -37,7 +37,7 @@ function addRemoveButtonClick (event)
     }
     else
     {
-        event.target.innerHTML = "+";
+        event.target.innerHTML = '+';
         event.target.setAttribute('class','pClass');
         storageObj.remove(dataid);
         return;
@@ -52,7 +52,6 @@ function initButtons(tabl)
 {
     let orgUnits = tabl.rows;
     let numOrgUnits = orgUnits.length;
-    let numRows = numOrgUnits-1;
     
     // This is to handle an edge case:
     // It deals with the last row in the table that doesn't actually correspond to an orgUnit
@@ -84,17 +83,17 @@ function addButtonsToRows(data)
         if (plusButtons.length === 0 && minusButtons.length === 0)
         {
             const button = document.createElement('td');
-            let dataid = row.getAttribute("data-row-id");
-            let dataname = data[dataid]
+            let dataid = row.getAttribute('data-row-id');
+            let dataname = data[dataid];
             button.setAttribute('class','pClass');
             if (dataname != undefined)
             {
-                button.innerHTML = "-";
+                button.innerHTML = '-';
                 button.setAttribute('class','mClass');
             }
             else
             {
-                button.innerHTML = "+";
+                button.innerHTML = '+';
             }        
             row = orgUnits[i];
             row.appendChild(button);
@@ -118,7 +117,7 @@ function addButtons()
 function monitorChanges()
 {
     // let allRowNodes = document.querySelectorAll("tbody[role=rowgroup]");
-    let allRowNodes = document.querySelectorAll("tbody");
+    let allRowNodes = document.querySelectorAll('tbody');
 
     let rootNode = allRowNodes[0];
 
@@ -126,29 +125,25 @@ function monitorChanges()
 
     let observer = new MutationObserver(function(mutations) 
     {
-        let tabl = document.querySelector('table[role=grid]');
-        let orgUnits = tabl.rows;
-        let numOrgUnits = orgUnits.length;
-
         addButtons();
     });
 
     observer.observe(rootNode, 
-    {
-        attributes: false, 
-        childList: true, 
-        characterData: false,
-        subtree: true
-    });
+        {
+            attributes: false,
+            childList: true,
+            characterData: false,
+            subtree: true
+        });
 }
 
 (function()
 {
-    let p = document.getElementsByClassName("pClass")
-    let m = document.getElementsByClassName("mClass") 
+    let p = document.getElementsByClassName('pClass');
+    let m = document.getElementsByClassName('mClass');
     if (p.length !== 0 || m.length !== 0)
     {
-        return
+        return;
     }
 
     let tabl = document.querySelector('table[role=grid]');

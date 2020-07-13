@@ -2,18 +2,18 @@ var pageType = undefined;
 
 /** Enum for page types. */
 const PAGE_TYPES = {
-  ORG_LIST_PAGE: 0,
-  SETTINGS_PAGE: 1, // includes onoff page
-  OTHER: 2,
+    ORG_LIST_PAGE: 0,
+    SETTINGS_PAGE: 1, // includes onoff page
+    OTHER: 2,
 };
 
 (function()
 {
-  checkTabUrl();
-  addRemoveButton = document.getElementById("addRemove");
-  injectContent(addRemoveButton);
-  let selectButton = document.getElementById("select");
-  selectListener(selectButton);
+    checkTabUrl();
+    let addRemoveButton = document.getElementById('addRemove');
+    injectContent(addRemoveButton);
+    let selectButton = document.getElementById('select');
+    selectListener(selectButton);
 }()
 );
 
@@ -23,19 +23,19 @@ const PAGE_TYPES = {
  */
 function findPageType(givenurl)
 {
-  let orgunitspage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/orgunits/g);
-  let settingspage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/appsettings\/[0-9]+\/.+/g);
-  let onoffpage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/settings\/serviceonoff.*/g);
-  pageType = PAGE_TYPES.OTHER;
-  if (orgunitspage !== null) 
-  {
-    pageType = PAGE_TYPES.ORG_LIST_PAGE;
-  }
-  else if (settingspage !== null || onoffpage !== null)
-  {
-    pageType = PAGE_TYPES.SETTINGS_PAGE;
-  }
-  return pageType;
+    let orgunitspage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/orgunits/g);
+    let settingspage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/appsettings\/[0-9]+\/.+/g);
+    let onoffpage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/settings\/serviceonoff.*/g);
+    pageType = PAGE_TYPES.OTHER;
+    if (orgunitspage !== null)
+    {
+        pageType = PAGE_TYPES.ORG_LIST_PAGE;
+    }
+    else if (settingspage !== null || onoffpage !== null)
+    {
+        pageType = PAGE_TYPES.SETTINGS_PAGE;
+    }
+    return pageType;
 }
 
 /**
@@ -43,12 +43,12 @@ function findPageType(givenurl)
  */
 function checkTabUrl()
 {
-  chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => 
-  {
-    let url = tabs[0].url;
-    findPageType(url);
-  });
-  waitForPagecase();
+    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs =>
+    {
+        let url = tabs[0].url;
+        findPageType(url);
+    });
+    waitForPagecase();
 }
 
 /**
@@ -57,16 +57,16 @@ function checkTabUrl()
  */
 function waitForPagecase()
 {
-  if( pageType === undefined)
-  {
-    setTimeout(waitForPagecase, 50);
-  }
-  else
-  {
-    selectButton = document.getElementById("select");
-    addRemoveButton = document.getElementById("addRemove");
-    disableButtons(selectButton, addRemoveButton, pageType);
-  }
+    if( pageType === undefined)
+    {
+        setTimeout(waitForPagecase, 50);
+    }
+    else
+    {
+        let selectButton = document.getElementById('select');
+        let addRemoveButton = document.getElementById('addRemove');
+        disableButtons(selectButton, addRemoveButton, pageType);
+    }
 }
 
 /**
@@ -79,25 +79,25 @@ function waitForPagecase()
 function disableButtons(selectButton, addRemoveButton, pageType)
 {
 
-//Settings page case --> disable Add/Remove
-  if (pageType === PAGE_TYPES.SETTINGS_PAGE) 
-  { 
-    if(addRemoveButton !== null)
+    //Settings page case --> disable Add/Remove
+    if (pageType === PAGE_TYPES.SETTINGS_PAGE)
     {
-      addRemoveButton.classList.add('disabled');
-      addRemoveButton.disabled = true;
+        if(addRemoveButton !== null)
+        {
+            addRemoveButton.classList.add('disabled');
+            addRemoveButton.disabled = true;
+        }
     }
-  }
 
-//OU list page case --> disable select
-  if (pageType === PAGE_TYPES.ORG_LIST_PAGE)
-  {
-    if(selectButton !== null)
+    //OU list page case --> disable select
+    if (pageType === PAGE_TYPES.ORG_LIST_PAGE)
     {
-      selectButton.classList.add('disabled');
-      selectButton.disabled = true;
+        if(selectButton !== null)
+        {
+            selectButton.classList.add('disabled');
+            selectButton.disabled = true;
+        }
     }
-  }
 }
 
 /**
@@ -106,7 +106,7 @@ function disableButtons(selectButton, addRemoveButton, pageType)
  */
 function injectContent(addRemoveButton)
 {
-  addRemoveButton.addEventListener('click', addRemovefunc);     
+    addRemoveButton.addEventListener('click', addRemovefunc);
 }
 
 /**
@@ -114,10 +114,10 @@ function injectContent(addRemoveButton)
  */
 function addRemovefunc () 
 {
-    window.close()
+    window.close();
     chrome.tabs.executeScript({
         file: 'OUListContent.js'
-      }); 
+    });
 }
 
 /**
@@ -126,7 +126,7 @@ function addRemovefunc ()
  */
 function selectListener(selectButton)
 {
-  selectButton.addEventListener('click', selectFunc);     
+    selectButton.addEventListener('click', selectFunc);
 }
 
 /**
@@ -136,5 +136,5 @@ function selectFunc()
 {
     chrome.tabs.executeScript({
         file: 'OUSelectContent.js'
-      }); 
+    });
 }

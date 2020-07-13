@@ -19,9 +19,9 @@ function createForm()
         for (let i = 0; i < numKeys; i++)
         {
             let elt = document.createElement('input');
-            elt.setAttribute("type", "radio");
-            elt.setAttribute("value", keys[i]);
-            elt.setAttribute("name", "preferred");
+            elt.setAttribute('type', 'radio');
+            elt.setAttribute('value', keys[i]);
+            elt.setAttribute('name', 'preferred');
 
             let label = document.createElement('label');
             label.appendChild(elt);
@@ -50,7 +50,7 @@ function enableApplyButton(event)
     {
         if (selectForm[i].checked == true)
         {
-            let applyButton = document.getElementById("apply");
+            let applyButton = document.getElementById('apply');
             applyButton.disabled = false;
             applyListener(applyButton); 
             return;
@@ -72,7 +72,6 @@ function applyListener(applyButton)
  */
 function applyFunc()
 {
-    let selectForm = document.getElementById('radioButtons');
     let dataRowId = null;
     storageObj.get(null, function (data)
     {
@@ -87,20 +86,23 @@ function applyFunc()
                 break;
             }
         }
-        
+      
         //send dataRowId to OUSelectContent.js to perform a click on the required OU button
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) 
         {
             chrome.tabs.sendMessage(tabs[0].id, {dataId: dataRowId});
         });
     })
+    //TODO: Send dataRowId to content script (message passing)
+    });
+
     return dataRowId; //required for testing purposes
 }
 
 (function()
 {
     createForm();
-    let applyButton = document.getElementById("apply");
+    let applyButton = document.getElementById('apply');
     applyButton.disabled = true;
 }()
 );
