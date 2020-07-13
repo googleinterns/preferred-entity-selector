@@ -45,25 +45,6 @@ function addRemoveButtonClick (event)
 }
 
 /**
- * Adds a button to every visible row when the page is first loaded.
- * @param {HTML Object} tabl - contains orgUnit rows
- */
-function initButtons(tabl)
-{
-    let orgUnits = tabl.rows;
-    let numOrgUnits = orgUnits.length;
-    
-    // This is to handle an edge case:
-    // It deals with the last row in the table that doesn't actually correspond to an orgUnit
-    let row = orgUnits[numOrgUnits-1];
-    const button = document.createElement('p');
-    button.setAttribute('class','pClass');
-    row.appendChild(button);
-
-    addButtons();
-}
-
-/**
  * 
  * @param {dictionary} data - This is the collection of key-value pairs of preferred entities.
  */
@@ -78,6 +59,11 @@ function addButtonsToRows(data)
     for (let i = 1; i < numRows; i++) 
     {
         let row = orgUnits[i];
+        let dataRowId = row.getAttribute('data-row-id');
+        if (dataRowId == null)
+        {
+            continue;
+        }
         let plusButtons = row.getElementsByClassName('pClass');
         let minusButtons = row.getElementsByClassName('mClass');
         if (plusButtons.length === 0 && minusButtons.length === 0)
@@ -148,7 +134,7 @@ function monitorChanges()
 
     let tabl = document.querySelector('table[role=grid]');
     tabl.addEventListener('click',addRemoveButtonClick); //event delegation
-    initButtons(tabl);
+    addButtons();
     monitorChanges();
 }()
 );

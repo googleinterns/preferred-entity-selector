@@ -88,14 +88,14 @@ function applyFunc()
         }
       
         //send dataRowId to OUSelectContent.js to perform a click on the required OU button
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) 
+        if (chrome.tabs !== undefined)
         {
-            chrome.tabs.sendMessage(tabs[0].id, {dataId: dataRowId});
-        });
-    })
-    //TODO: Send dataRowId to content script (message passing)
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) 
+            {
+                chrome.tabs.sendMessage(tabs[0].id, {dataId: dataRowId});
+            });
+        }
     });
-
     return dataRowId; //required for testing purposes
 }
 

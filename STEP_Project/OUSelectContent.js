@@ -55,13 +55,11 @@ function onMessageFunction(request)
  */
 function applySelect()
 {
-    runtimeObj.addListener
-    (
+    runtimeObj.addListener(
         function(request) 
         {
-            onMessageFunction(request)
-        }
-    );
+            onMessageFunction(request);
+        });
 }
 
 (function()
