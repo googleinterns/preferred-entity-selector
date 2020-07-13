@@ -92,10 +92,7 @@ function applyFunc()
         {
             chrome.tabs.sendMessage(tabs[0].id, {dataId: dataRowId});
         });
-    })
-    //TODO: Send dataRowId to content script (message passing)
     });
-
     return dataRowId; //required for testing purposes
 }
 
