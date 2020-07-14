@@ -30,7 +30,7 @@ function addEntity(row, dataid)
     }
 
     //if entitiy is a user
-    else if (row.getAttribute('data-url') !== null)
+    else if (row.dataset.url != null)
     {
         dataname = (row.children[1].children[1].firstChild.children[1].firstChild.getAttribute('title'));
         key = 'user-' + dataid;
@@ -64,7 +64,7 @@ function removeEntity(row, dataid)
     }
 
     //entity is a user
-    else if (row.getAttribute('data-url') !== null)
+    else if (row.dataset.url != null)
     {
         key = 'user-' + dataid;
     }
@@ -140,7 +140,7 @@ function addButtonsToRows(data)
             }
 
             //entity is a user
-            else if (row.getAttribute('data-url') !== null)
+            else if (row.dataset.url != null)
             {
                 dataname = data['user-' + dataid];
             }
