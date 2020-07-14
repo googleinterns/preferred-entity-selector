@@ -5,7 +5,7 @@ let tabl;
 let orgUnits;
 let numRows;
 
-describe('Testing the addButtons function', ()=>
+describe('Testing the addButtons function for OU list', ()=>
 {
     let mockChrome;
     beforeEach(function()
@@ -18,10 +18,8 @@ describe('Testing the addButtons function', ()=>
             tabl.insertRow();
         }
         orgUnits = tabl.rows;
-        for (let i = 0; i < numRows; i++)
-        {
-            orgUnits[i].setAttribute('data-row-id', i);
-        }
+        orgUnits[1].setAttribute("data-row-id", "OU-0")
+        orgUnits[2].setAttribute("data-row-id", "OU-1")
         document.body.appendChild(tabl);
 
         //initialize mock storage
@@ -35,7 +33,7 @@ describe('Testing the addButtons function', ()=>
             {
                 for (let key in pair)
                 {
-                    this.dict["OU-"+key] = pair[key];
+                    this.dict[key] = pair[key];
                 }
             },
             remove : function(dataid)
@@ -86,7 +84,7 @@ describe('Testing the addButtons function', ()=>
         plus.click();
 
         //check if OU is in storage
-        expect(mockChrome.dict["OU-1"] !== undefined).toBeTruthy();
+        expect(mockChrome.dict["OU-0"] !== undefined).toBeTruthy();
     });
 
     it('Should change "+" button to a "-" button when clicked', ()=>
@@ -120,7 +118,7 @@ describe('Testing the addButtons function', ()=>
         plus.click();
 
         //check if OU is in storage
-        expect(mockChrome.dict["OU-1"] === undefined).toBeTruthy();
+        expect(mockChrome.dict["OU-0"] === undefined).toBeTruthy();
     });
 
     it('Should change the "-" button to a "+" button when clicked', ()=>
@@ -177,6 +175,140 @@ describe('Testing the addButtons function', ()=>
         minusButtons = row.getElementsByClassName('mClass');
         expect(plusButtons.length+minusButtons.length).toEqual(1); //should not be equal to 2
     });
+});
+
+describe('Testing addButtons function for groups list page', ()=>
+{
+    let mockChrome;
+    beforeEach(function()
+    {
+        numRows = 3;
+        tabl = document.createElement('table');
+        tabl.setAttribute('role', 'grid');
+        for (let i = 0; i < numRows; i++)
+        {
+            tabl.insertRow();
+        }
+        groups = tabl.rows;
+        groups[1].setAttribute("data-row-id", "group-0")
+        groups[2].setAttribute("data-row-id", "group-1")
+        document.body.appendChild(tabl);
+
+        //initialize mock storage
+        mockChrome = {
+            dict: {},
+            get : function(arg1, arg2)
+            {
+                arg2(this.dict);
+            },
+            set : function(pair)
+            {
+                for (let key in pair)
+                {
+                    this.dict[key] = pair[key];
+                }
+            },
+            remove : function(dataid)
+            {
+                this.dict[dataid] = undefined;
+            }
+        };
+
+        //initialize arguments for addButtons
+        storageObj = mockChrome;
+        tabl.addEventListener('click', addRemoveButtonClick);
+    })
+
+    afterEach(function()
+    {
+        tabl.remove();
+    });
+
+    it('Should add/remove from storage for groups', ()=>
+    {
+        //call addButtons with mock Storage
+        addButtons();
+
+        let row = groups[1];
+        let plus = row.getElementsByClassName('pClass')[0];
+
+        //add OU to preferred entities by clicking on plus
+        plus.click();
+
+        //check if OU is in storage
+        expect(mockChrome.dict["group-0"] !== undefined).toBeTruthy();
+
+        //click again to remove OU from storage
+        plus.click();
+        expect(mockChrome.dict["group-0"] === undefined).toBeTruthy();
+    });  
+});
+
+describe('Testing addButtons function for users list page', ()=>
+{
+    let mockChrome;
+    beforeEach(function()
+    {
+        numRows = 3;
+        tabl = document.createElement('table');
+        tabl.setAttribute('role', 'grid');
+        for (let i = 0; i < numRows; i++)
+        {
+            tabl.insertRow();
+        }
+        users = tabl.rows;
+        users[1].setAttribute("data-row-id", "user-0")
+        users[2].setAttribute("data-row-id", "user-1")
+        document.body.appendChild(tabl);
+
+        //initialize mock storage
+        mockChrome = {
+            dict: {},
+            get : function(arg1, arg2)
+            {
+                arg2(this.dict);
+            },
+            set : function(pair)
+            {
+                for (let key in pair)
+                {
+                    this.dict[key] = pair[key];
+                }
+            },
+            remove : function(dataid)
+            {
+                this.dict[dataid] = undefined;
+            }
+        };
+
+        //initialize arguments for addButtons
+        storageObj = mockChrome;
+        tabl.addEventListener('click', addRemoveButtonClick);
+    })
+
+    afterEach(function()
+    {
+        tabl.remove();
+    });
+
+    it('Should add/remove from storage for users', ()=>
+    {
+        //call addButtons with mock Storage
+        addButtons();
+
+        let row = users[1];
+        let plus = row.getElementsByClassName('pClass')[0];
+
+        //add OU to preferred entities by clicking on plus
+        plus.click();
+
+        //check if OU is in storage
+        expect(mockChrome.dict["user-0"] !== undefined).toBeTruthy();
+
+        //click again to remove OU from storage
+        plus.click();
+        expect(mockChrome.dict["user-0"] === undefined).toBeTruthy();
+    });  
 });
 
 describe('Testing monitorChanges function (mutation observer)', ()=>{

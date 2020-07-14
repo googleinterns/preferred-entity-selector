@@ -37,12 +37,11 @@ function addEntity(row, dataid)
     }
 
     //if entity is an OU
-    else if (row.firstChild.firstChild !== undefined) //if there is an entity tree in the DOM
+    else if (row.firstChild.children[0] != undefined) //if there is an entity tree in the DOM
     {
         dataname = row.firstChild.firstChild.firstChild.children[1].innerHTML;
         key = 'OU-' + dataid;  
     }
-
     storageObj.set({[key]: dataname});
 }
 
@@ -70,11 +69,10 @@ function removeEntity(row, dataid)
     }
 
     //entitiy is an OU
-    else
+    else if (row.firstChild.children[0] !== undefined)
     {
         key = 'OU-' + dataid;
     }
-    
     storageObj.remove(key);
 }
 
@@ -146,7 +144,7 @@ function addButtonsToRows(data)
             }
 
             //entity is an OU
-            else
+            else if (row.children.length !== 0)
             {
                 dataname = data['OU-' + dataid];
             }
