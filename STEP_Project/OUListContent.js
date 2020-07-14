@@ -5,6 +5,80 @@ if (chrome.storage !== undefined)
 }
 
 /**
+ * This function adds the selected entity to Chrome's storage
+ * @param {HTML tr object} row Each row in the table of entities
+ * @param {string} dataid The data-row-id for each entity
+ */
+function addEntity(row, dataid)
+{
+    event.target.innerHTML = '-';
+    event.target.setAttribute('class','mClass'); 
+    let dataname = ''; 
+    var key = dataid; 
+
+    //if DOM structure is not as expected
+    if (row === undefined || row.firstChild === undefined)
+    {
+        alert("error in DOM");
+    }
+
+    //if entity is a group
+    else if (row.getAttribute("data-group-name") !== null)
+    {
+        dataname = row.getAttribute("data-group-name");
+        key = "group-" + dataid;
+    }
+
+    //if entitiy is a user
+    else if (row.getAttribute("data-url") !== null)
+    {
+        dataname = (row.children[1].children[1].children[0].children[1].children[0].getAttribute('title'))
+        key = "user-" + dataid;
+    }
+
+    //if entity is an OU
+    else if (row.children[0].children[0] !== undefined) //if there is an entity tree in the DOM
+    {
+        dataname = row.children[0].children[0].children[0].children[1].innerHTML;
+        key = "OU-" + dataid;  
+    }
+
+    storageObj.set({[key]: dataname});
+}
+
+/**
+ * This function removes the selected entity from Chrome's storage
+ * @param {HTML tr object} row Each row in the table of entities
+ * @param {string} dataid The data-row-id for each entity
+ */
+function removeEntity(row, dataid)
+{
+    event.target.innerHTML = '+';
+    event.target.setAttribute('class','pClass');
+    var key = dataid;
+    
+    //entity is a group
+    if (row.getAttribute("data-group-name") !== null)
+    {
+        key = "group-" + dataid;
+    }
+
+    //entity is a user
+    else if (row.getAttribute("data-url") !== null)
+    {
+        key = "user-" + dataid;
+    }
+
+    //entitiy is an OU
+    else
+    {
+        key = "OU-" + dataid;
+    }
+    
+    storageObj.remove(key);
+}
+
+/**
  * Function that will later have Add/Remove functionality
  * @param {JS event} event - expect click event
  */
@@ -21,68 +95,83 @@ function addRemoveButtonClick (event)
 
     if (classname === 'pClass')
     { 
-        event.target.innerHTML = '-';
-        event.target.setAttribute('class','mClass'); 
-        let dataname = '';
-        if (row === undefined || row.firstChild === undefined)
-        {
-            alert('error in DOM');
-        }
-        else if (row.children[0].children[0] !== undefined) //if there is an orgUnit tree in the DOM
-        {
-            dataname = row.children[0].children[0].children[0].children[1].innerHTML;
-        }
-        storageObj.set({[dataid]: dataname});
-        return;
+        addEntity(row, dataid);
     }
+
     else
     {
-        event.target.innerHTML = '+';
-        event.target.setAttribute('class','pClass');
-        storageObj.remove(dataid);
-        return;
+        removeEntity(row, dataid);
     }
 }
 
 /**
- * 
+ * Adds +/- buttons to each row
  * @param {dictionary} data - This is the collection of key-value pairs of preferred entities.
  */
 function addButtonsToRows(data)
 {
     let tabl = document.querySelector('table[role=grid]');
-    let orgUnits = tabl.rows;
-    let numOrgUnits = orgUnits.length;
-    let numRows = numOrgUnits;
+    let entities = tabl.rows;
+    let numEntities = entities.length;
+    let numRows = numEntities;
   
-    //skip the first row as that's the heading row and does not represent an orgUnit.
+    //skip the first row as that's the heading row and does not represent an entity.
     for (let i = 1; i < numRows; i++) 
     {
-        let row = orgUnits[i];
+        let row = entities[i];
         let dataRowId = row.getAttribute('data-row-id');
-        if (dataRowId == null)
+        if (dataRowId === null)
         {
             continue;
         }
+        
         let plusButtons = row.getElementsByClassName('pClass');
         let minusButtons = row.getElementsByClassName('mClass');
         if (plusButtons.length === 0 && minusButtons.length === 0)
         {
             const button = document.createElement('td');
             let dataid = row.getAttribute('data-row-id');
-            let dataname = data[dataid];
-            button.setAttribute('class','pClass');
-            if (dataname != undefined)
+            let dataname;
+
+            //entity is a group
+            if (row.getAttribute("data-group-name") !== null)
             {
-                button.innerHTML = '-';
+                dataname = data["group-" + dataid];
+            }
+
+            //entity is a user
+            else if (row.getAttribute("data-url") !== null)
+            {
+                dataname = data["user-" + dataid];
+            }
+
+            //entity is an OU
+            else
+            {
+                dataname = data["OU-" + dataid];
+            }
+            
+            button.setAttribute('class','pClass');
+            if (dataname !== undefined)
+            {
+                button.innerHTML = "-";
                 button.setAttribute('class','mClass');
             }
             else
             {
-                button.innerHTML = '+';
-            }        
-            row = orgUnits[i];
-            row.appendChild(button);
+                button.innerHTML = "+";
+            }              
+            row = entities[i];
+            
+            //hide unnecessary buttons
+            if (row.lastChild !== null)
+            {
+                row.lastChild.style.opacity = 0;
+                row.lastChild.style.pointerEvents = 'none';
+            }
+        
+            //add +/- button to row
+            row.appendChild(button)
         }
     }
 }
@@ -98,7 +187,7 @@ function addButtons()
 
 /**
  * This function implements Mutation Observer
- * It checks if new orgUnits are visible and adds buttons to new rows if required
+ * It checks if new entities are visible and adds buttons to new rows if required
  */
 function monitorChanges()
 {

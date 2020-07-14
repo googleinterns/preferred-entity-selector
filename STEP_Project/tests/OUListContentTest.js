@@ -35,12 +35,12 @@ describe('Testing the addButtons function', ()=>
             {
                 for (let key in pair)
                 {
-                    mockChrome.dict[key] = pair[key];
+                    this.dict["OU-"+key] = pair[key];
                 }
             },
             remove : function(dataid)
             {
-                this.dict[dataid]= undefined;
+                this.dict[dataid] = undefined;
             }
         };
 
@@ -56,7 +56,7 @@ describe('Testing the addButtons function', ()=>
 
     it('Should add "+" buttons to all rows except first', ()=>
     {
-    //call addButtons with mock Storage
+        //call addButtons with mock Storage
         addButtons();
         //no buttons on the first (header) row
         let row = orgUnits[0];
@@ -75,7 +75,7 @@ describe('Testing the addButtons function', ()=>
 
     it('Should store OU key-value pair in mock storage when "+" button clicked', ()=>
     {
-    //call addButtons with mock Storage
+        //call addButtons with mock Storage
         addButtons();
 
         let row = orgUnits[1];
@@ -86,12 +86,12 @@ describe('Testing the addButtons function', ()=>
         plus.click();
 
         //check if OU is in storage
-        expect(mockChrome.dict[1] !== undefined).toBeTruthy();
-
+        expect(mockChrome.dict["OU-1"] !== undefined).toBeTruthy();
     });
+
     it('Should change "+" button to a "-" button when clicked', ()=>
     {
-    //call addButtons with mock Storage
+        //call addButtons with mock Storage
         addButtons();
 
         let row = orgUnits[1];
@@ -103,12 +103,11 @@ describe('Testing the addButtons function', ()=>
 
         //button must have become a "-" button
         expect(plus.getAttribute('class')).toEqual('mClass');
-
     });
 
     it('Should remove OU key-value pair from mock storage when "-" button clicked', ()=>
     {
-    //call addButtons with mock Storage
+        //call addButtons with mock Storage
         addButtons();
 
         let row = orgUnits[1];
@@ -121,12 +120,12 @@ describe('Testing the addButtons function', ()=>
         plus.click();
 
         //check if OU is in storage
-        expect(mockChrome.dict[1] === undefined).toBeTruthy();
+        expect(mockChrome.dict["OU-1"] === undefined).toBeTruthy();
     });
 
     it('Should change the "-" button to a "+" button when clicked', ()=>
     {
-    //call addButtons with mock Storage
+        //call addButtons with mock Storage
         addButtons();
         
         let row = orgUnits[1];
@@ -140,7 +139,6 @@ describe('Testing the addButtons function', ()=>
 
         //button must have become "+" button
         expect(plus.getAttribute('class')).toEqual('pClass');
-       
     });
 
     it('Should not add a button to any row that has a button already', ()=>
