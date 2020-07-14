@@ -19,28 +19,28 @@ function addEntity(row, dataid)
     //if DOM structure is not as expected
     if (row === undefined || row.firstChild === undefined)
     {
-        alert("error in DOM");
+        alert('error in DOM');
     }
 
     //if entity is a group
-    else if (row.getAttribute("data-group-name") !== null)
+    else if (row.getAttribute('data-group-name') !== null)
     {
-        dataname = row.getAttribute("data-group-name");
-        key = "group-" + dataid;
+        dataname = row.getAttribute('data-group-name');
+        key = 'group-' + dataid;
     }
 
     //if entitiy is a user
-    else if (row.getAttribute("data-url") !== null)
+    else if (row.getAttribute('data-url') !== null)
     {
-        dataname = (row.children[1].children[1].children[0].children[1].children[0].getAttribute('title'))
-        key = "user-" + dataid;
+        dataname = (row.children[1].children[1].children[0].children[1].children[0].getAttribute('title'));
+        key = 'user-' + dataid;
     }
 
     //if entity is an OU
     else if (row.children[0].children[0] !== undefined) //if there is an entity tree in the DOM
     {
         dataname = row.children[0].children[0].children[0].children[1].innerHTML;
-        key = "OU-" + dataid;  
+        key = 'OU-' + dataid;  
     }
 
     storageObj.set({[key]: dataname});
@@ -58,21 +58,21 @@ function removeEntity(row, dataid)
     var key = dataid;
     
     //entity is a group
-    if (row.getAttribute("data-group-name") !== null)
+    if (row.getAttribute('data-group-name') !== null)
     {
-        key = "group-" + dataid;
+        key = 'group-' + dataid;
     }
 
     //entity is a user
-    else if (row.getAttribute("data-url") !== null)
+    else if (row.getAttribute('data-url') !== null)
     {
-        key = "user-" + dataid;
+        key = 'user-' + dataid;
     }
 
     //entitiy is an OU
     else
     {
-        key = "OU-" + dataid;
+        key = 'OU-' + dataid;
     }
     
     storageObj.remove(key);
@@ -134,32 +134,32 @@ function addButtonsToRows(data)
             let dataname;
 
             //entity is a group
-            if (row.getAttribute("data-group-name") !== null)
+            if (row.getAttribute('data-group-name') !== null)
             {
-                dataname = data["group-" + dataid];
+                dataname = data['group-' + dataid];
             }
 
             //entity is a user
-            else if (row.getAttribute("data-url") !== null)
+            else if (row.getAttribute('data-url') !== null)
             {
-                dataname = data["user-" + dataid];
+                dataname = data['user-' + dataid];
             }
 
             //entity is an OU
             else
             {
-                dataname = data["OU-" + dataid];
+                dataname = data['OU-' + dataid];
             }
             
             button.setAttribute('class','pClass');
             if (dataname !== undefined)
             {
-                button.innerHTML = "-";
+                button.innerHTML = '-';
                 button.setAttribute('class','mClass');
             }
             else
             {
-                button.innerHTML = "+";
+                button.innerHTML = '+';
             }              
             row = entities[i];
             
@@ -171,7 +171,7 @@ function addButtonsToRows(data)
             }
         
             //add +/- button to row
-            row.appendChild(button)
+            row.appendChild(button);
         }
     }
 }
@@ -191,7 +191,7 @@ function addButtons()
  */
 function monitorChanges()
 {
-    // let allRowNodes = document.querySelectorAll("tbody[role=rowgroup]");
+    // let allRowNodes = document.querySelectorAll('tbody[role=rowgroup]');
     let allRowNodes = document.querySelectorAll('tbody');
 
     let rootNode = allRowNodes[0];

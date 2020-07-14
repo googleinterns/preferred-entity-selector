@@ -44,7 +44,7 @@ function selectClick ()
  */
 function onMessageFunction(request)
 {
-    let queryVar = "[data-content-id='" + request.dataId + "']";
+    let queryVar = '[data-content-id=\'' + request.dataId + '\']';
     let orgUnits = document.querySelectorAll(queryVar);
     orgUnits[0].children[1].firstChild.click();
 }
