@@ -11,6 +11,9 @@ if (chrome.storage !== undefined)
  */
 function addEntity(row, dataid)
 {
+    let entityURL = document.getElementsByTagName("link")[0];
+    let entityPage = entityURL.getAttribute("href").split('ac/')[1];
+
     event.target.innerHTML = '-';
     event.target.setAttribute('class','mClass'); 
     let dataname = ''; 
@@ -23,21 +26,21 @@ function addEntity(row, dataid)
     }
 
     //if entity is a group
-    else if (row.getAttribute('data-group-name') !== null)
+    else if (entityPage === "groups")
     {
         dataname = row.getAttribute('data-group-name');
         key = 'group-' + dataid;
     }
 
     //if entitiy is a user
-    else if (row.dataset.url != null)
+    else if (entityPage === "users")
     {
         dataname = (row.children[1].children[1].firstChild.children[1].firstChild.getAttribute('title'));
         key = 'user-' + dataid;
     }
 
     //if entity is an OU
-    else if (row.firstChild.children[0] != undefined) //if there is an entity tree in the DOM
+    else if (entityPage === "orgunits")
     {
         dataname = row.firstChild.firstChild.firstChild.children[1].innerHTML;
         key = 'OU-' + dataid;  
@@ -52,24 +55,27 @@ function addEntity(row, dataid)
  */
 function removeEntity(row, dataid)
 {
+    let entityURL = document.getElementsByTagName("link")[0];
+    let entityPage = entityURL.getAttribute("href").split('ac/')[1];
+
     event.target.innerHTML = '+';
     event.target.setAttribute('class','pClass');
     var key = dataid;
     
     //entity is a group
-    if (row.getAttribute('data-group-name') !== null)
+    if (entityPage === "groups")
     {
         key = 'group-' + dataid;
     }
 
     //entity is a user
-    else if (row.dataset.url != null)
+    else if (entityPage === "users")
     {
         key = 'user-' + dataid;
     }
 
     //entitiy is an OU
-    else if (row.firstChild.children[0] !== undefined)
+    else if (entityPage === "orgunits")
     {
         key = 'OU-' + dataid;
     }
@@ -108,6 +114,9 @@ function addRemoveButtonClick (event)
  */
 function addButtonsToRows(data)
 {
+    let entityURL = document.getElementsByTagName("link")[0];
+    let entityPage = entityURL.getAttribute("href").split('ac/')[1];
+    
     let tabl = document.querySelector('table[role=grid]');
     let entities = tabl.rows;
     let numEntities = entities.length;
@@ -132,19 +141,19 @@ function addButtonsToRows(data)
             let dataname;
 
             //entity is a group
-            if (row.getAttribute('data-group-name') !== null)
+            if (entityPage === "groups")
             {
                 dataname = data['group-' + dataid];
             }
 
             //entity is a user
-            else if (row.dataset.url != null)
+            else if (entityPage === "users")
             {
                 dataname = data['user-' + dataid];
             }
 
             //entity is an OU
-            else if (row.children.length !== 0)
+            else if (entityPage === "orgunits")
             {
                 dataname = data['OU-' + dataid];
             }
