@@ -32,14 +32,14 @@ function addEntity(row, dataid)
     //if entitiy is a user
     else if (row.getAttribute('data-url') !== null)
     {
-        dataname = (row.children[1].children[1].children[0].children[1].children[0].getAttribute('title'));
+        dataname = (row.children[1].children[1].firstChild.children[1].firstChild.getAttribute('title'));
         key = 'user-' + dataid;
     }
 
     //if entity is an OU
-    else if (row.children[0].children[0] !== undefined) //if there is an entity tree in the DOM
+    else if (row.firstChild.firstChild !== undefined) //if there is an entity tree in the DOM
     {
-        dataname = row.children[0].children[0].children[0].children[1].innerHTML;
+        dataname = row.firstChild.firstChild.firstChild.children[1].innerHTML;
         key = 'OU-' + dataid;  
     }
 
