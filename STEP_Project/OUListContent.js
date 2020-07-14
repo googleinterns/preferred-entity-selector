@@ -179,6 +179,14 @@ function addButtonsToRows(data)
         
             //add +/- button to row
             row.appendChild(button);
+
+             //styling
+             button.style.fontSize = "22px";
+             button.style.right = "20px";
+             button.style.color = "rgba(0,0,0,0.87)";
+             button.style.position = "relative";
+             button.style.border = "none";
+             button.style.cursor = "pointer";
         }
     }
 }
