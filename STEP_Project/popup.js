@@ -23,11 +23,11 @@ const PAGE_TYPES = {
  */
 function findPageType(givenurl)
 {
-    let orgunitspage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/orgunits/g);
+    let entitypage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/(orgunits)|(users)|(groups)/g);
     let settingspage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/appsettings\/[0-9]+\/.+/g);
     let onoffpage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/settings\/serviceonoff.*/g);
     pageType = PAGE_TYPES.OTHER;
-    if (orgunitspage !== null)
+    if (entitypage !== null)
     {
         pageType = PAGE_TYPES.ORG_LIST_PAGE;
     }

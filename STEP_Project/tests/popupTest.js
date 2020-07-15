@@ -24,10 +24,22 @@ describe('Testing pageType that determines enabling/disabling of buttons dependi
         let pageType = findPageType('https://admin.google.com/u/4/ac/orgunits');
         expect(pageType).toEqual(0);
     });
+
+    it('Should enable Add/Remove button on groups list url (case 0)', ()=>{
+        let pageType = findPageType('https://admin.google.com/u/5/ac/groups');
+        expect(pageType).toEqual(0);
+    });
+
+    it('Should enable Add/Remove button on users list url (case 0)', ()=>{
+        let pageType = findPageType('https://admin.google.com/u/5/ac/users');
+        expect(pageType).toEqual(0);
+    });
+
     it('Should disable extension on any other admin console url (case 2)', ()=>{
         let pageType = findPageType('https://admin.google.com/u/4/ac/apps');
         expect(pageType).toEqual(2);
     });
+
     it('Should disable extension on any other console url (case 2)', ()=>{
         let pageType = findPageType('https://github.com/');
         expect(pageType).toEqual(2);
