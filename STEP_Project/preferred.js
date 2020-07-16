@@ -4,36 +4,79 @@ if (chrome.storage !== undefined)
     storageObj = chrome.storage.sync;
 }
 
+var Tabs;
+if (chrome.tabs !== undefined)
+{
+    Tabs = chrome.tabs;
+}
+
 /**
  * Accesses chrome storage and displays the form of preferred entities with radio buttons
  */
 function createForm()
 {
-    storageObj.get(null, function (data) 
-    { 
-        let keys = Object.keys(data);
-        let numKeys = keys.length;
-
-        let selectForm = document.getElementById('radioButtons');
-
-        for (let i = 0; i < numKeys; i++)
+    Tabs.query({active: true, lastFocusedWindow: true}, function(tabs) 
+    {
+        let url = tabs[0].url;
+        storageObj.get(null, function (data) 
         {
-            let elt = document.createElement('input');
-            elt.setAttribute('type', 'radio');
-            elt.setAttribute('value', keys[i]);
-            elt.setAttribute('name', 'preferred');
+            let urlRoot = url.split('/ac/')[0];
+            urlRoot = urlRoot + '/ac/';
 
-            let label = document.createElement('label');
-            label.appendChild(elt);
-            let OUName = document.createTextNode(data[keys[i]]);
-            label.appendChild(OUName);
+            let urlQueries = url.split('ac')[1].split('?')[1];
 
-            selectForm.appendChild(label);
-            let breakLine = document.createElement('br');
-            selectForm.appendChild(breakLine);
-        }
+            let keys = Object.keys(data);
+            let numKeys = keys.length;
 
-        selectForm.addEventListener('click',enableApplyButton);
+            let selectForm = document.getElementById('radioButtons');
+
+            let entityToDisplay = data['entity-to-display'];
+
+            for (let i = 0; i < numKeys; i++)
+            {
+                if (keys[i] == 'entity-to-display')
+                {
+                    continue;
+                }
+
+                let elt = document.createElement('input');
+                elt.setAttribute('type', 'radio');
+                elt.setAttribute('value', keys[i]);
+                elt.setAttribute('name', 'preferred');
+
+                let prefEntity = keys[i].split('-')[0];
+
+                let entityName = document.createTextNode(data[keys[i]]);
+                var a = document.createElement('a');
+                a.appendChild(elt);
+                a.append(entityName);
+                a.title = data[keys[i]];
+
+                if (prefEntity == entityToDisplay)
+                {
+                    if (prefEntity == 'OU')
+                    {
+                        selectForm.appendChild(a);
+                        let breakLine = document.createElement('br');
+                        selectForm.appendChild(breakLine);
+                    }
+                    if (prefEntity == 'group')
+                    {
+                        a.href = urlRoot + 'groups/' + keys[i].split('-')[1] + '?' + urlQueries;
+                        selectForm.appendChild(a);
+                        let breakLine = document.createElement('br');
+                        selectForm.appendChild(breakLine);
+                    }
+                    if (prefEntity == 'user')
+                    {
+                        a.href = urlRoot + 'users/' + keys[i].split('-')[1] + '?' + urlQueries;
+                        selectForm.appendChild(a);
+                        let breakLine = document.createElement('br');
+                        selectForm.appendChild(breakLine);
+                    }
+                }
+            }
+        });
     });
 }
 
@@ -41,7 +84,7 @@ function createForm()
  * Enables applyButton if one of the preferred entities in the form has been selected.
  * @param {event} event - This is expected to be a click event.
  */
-function enableApplyButton(event)
+function enableApplyButton()
 {
     let selectForm = document.getElementById('radioButtons');
     let numButtons = selectForm.length;
@@ -102,7 +145,16 @@ function applyFunc()
 (function()
 {
     createForm();
+    let selectForm = document.getElementById('radioButtons');
+    selectForm.addEventListener('click',function(e)
+    {
+        if(e.target.href !== undefined)
+        {
+            chrome.tabs.create({url:e.target.href});
+        }
+        enableApplyButton();
+    });
     let applyButton = document.getElementById('apply');
-    applyButton.disabled = true;
+    applyListener(applyButton);
 }()
 );
