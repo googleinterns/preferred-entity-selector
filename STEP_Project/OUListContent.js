@@ -206,7 +206,6 @@ function addButtons()
  */
 function monitorChanges()
 {
-    // let allRowNodes = document.querySelectorAll('tbody[role=rowgroup]');
     let allRowNodes = document.querySelectorAll('tbody');
 
     let rootNode = allRowNodes[0];
@@ -219,12 +218,12 @@ function monitorChanges()
     });
 
     observer.observe(rootNode, 
-        {
-            attributes: false,
-            childList: true,
-            characterData: false,
-            subtree: true
-        });
+    {
+        attributes: false,
+        childList: true,
+        characterData: false,
+        subtree: true
+    });
 }
 
 (function()
