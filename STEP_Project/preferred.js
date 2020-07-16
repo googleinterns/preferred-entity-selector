@@ -26,31 +26,30 @@ function createForm()
             let urlQueries = url.split('ac')[1].split('?')[1];
 
             let keys = Object.keys(data);
-            let numKeys = keys.length;
 
             let selectForm = document.getElementById('radioButtons');
 
             let entityToDisplay = data['entity-to-display'];
 
-            for (let i = 0; i < numKeys; i++)
+            keys.forEach((key) => 
             {
-                if (keys[i] == 'entity-to-display')
+                if (key == 'entity-to-display')
                 {
-                    continue;
+                    return;
                 }
 
                 let elt = document.createElement('input');
                 elt.setAttribute('type', 'radio');
-                elt.setAttribute('value', keys[i]);
+                elt.setAttribute('value', key);
                 elt.setAttribute('name', 'preferred');
 
-                let prefEntity = keys[i].split('-')[0];
+                let prefEntity = key.split('-')[0];
 
-                let entityName = document.createTextNode(data[keys[i]]);
+                let entityName = document.createTextNode(data[key]);
                 var a = document.createElement('a');
                 a.appendChild(elt);
                 a.append(entityName);
-                a.title = data[keys[i]];
+                a.title = data[key];
 
                 if (prefEntity == entityToDisplay)
                 {
@@ -62,20 +61,20 @@ function createForm()
                     }
                     if (prefEntity == 'group')
                     {
-                        a.href = urlRoot + 'groups/' + keys[i].split('-')[1] + '?' + urlQueries;
+                        a.href = urlRoot + 'groups/' + key.split('-')[1] + '?' + urlQueries;
                         selectForm.appendChild(a);
                         let breakLine = document.createElement('br');
                         selectForm.appendChild(breakLine);
                     }
                     if (prefEntity == 'user')
                     {
-                        a.href = urlRoot + 'users/' + keys[i].split('-')[1] + '?' + urlQueries;
+                        a.href = urlRoot + 'users/' + key.split('-')[1] + '?' + urlQueries;
                         selectForm.appendChild(a);
                         let breakLine = document.createElement('br');
                         selectForm.appendChild(breakLine);
                     }
-                }
-            }
+                }                
+            });
         });
     });
 }
