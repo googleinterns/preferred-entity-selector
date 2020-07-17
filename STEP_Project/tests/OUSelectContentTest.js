@@ -84,7 +84,7 @@ describe('Testing applyClick function called when "apply" button is clicked', ()
         //initialize mock request object
         request =
         {
-            dataId: "dataContentId"
+            dataId: ["OU-dataContentId", "name"]
         }
 
         //initialize mock chrome to mimic chrome.runtime.onMessage

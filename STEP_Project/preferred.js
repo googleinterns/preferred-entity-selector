@@ -42,6 +42,7 @@ function createForm()
                 elt.setAttribute('type', 'radio');
                 elt.setAttribute('value', key);
                 elt.setAttribute('name', 'preferred');
+                elt.setAttribute('id', data[key]);
 
                 let prefEntity = key.split('-')[0];
 
@@ -50,7 +51,8 @@ function createForm()
                 a.appendChild(elt);
                 a.append(entityName);
                 a.title = data[key];
-
+                let applyButton = document.getElementById("apply");
+                
                 if (prefEntity == entityToDisplay)
                 {
                     if (prefEntity == 'OU')
@@ -65,6 +67,10 @@ function createForm()
                         selectForm.appendChild(a);
                         let breakLine = document.createElement('br');
                         selectForm.appendChild(breakLine);
+                        if (applyButton !== null)
+                        {
+                            applyButton.innerHTML = "COPY"
+                        }
                     }
                     if (prefEntity == 'user')
                     {
@@ -72,6 +78,10 @@ function createForm()
                         selectForm.appendChild(a);
                         let breakLine = document.createElement('br');
                         selectForm.appendChild(breakLine);
+                        if (applyButton !== null)
+                        {
+                            applyButton.innerHTML = "COPY"
+                        }
                     }
                 }                
             });
@@ -115,6 +125,7 @@ function applyListener(applyButton)
 function applyFunc()
 {
     let dataRowId = null;
+    let dataName = null;
     storageObj.get(null, function (data)
     {
         let selectForm = document.getElementById('radioButtons');
@@ -125,6 +136,7 @@ function applyFunc()
             if (selectForm[i].checked == true)
             {
                 dataRowId = selectForm[i].value;
+                dataName = selectForm[i].id;
                 break;
             }
         }
@@ -134,7 +146,11 @@ function applyFunc()
         {
             chrome.tabs.query({active: true, currentWindow: true}, function(tabs) 
             {
-                chrome.tabs.sendMessage(tabs[0].id, {dataId: dataRowId});
+                chrome.tabs.sendMessage(tabs[0].id, {dataId: [dataRowId, dataName]});
+                if (dataRowId.split("-")[0] === "group" || dataRowId.split("-")[0] === "user")
+                {
+                    alert('copied ' + dataName + ' to clipboard!');
+                }
             });
         }
     });
