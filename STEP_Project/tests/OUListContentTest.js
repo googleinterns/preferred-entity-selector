@@ -371,3 +371,109 @@ describe('Testing monitorChanges function (mutation observer)', ()=>{
         }, 1000);
     });
 });
+
+describe('Testing restoreDOM function for entity list page', ()=>
+{
+    let mockChrome;
+    beforeEach(function()
+    {
+        numRows = 3;
+        tabl = document.createElement('table');
+        tabl.setAttribute('role', 'grid');
+        for (let i = 0; i < numRows; i++)
+        {
+            tabl.insertRow();
+        }
+        users = tabl.rows;
+        users[1].setAttribute("data-row-id", "user-0")
+        users[2].setAttribute("data-row-id", "user-1")
+        document.body.appendChild(tabl);
+
+        //initialize mock storage
+        mockChrome = {
+            dict: {},
+            get : function(arg1, arg2)
+            {
+                arg2(this.dict);
+            },
+            set : function(pair)
+            {
+                for (let key in pair)
+                {
+                    this.dict[key] = pair[key];
+                }
+            },
+            remove : function(dataid)
+            {
+                this.dict[dataid] = undefined;
+            }
+        };
+
+        //initialize arguments for addButtons
+        storageObj = mockChrome;
+        tabl.addEventListener('click', addRemoveButtonClick);
+
+        //create mock butterbar
+        let butterBar = document.createElement("div");
+        butterBar.setAttribute("class", "butterBar");
+        document.body.appendChild(butterBar);
+
+        //call addButtons with mock Storage
+        addButtons();
+     
+    })
+    
+    afterEach(function()
+    {
+        tabl.remove();
+    });
+
+    it('Should remove the +/- buttons', ()=>
+    {
+        restoreDOM();
+        let numButtons = document.querySelectorAll('td[class$="Class"]').length
+        expect(numButtons).toEqual(0);
+    });  
+
+    it('Should remove the butter bar', ()=>
+    {
+        restoreDOM();
+        let numButtons = document.getElementsByClassName("butterBar").length
+        expect(numButtons).toEqual(0);
+    });    
+});
+
+
+describe('Testing addButterbar function on the entity list page', ()=>
+{
+    beforeEach(function()
+    {
+        //mimic DOM's structure
+        document.body.appendChild(document.createElement('c-wiz'))
+        document.body.appendChild(document.createElement('c-wiz'))
+        document.body.appendChild(document.createElement('c-wiz'))
+        let cwizObj = document.getElementsByTagName("c-wiz")[2];
+        let child = document.createElement('div');
+        cwizObj.appendChild(child);
+        let grandChild = document.createElement('div');
+        child.appendChild(grandChild);
+        let greatGrandChild = document.createElement('div');
+        grandChild.appendChild(greatGrandChild);
+        addButterbar();
+    })
+    
+    afterEach(function()
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            document.getElementsByTagName("c-wiz")[0].remove();
+        }
+    });
+
+    it('Should add a butter bar', ()=>
+    {
+        let numButtons = document.getElementsByClassName("butterBar").length
+        expect(numButtons).toEqual(1);
+    });   
+});
+
