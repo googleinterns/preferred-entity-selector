@@ -51,8 +51,8 @@ function createForm()
                 a.appendChild(elt);
                 a.append(entityName);
                 a.title = data[key];
-                let applyButton = document.getElementById("apply");
-                
+                let applyButton = document.getElementById('apply');
+
                 if (prefEntity == entityToDisplay)
                 {
                     if (prefEntity == 'OU')
@@ -69,7 +69,7 @@ function createForm()
                         selectForm.appendChild(breakLine);
                         if (applyButton !== null)
                         {
-                            applyButton.innerHTML = "COPY"
+                            applyButton.innerHTML = 'COPY';
                         }
                     }
                     if (prefEntity == 'user')
@@ -80,7 +80,7 @@ function createForm()
                         selectForm.appendChild(breakLine);
                         if (applyButton !== null)
                         {
-                            applyButton.innerHTML = "COPY"
+                            applyButton.innerHTML = 'COPY';
                         }
                     }
                 }                
@@ -147,9 +147,9 @@ function applyFunc()
             chrome.tabs.query({active: true, currentWindow: true}, function(tabs) 
             {
                 chrome.tabs.sendMessage(tabs[0].id, {dataId: [dataRowId, dataName]});
-                if (dataRowId.split("-")[0] === "group" || dataRowId.split("-")[0] === "user")
+                if (dataRowId.split('-')[0] === 'group' || dataRowId.split('-')[0] === 'user')
                 {
-                    alert('copied ' + dataName + ' to clipboard!');
+                    alert('Copied ' + dataName + ' to clipboard!');
                 }
             });
         }

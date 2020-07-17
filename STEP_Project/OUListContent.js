@@ -20,12 +20,12 @@ function restoreDOM()
     
     let tabl = document.querySelector('table[role=grid]');
     tabl.removeEventListener('click',addRemoveButtonClick);
-    let entities = tabl.rows;
+    const entities = tabl.rows;
     let numEntities = entities.length;
     for (let i = 1; i < numEntities; i++) 
     {
         let row = entities[i];
-        var toDeleteButton = row.querySelectorAll('td[class$="Class"]')[0];
+        const toDeleteButton = row.querySelectorAll('td[class$="Class"]')[0];
         if (toDeleteButton !== undefined)
         {
             toDeleteButton.remove();
@@ -37,7 +37,7 @@ function restoreDOM()
         }
     }
 
-    document.getElementsByClassName("butterBar")[0].remove();
+    document.getElementsByClassName('butterBar')[0].remove();
 }
 
 /**
@@ -46,26 +46,26 @@ function restoreDOM()
  */
 function addButterbar()
 {
-    let butterBar = document.createElement("div");
-    butterBar.setAttribute("class", "butterBar");
-    butterBar.style.backgroundColor = "#e8f0fe";
-    butterBar.style.minHeight = "45px";
-    butterBar.style.borderBottom = "1px solid #e0e0e0";
-    butterBar.style.width = "100%";
-    let cwiz = document.getElementsByTagName("c-wiz")[2].firstChild.firstChild.firstChild;
+    const butterBar = document.createElement('div');
+    butterBar.classList.add('butterBar');
+    butterBar.style.backgroundColor = '#e8f0fe';
+    butterBar.style.minHeight = '45px';
+    butterBar.style.borderBottom = '1px solid #e0e0e0';
+    butterBar.style.width = '100%';
+    let cwiz = document.getElementsByTagName('c-wiz')[2].firstChild.firstChild.firstChild;
     cwiz.insertBefore(butterBar, cwiz.lastChild);
-    let doneButton = document.createElement("p");
-    doneButton.innerHTML = "DONE"
-    doneButton.style.float = "right"
-    doneButton.style.paddingRight = "50px"
-    doneButton.style.color = "#3367d6"
-    let instructions = document.createElement("p");
-    instructions.innerHTML = "Please use the +/- buttons to add/remove your preferred entities."
-    instructions.style.float = "left";
-    instructions.style.paddingLeft = "20px"
-    butterBar.appendChild(instructions)
+    const doneButton = document.createElement('p');
+    doneButton.innerHTML = 'DONE';
+    doneButton.style.float = 'right';
+    doneButton.style.paddingRight = '50px';
+    doneButton.style.color = '#3367d6';
+    const instructions = document.createElement('p');
+    instructions.innerHTML = 'Please use the +/- buttons to add/remove your preferred entities.';
+    instructions.style.float = 'left';
+    instructions.style.paddingLeft = '20px';
+    butterBar.appendChild(instructions);
     butterBar.appendChild(doneButton);
-    doneButton.addEventListener("click", restoreDOM)
+    doneButton.addEventListener('click', restoreDOM);
 }
 
 /**
@@ -234,14 +234,14 @@ function addButtonsToRows(data)
             }              
             row = entities[i];
             
-             //hide unnecessary buttons
-             if (row.lastChild !== null)
-             {
-                 restoreOpacity = row.lastChild.style.opacity;
-                 row.lastChild.style.opacity = 0;
-                 restoreEvents = row.lastChild.style.pointerEvents;
-                 row.lastChild.style.pointerEvents = 'none';
-             }
+            //hide unnecessary buttons
+            if (row.lastChild !== null)
+            {
+                restoreOpacity = row.lastChild.style.opacity;
+                row.lastChild.style.opacity = 0;
+                restoreEvents = row.lastChild.style.pointerEvents;
+                row.lastChild.style.pointerEvents = 'none';
+            }
         
             //add +/- button to row
             row.appendChild(button);
@@ -284,12 +284,12 @@ function monitorChanges()
     });
 
     observer.observe(rootNode, 
-    {
-        attributes: false,
-        childList: true,
-        characterData: false,
-        subtree: true
-    });
+        {
+            attributes: false,
+            childList: true,
+            characterData: false,
+            subtree: true
+        });
 }
 
 (function()
