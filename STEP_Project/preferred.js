@@ -1,7 +1,9 @@
 var storageObj;
+var localStorageObj;
 if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
+    localStorageObj = chrome.storage.local;
 }
 
 var Tabs;
@@ -29,63 +31,61 @@ function createForm()
 
             let selectForm = document.getElementById('radioButtons');
 
-            let entityToDisplay = data['entity-to-display'];
-
-            if (entityToDisplay == 'group' || entityToDisplay == 'user')
+            var entityToDisplay;
+            localStorageObj.get(null, function (localData)
             {
-                selectForm.addEventListener('click',function(e)
+                entityToDisplay = localData['entity-to-display'];
+                if (entityToDisplay == 'group' || entityToDisplay == 'user')
                 {
-                    if(e.target.href !== undefined)
+                    selectForm.addEventListener('click',function(e)
                     {
-                        chrome.tabs.create({url:e.target.href});
-                    }
-                    enableApplyButton();
-                });
-            }
-
-            keys.forEach((key) => 
-            {
-                if (key == 'entity-to-display')
-                {
-                    return;
+                        if(e.target.href !== undefined)
+                        {
+                            chrome.tabs.create({url:e.target.href});
+                        }
+                        enableApplyButton();
+                    });
                 }
 
-                let elt = document.createElement('input');
-                elt.setAttribute('type', 'radio');
-                elt.setAttribute('value', key);
-                elt.setAttribute('name', 'preferred');
-
-                let prefEntity = key.split('-')[0];
-
-                let entityName = document.createTextNode(data[key]);
-                var a = document.createElement('a');
-                a.appendChild(elt);
-                a.append(entityName);
-                a.title = data[key];
-
-                if (prefEntity == entityToDisplay)
+                keys.forEach((key) => 
                 {
-                    if (prefEntity == 'OU')
+                    let elt = document.createElement('input');
+                    elt.setAttribute('type', 'radio');
+                    elt.setAttribute('value', key);
+                    elt.setAttribute('name', 'preferred');
+
+                    let prefEntity = key.split('-')[0];
+
+                    let entityName = document.createTextNode(data[key]);
+                    var a = document.createElement('a');
+                    a.appendChild(elt);
+                    a.append(entityName);
+                    a.title = data[key];
+
+                    if (prefEntity == entityToDisplay)
                     {
-                        selectForm.appendChild(a);
-                        let breakLine = document.createElement('br');
-                        selectForm.appendChild(breakLine);
-                    }
-                    if (prefEntity == 'group')
-                    {
-                        a.href = urlRoot + 'groups/' + key.split('-')[1] + '?' + urlQueries;
-                        selectForm.appendChild(a);
-                        let breakLine = document.createElement('br');
-                        selectForm.appendChild(breakLine);
-                    }
-                    if (prefEntity == 'user')
-                    {
-                        a.href = urlRoot + 'users/' + key.split('-')[1] + '?' + urlQueries;
-                        selectForm.appendChild(a);
-                        let breakLine = document.createElement('br');
-                        selectForm.appendChild(breakLine);
-                    }
-                }                
+                        if (prefEntity == 'OU')
+                        {
+                            selectForm.appendChild(a);
+                            let breakLine = document.createElement('br');
+                            selectForm.appendChild(breakLine);
+                        }
+                        if (prefEntity == 'group')
+                        {
+                            a.href = urlRoot + 'groups/' + key.split('-')[1] + '?' + urlQueries;
+                            selectForm.appendChild(a);
+                            let breakLine = document.createElement('br');
+                            selectForm.appendChild(breakLine);
+                        }
+                        if (prefEntity == 'user')
+                        {
+                            a.href = urlRoot + 'users/' + key.split('-')[1] + '?' + urlQueries;
+                            selectForm.appendChild(a);
+                            let breakLine = document.createElement('br');
+                            selectForm.appendChild(breakLine);
+                        }
+                    }                
+                }); 
             });
         });
     });
