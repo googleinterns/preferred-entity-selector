@@ -40,7 +40,8 @@ describe('Testing selectClick function called when "select" button is clicked', 
             entry.setAttribute("data-node-id", i);
             liObj.appendChild(entry);
             tabl.appendChild(liObj);
-            mockChrome.set({[i]:liObj.innerText})
+            let key = 'OU-' + i;
+            mockChrome.set({[key]:liObj.innerText})
         }
         document.body.appendChild(tabl);
         storageObj = mockChrome;
@@ -66,11 +67,11 @@ describe('Testing selectClick function called when "select" button is clicked', 
         row.appendChild(childDiv);
 
         //before selectClick, the dictionary value is row1
-        expect(mockChrome.dict[1]).toEqual("row1");
+        expect(mockChrome.dict['OU-1']).toEqual("row1");
         selectClick();
 
         //after selectClick, the dictionary value has been updated to renamed
-        expect(mockChrome.dict[1]).toEqual("renamed");
+        expect(mockChrome.dict['OU-1']).toEqual("renamed");
     })
 })
 
@@ -134,5 +135,3 @@ describe('Testing applyClick function called when "apply" button is clicked', ()
         expect(isClicked).toBe(true);
     })
 })
-
-
