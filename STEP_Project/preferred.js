@@ -31,6 +31,18 @@ function createForm()
 
             let entityToDisplay = data['entity-to-display'];
 
+            if (entityToDisplay == 'group' || entityToDisplay == 'user')
+            {
+                selectForm.addEventListener('click',function(e)
+                {
+                    if(e.target.href !== undefined)
+                    {
+                        chrome.tabs.create({url:e.target.href});
+                    }
+                    enableApplyButton();
+                });
+            }
+
             keys.forEach((key) => 
             {
                 if (key == 'entity-to-display')
@@ -144,15 +156,6 @@ function applyFunc()
 (function()
 {
     createForm();
-    let selectForm = document.getElementById('radioButtons');
-    selectForm.addEventListener('click',function(e)
-    {
-        if(e.target.href !== undefined)
-        {
-            chrome.tabs.create({url:e.target.href});
-        }
-        enableApplyButton();
-    });
     let applyButton = document.getElementById('apply');
     applyListener(applyButton);
 }()
