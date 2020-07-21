@@ -1,21 +1,20 @@
 let selectForm;
 describe('Testing the identifyEntityClass function', ()=>
 {
-    let mockChrome;
     beforeEach(function()
     {
-        mockChrome = 
+        let mockLocalChrome = 
         {
             dict: {},
             set : function(pair)
             {
                 for (let key in pair)
                 {
-                    mockChrome.dict[key] = pair[key];
+                    mockLocalChrome.dict[key] = pair[key];
                 }
             }
         };
-        storageObj = mockChrome;
+        localStorageObj = mockLocalChrome;
     });
     
     it('Should set entity-to-display in storage to button\'s id', ()=>
@@ -24,6 +23,7 @@ describe('Testing the identifyEntityClass function', ()=>
         newButton.setAttribute("id", "entityType");
         identifyEntityClass(newButton);
         newButton.click();
-        expect(mockChrome.dict['entity-to-display']).toEqual("entityType");
+        expect(localStorageObj.dict['entity-to-display']).toEqual("entityType");
+
     });
 });
