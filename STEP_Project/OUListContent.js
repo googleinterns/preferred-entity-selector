@@ -3,8 +3,6 @@ if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
 }
-var restoreEvents;
-var restoreOpacity;
 var observer;
 
 /**
@@ -32,8 +30,7 @@ function restoreDOM()
         }
         if (row.lastChild !== null)
         {
-            row.lastChild.style.opacity = restoreOpacity;
-            row.lastChild.style.pointerEvents = restoreEvents;
+            row.lastChild.setAttribute('style', row.lastChild.getAttribute('data-style'));
         }
     }
 
@@ -237,9 +234,8 @@ function addButtonsToRows(data)
             //hide unnecessary buttons
             if (row.lastChild !== null)
             {
-                restoreOpacity = row.lastChild.style.opacity;
+                row.lastChild.setAttribute('data-style', row.lastChild.getAttribute('style'));                restoreOpacity = row.lastChild.style.opacity;
                 row.lastChild.style.opacity = 0;
-                restoreEvents = row.lastChild.style.pointerEvents;
                 row.lastChild.style.pointerEvents = 'none';
             }
         
