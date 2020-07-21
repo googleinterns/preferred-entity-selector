@@ -61,6 +61,7 @@ function createForm()
                     a.appendChild(elt);
                     a.append(entityName);
                     a.title = data[key];
+                    let applyButton = document.getElementById('apply');
 
                     if (prefEntity == entityToDisplay)
                     {
@@ -76,6 +77,10 @@ function createForm()
                             selectForm.appendChild(a);
                             let breakLine = document.createElement('br');
                             selectForm.appendChild(breakLine);
+                            if (applyButton !== null)
+                            {
+                                applyButton.innerHTML = 'COPY';
+                            }
                         }
                         if (prefEntity == 'user')
                         {
@@ -83,6 +88,10 @@ function createForm()
                             selectForm.appendChild(a);
                             let breakLine = document.createElement('br');
                             selectForm.appendChild(breakLine);
+                            if (applyButton !== null)
+                            {
+                                applyButton.innerHTML = 'COPY';
+                            }
                         }
                     }                
                 }); 
@@ -90,6 +99,8 @@ function createForm()
         });
     });
 }
+
+
 
 /**
  * Enables applyButton if one of the preferred entities in the form has been selected.
@@ -127,6 +138,7 @@ function applyListener(applyButton)
 function applyFunc()
 {
     let dataRowId = null;
+    let dataName = null;
     storageObj.get(null, function (data)
     {
         let selectForm = document.getElementById('radioButtons');
@@ -137,6 +149,7 @@ function applyFunc()
             if (selectForm[i].checked == true)
             {
                 dataRowId = selectForm[i].value;
+                dataName = selectForm[i].id;
                 break;
             }
         }
@@ -146,7 +159,11 @@ function applyFunc()
         {
             chrome.tabs.query({active: true, currentWindow: true}, function(tabs) 
             {
-                chrome.tabs.sendMessage(tabs[0].id, {dataId: dataRowId});
+                chrome.tabs.sendMessage(tabs[0].id, {dataId: [dataRowId, dataName]});
+                if (dataRowId.split('-')[0] === 'group' || dataRowId.split('-')[0] === 'user')
+                {
+                    alert('Copied ' + dataName + ' to clipboard!');
+                }
             });
         }
     });

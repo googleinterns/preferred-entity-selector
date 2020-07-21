@@ -3,6 +3,67 @@ if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
 }
+var observer;
+
+/**
+ * This function is called when the DONE button is clicked
+ * It restores the DOM's buttons and their events.
+ */
+function restoreDOM()
+{
+    if (observer !== undefined)
+    {
+        observer.disconnect();
+    }
+    
+    let tabl = document.querySelector('table[role=grid]');
+    tabl.removeEventListener('click',addRemoveButtonClick);
+    const entities = tabl.rows;
+    let numEntities = entities.length;
+    for (let i = 1; i < numEntities; i++) 
+    {
+        let row = entities[i];
+        const toDeleteButton = row.querySelectorAll('td[class$="Class"]')[0];
+        if (toDeleteButton !== undefined)
+        {
+            toDeleteButton.remove();
+        }
+        if (row.lastChild !== null)
+        {
+            row.lastChild.setAttribute('style', row.lastChild.getAttribute('data-style'));
+        }
+    }
+
+    document.getElementsByClassName('butterBar')[0].remove();
+}
+
+/**
+ * Adds a butterbar for better UX.
+ * Contains a DONE button that restores DOM.
+ */
+function addButterbar()
+{
+    const butterBar = document.createElement('div');
+    butterBar.classList.add('butterBar');
+    butterBar.style.backgroundColor = '#e8f0fe';
+    butterBar.style.minHeight = '45px';
+    butterBar.style.borderBottom = '1px solid #e0e0e0';
+    butterBar.style.width = '100%';
+    let cwiz = document.getElementsByTagName('c-wiz')[2].firstChild.firstChild.firstChild;
+    cwiz.insertBefore(butterBar, cwiz.lastChild);
+    const doneButton = document.createElement('p');
+    doneButton.innerHTML = 'DONE';
+    doneButton.style.float = 'right';
+    doneButton.style.paddingRight = '50px';
+    doneButton.style.color = '#3367d6';
+    const instructions = document.createElement('p');
+    instructions.innerHTML = 'Please use the +/- buttons to add/remove your preferred entities.';
+    instructions.style.float = 'left';
+    instructions.style.paddingLeft = '20px';
+    butterBar.appendChild(instructions);
+    butterBar.appendChild(doneButton);
+    doneButton.addEventListener('click', restoreDOM);
+}
 
 /**
  * This function adds the selected entity to Chrome's storage
@@ -173,6 +234,7 @@ function addButtonsToRows(data)
             //hide unnecessary buttons
             if (row.lastChild !== null)
             {
+                row.lastChild.setAttribute('data-style', row.lastChild.getAttribute('style'));                restoreOpacity = row.lastChild.style.opacity;
                 row.lastChild.style.opacity = 0;
                 row.lastChild.style.pointerEvents = 'none';
             }
@@ -212,22 +274,23 @@ function monitorChanges()
 
     let MutationObserver = window.MutationObserver;
 
-    let observer = new MutationObserver(function(mutations) 
+    observer = new MutationObserver(function(mutations) 
     {
         addButtons();
     });
 
     observer.observe(rootNode, 
-    {
-        attributes: false,
-        childList: true,
-        characterData: false,
-        subtree: true
-    });
+        {
+            attributes: false,
+            childList: true,
+            characterData: false,
+            subtree: true
+        });
 }
 
 (function()
 {
+    addButterbar();
     let p = document.getElementsByClassName('pClass');
     let m = document.getElementsByClassName('mClass');
     if (p.length !== 0 || m.length !== 0)

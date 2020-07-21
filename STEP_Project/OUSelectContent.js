@@ -19,8 +19,8 @@ function selectClick ()
     storageObj.get(null, function (data) 
     {
         let tabl = document.querySelector('ul[role=group]');
-        let orgUnits = tabl.getElementsByTagName('li');
-        let numOrgUnits = orgUnits.length;
+        const orgUnits = tabl.getElementsByTagName('li');
+        const numOrgUnits = orgUnits.length;
 
         for (let i = 0; i < numOrgUnits; i++)
         {
@@ -44,9 +44,27 @@ function selectClick ()
  */
 function onMessageFunction(request)
 {
-    let queryVar = '[data-content-id=\'' + request.dataId + '\']';
-    let orgUnits = document.querySelectorAll(queryVar);
-    orgUnits[0].children[1].firstChild.click();
+    const dataId = request.dataId[0];
+    const dataName = request.dataId[1];
+    const prefEntity = dataId.split('-')[0];
+    if (prefEntity === 'OU')
+    {
+        const dataContentId = dataId.split('-')[1];
+        const queryVar = '[data-content-id=\'' + dataContentId + '\']';
+        const orgUnits = document.querySelectorAll(queryVar);
+        orgUnits[0].children[1].firstChild.click();
+    }
+    
+    //otherwise copy to clipboard
+    else
+    {
+        const copyText = document.createElement('textarea');
+        copyText.value = dataName;
+        document.body.appendChild(copyText);
+        copyText.select();
+        document.execCommand('copy');
+        document.body.removeChild(copyText);
+    }
 }
 
 /**
