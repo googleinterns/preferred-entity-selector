@@ -1,7 +1,7 @@
-let storageObj;
+let localStorageObj;
 if (chrome.storage !== undefined)
 {
-    storageObj = chrome.storage.sync;
+    localStorageObj = chrome.storage.local;
 }
 
 function identifyEntityClass(button)
@@ -9,7 +9,7 @@ function identifyEntityClass(button)
     button.addEventListener('click',function(e)
     {
         let entity = e.target.getAttribute('id');
-        storageObj.set({'entity-to-display': entity});
+        localStorageObj.set({'entity-to-display': entity});
     });
 }
 

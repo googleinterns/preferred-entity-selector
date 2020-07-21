@@ -26,12 +26,12 @@ function selectClick ()
         {
             let row = orgUnits[i];
             let dataid = row.children[0].getAttribute('data-node-id');
+            let key = 'OU-' + dataid;
             let dataname = (row.innerText).replace(/[^\x20-\x7E]/g, ''); //remove stray non-ASCII characters
 
-            if (data[dataid] != undefined)
+            if (data[key] != undefined)
             {
-                data[dataid] = dataname;
-                storageObj.set({[dataid]: dataname});
+                storageObj.set({[key]: dataname});
             }
         }
     });

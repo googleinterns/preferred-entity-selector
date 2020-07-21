@@ -18,7 +18,7 @@ const PAGE_TYPES = {
 );
 
 /**
- * Checks url of the current tab to detect settings or OU list page
+ * Checks url of the current tab to detect settings or entity list page
  * @param {string} givenurl - url of current page
  */
 function findPageType(givenurl)
@@ -27,9 +27,29 @@ function findPageType(givenurl)
     let settingspage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/appsettings\/[0-9]+\/.+/g);
     let onoffpage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/settings\/serviceonoff.*/g);
     pageType = PAGE_TYPES.OTHER;
+
     if (entitypage !== null)
     {
         pageType = PAGE_TYPES.ORG_LIST_PAGE;
+
+        let entityPageOU = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/orgunits/g);
+        let entityPageUser = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/users/g);
+        let entityPageGroup = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/groups/g);
+
+        let addRemoveButton = document.getElementById('addRemove');
+
+        if (entityPageOU !== null)
+        {
+            addRemoveButton.innerHTML = "ADD/REMOVE PREFERRED ORG UNITS";
+        }
+        else if (entityPageUser !== null)
+        {
+            addRemoveButton.innerHTML = "ADD/REMOVE PREFERRED USERS";
+        }
+        else if (entityPageGroup !== null)
+        {
+            addRemoveButton.innerHTML = "ADD/REMOVE PREFERRED GROUPS";
+        }
     }
     else if (settingspage !== null || onoffpage !== null)
     {
@@ -89,7 +109,7 @@ function disableButtons(selectButton, addRemoveButton, pageType)
         }
     }
 
-    //OU list page case --> disable select
+    //entity list page case --> disable select
     if (pageType === PAGE_TYPES.ORG_LIST_PAGE)
     {
         if(selectButton !== null)
@@ -110,13 +130,13 @@ function injectContent(addRemoveButton)
 }
 
 /**
- * inject OUListContent.js into DOM on click of the add/remove button
+ * inject entityListContent.js into DOM on click of the add/remove button
  */
 function addRemovefunc () 
 {
     window.close();
     chrome.tabs.executeScript({
-        file: 'OUListContent.js'
+        file: 'entityListContent.js'
     });
 }
 
@@ -130,11 +150,11 @@ function selectListener(selectButton)
 }
 
 /**
- * inject OUSelectContent.js into DOM on click of the select button
+ * inject entitySelectContent.js into DOM on click of the select button
  */
 function selectFunc() 
 {
     chrome.tabs.executeScript({
-        file: 'OUSelectContent.js'
+        file: 'entitySelectContent.js'
     });
 }

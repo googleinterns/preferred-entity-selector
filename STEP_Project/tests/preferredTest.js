@@ -39,6 +39,27 @@ describe('Testing the createForm function', ()=>{
         };
         storageObj = mockChrome;
 
+        let mockLocalChrome = 
+        {
+            dict: {},
+            get : function(arg1, arg2)
+            {
+                arg2(this.dict);
+            },
+            set : function(pair)
+            {
+                for (let key in pair)
+                {
+                    mockLocalChrome.dict[key] = pair[key];
+                }
+            },
+            remove : function(dataid)
+            {
+                this.dict[dataid] = undefined;
+            }
+        };
+        localStorageObj = mockLocalChrome;
+
         selectForm = document.createElement('form');
         selectForm.setAttribute('id','radioButtons');
         document.body.appendChild(selectForm);
@@ -59,7 +80,7 @@ describe('Testing the createForm function', ()=>{
     });
     
     it('Should have as many valid OUs as in storage', ()=>{
-        storageObj.set({'entity-to-display': 'OU'});
+        localStorageObj.set({'entity-to-display': 'OU'});
         createForm();
 
         let numValidItems = 0;
@@ -75,7 +96,7 @@ describe('Testing the createForm function', ()=>{
     });
 
     it('Should have as many valid users as in storage', ()=>{
-        storageObj.set({'entity-to-display': 'user'});
+        localStorageObj.set({'entity-to-display': 'user'});
         createForm();
 
         let numValidItems = 0;
@@ -91,7 +112,7 @@ describe('Testing the createForm function', ()=>{
     });
 
     it('Should have as many valid groups as in storage', ()=>{
-        storageObj.set({'entity-to-display': 'group'});
+        localStorageObj.set({'entity-to-display': 'group'});
         createForm();
 
         let numValidItems = 0;
@@ -108,8 +129,9 @@ describe('Testing the createForm function', ()=>{
 
     it('Should not add keys with undefined values/keys that have been removed to the form', ()=>{
         storageObj.remove('group-1');
-        storageObj.set({'entity-to-display': 'group'});
+        localStorageObj.set({'entity-to-display': 'group'});
         createForm();
+
         let numValidItems = 0;
         for (let i = 0; i < selectForm.length; i++)
         {
@@ -146,6 +168,27 @@ describe('Testing the enableApplyButton function', ()=>{
         };
         storageObj = mockChrome;
 
+        let mockLocalChrome = 
+        {
+            dict: {},
+            get : function(arg1, arg2)
+            {
+                arg2(this.dict);
+            },
+            set : function(pair)
+            {
+                for (let key in pair)
+                {
+                    mockLocalChrome.dict[key] = pair[key];
+                }
+            },
+            remove : function(dataid)
+            {
+                this.dict[dataid] = undefined;
+            }
+        };
+        localStorageObj = mockLocalChrome;
+
         selectForm = document.createElement('form');
         selectForm.setAttribute('id','radioButtons');
         document.body.appendChild(selectForm);
@@ -174,7 +217,7 @@ describe('Testing the enableApplyButton function', ()=>{
     
     it('Should enable applyButton only after one of the radio buttons has been selected', ()=>{
         
-        storageObj.set({'entity-to-display': 'user'});
+        localStorageObj.set({'entity-to-display': 'user'});
         createForm();
         selectForm.addEventListener('click',function(e)
         {
@@ -214,6 +257,27 @@ describe('Testing the applyFunc function', ()=>{
         };
         storageObj = mockChrome;
 
+        let mockLocalChrome = 
+        {
+            dict: {},
+            get : function(arg1, arg2)
+            {
+                arg2(this.dict);
+            },
+            set : function(pair)
+            {
+                for (let key in pair)
+                {
+                    mockLocalChrome.dict[key] = pair[key];
+                }
+            },
+            remove : function(dataid)
+            {
+                this.dict[dataid] = undefined;
+            }
+        };
+        localStorageObj = mockLocalChrome;
+
         selectForm = document.createElement('form');
         selectForm.setAttribute('id','radioButtons');
         document.body.appendChild(selectForm);
@@ -234,7 +298,7 @@ describe('Testing the applyFunc function', ()=>{
     });
 
     it('Should return the dataRowId of the chosen entity', ()=>{
-        storageObj.set({'entity-to-display': 'user'});
+        localStorageObj.set({'entity-to-display': 'user'});
         createForm();
         selectForm.addEventListener('click',function(e)
         {

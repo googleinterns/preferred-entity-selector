@@ -1,7 +1,9 @@
 var storageObj;
+var localStorageObj;
 if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
+    localStorageObj = chrome.storage.local;
 }
 
 var Tabs;
@@ -29,65 +31,76 @@ function createForm()
 
             let selectForm = document.getElementById('radioButtons');
 
-            let entityToDisplay = data['entity-to-display'];
-
-            keys.forEach((key) => 
+            var entityToDisplay;
+            localStorageObj.get(null, function (localData)
             {
-                if (key == 'entity-to-display')
+                entityToDisplay = localData['entity-to-display'];
+                if (entityToDisplay == 'group' || entityToDisplay == 'user')
                 {
-                    return;
+                    selectForm.addEventListener('click',function(e)
+                    {
+                        if(e.target.href !== undefined)
+                        {
+                            chrome.tabs.create({url:e.target.href});
+                        }
+                        enableApplyButton();
+                    });
                 }
 
-                let elt = document.createElement('input');
-                elt.setAttribute('type', 'radio');
-                elt.setAttribute('value', key);
-                elt.setAttribute('name', 'preferred');
-                elt.setAttribute('id', data[key]);
-
-                let prefEntity = key.split('-')[0];
-
-                let entityName = document.createTextNode(data[key]);
-                var a = document.createElement('a');
-                a.appendChild(elt);
-                a.append(entityName);
-                a.title = data[key];
-                let applyButton = document.getElementById('apply');
-
-                if (prefEntity == entityToDisplay)
+                keys.forEach((key) => 
                 {
-                    if (prefEntity == 'OU')
+                    let elt = document.createElement('input');
+                    elt.setAttribute('type', 'radio');
+                    elt.setAttribute('value', key);
+                    elt.setAttribute('name', 'preferred');
+
+                    let prefEntity = key.split('-')[0];
+
+                    let entityName = document.createTextNode(data[key]);
+                    var a = document.createElement('a');
+                    a.appendChild(elt);
+                    a.append(entityName);
+                    a.title = data[key];
+                    let applyButton = document.getElementById('apply');
+
+                    if (prefEntity == entityToDisplay)
                     {
-                        selectForm.appendChild(a);
-                        let breakLine = document.createElement('br');
-                        selectForm.appendChild(breakLine);
-                    }
-                    if (prefEntity == 'group')
-                    {
-                        a.href = urlRoot + 'groups/' + key.split('-')[1] + '?' + urlQueries;
-                        selectForm.appendChild(a);
-                        let breakLine = document.createElement('br');
-                        selectForm.appendChild(breakLine);
-                        if (applyButton !== null)
+                        if (prefEntity == 'OU')
                         {
-                            applyButton.innerHTML = 'COPY';
+                            selectForm.appendChild(a);
+                            let breakLine = document.createElement('br');
+                            selectForm.appendChild(breakLine);
                         }
-                    }
-                    if (prefEntity == 'user')
-                    {
-                        a.href = urlRoot + 'users/' + key.split('-')[1] + '?' + urlQueries;
-                        selectForm.appendChild(a);
-                        let breakLine = document.createElement('br');
-                        selectForm.appendChild(breakLine);
-                        if (applyButton !== null)
+                        if (prefEntity == 'group')
                         {
-                            applyButton.innerHTML = 'COPY';
+                            a.href = urlRoot + 'groups/' + key.split('-')[1] + '?' + urlQueries;
+                            selectForm.appendChild(a);
+                            let breakLine = document.createElement('br');
+                            selectForm.appendChild(breakLine);
+                            if (applyButton !== null)
+                            {
+                                applyButton.innerHTML = 'COPY';
+                            }
                         }
-                    }
-                }                
+                        if (prefEntity == 'user')
+                        {
+                            a.href = urlRoot + 'users/' + key.split('-')[1] + '?' + urlQueries;
+                            selectForm.appendChild(a);
+                            let breakLine = document.createElement('br');
+                            selectForm.appendChild(breakLine);
+                            if (applyButton !== null)
+                            {
+                                applyButton.innerHTML = 'COPY';
+                            }
+                        }
+                    }                
+                }); 
             });
         });
     });
 }
+
+
 
 /**
  * Enables applyButton if one of the preferred entities in the form has been selected.
@@ -160,15 +173,6 @@ function applyFunc()
 (function()
 {
     createForm();
-    let selectForm = document.getElementById('radioButtons');
-    selectForm.addEventListener('click',function(e)
-    {
-        if(e.target.href !== undefined)
-        {
-            chrome.tabs.create({url:e.target.href});
-        }
-        enableApplyButton();
-    });
     let applyButton = document.getElementById('apply');
     applyListener(applyButton);
 }()
