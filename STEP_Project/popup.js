@@ -50,7 +50,6 @@ function findPageType(givenurl)
         {
             addRemoveButton.innerHTML = "ADD/REMOVE PREFERRED GROUPS";
         }
-
     }
     else if (settingspage !== null || onoffpage !== null)
     {

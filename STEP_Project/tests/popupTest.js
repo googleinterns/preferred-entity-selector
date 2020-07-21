@@ -4,7 +4,23 @@
 /**
  * testing function findPageType
  */
-describe('Testing pageType that determines enabling/disabling of buttons depending on URL', ()=>{
+describe('Testing pageType that determines enabling/disabling of buttons depending on URL', ()=>
+{
+    var selectButton;
+    var addRemoveButton;
+
+    beforeEach(function()
+    {
+        initTest();
+        selectButton = document.getElementById('select');
+        addRemoveButton = document.getElementById('addRemove');
+    });
+
+    afterEach(function()
+    {
+        restoreDOM();
+    });
+
     it('Should enable Settings button on appSettings url (case 1)', ()=>{
         let pageType = findPageType('https://admin.google.com/u/4/ac/appsettings/725740718362/videoSettings');
         expect(pageType).toEqual(1);
