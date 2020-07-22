@@ -1,4 +1,9 @@
 var pageType = undefined;
+var storageObj;
+if (chrome.storage !== undefined)
+{
+    storageObj = chrome.storage.sync;
+}
 
 /** Enum for page types. */
 const PAGE_TYPES = {
@@ -14,8 +19,43 @@ const PAGE_TYPES = {
     injectContent(addRemoveButton);
     let selectButton = document.getElementById('select');
     selectListener(selectButton);
+    updateNames();
 }()
 );
+
+/**
+ * This function fetches the pages for each user and group in chrome's storage and checks name
+ * The name is then updated in chrome's storage, thus reflecting renamed entities.
+ */
+function updateNames()
+{
+    storageObj.get(null, function (data) 
+    {
+        const keys = Object.keys(data);
+        for (let i = 0; i < keys.length; i++)
+        {
+            var entityType = keys[i].split("-")[0];
+            if (entityType === "OU")
+            {
+                continue;   //OUs do not have their own pages
+            }
+
+            var dataId = keys[i].split("-")[1];
+            var fetchLink = 'https://admin.google.com/ac/' + entityType + 's/' + dataId;
+            fetch(fetchLink).then(r => 
+            {
+                return r.text();
+            }).then(result => 
+            {
+                dp = new DOMParser();
+                dom = dp.parseFromString(result, 'text/html');
+                let cwiz = dom.getElementsByTagName("c-wiz");
+                var dataname = cwiz[3].firstChild.firstChild.children[1].children[1].firstChild.firstChild.innerText
+                storageObj.set({[keys[i]]: dataname});
+            });
+        }
+    });
+}
 
 /**
  * Checks url of the current tab to detect settings or entity list page
@@ -107,6 +147,10 @@ function disableButtons(selectButton, addRemoveButton, pageType)
             addRemoveButton.classList.add('disabled');
             addRemoveButton.disabled = true;
         }
+        let buttonLink = document.createElement('a');
+        buttonLink.setAttribute('href', 'entitySelect.html');
+        selectButton.parentElement.appendChild(buttonLink);
+        buttonLink.appendChild(selectButton);
     }
 
     //entity list page case --> disable select
