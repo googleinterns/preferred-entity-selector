@@ -18,7 +18,7 @@ describe('Testing pageType that determines enabling/disabling of buttons dependi
 
     afterEach(function()
     {
-        restoreDOM();
+        restoreOriginalDOM();
     });
 
     it('Should enable Settings button on appSettings url (case 1)', ()=>{
@@ -75,7 +75,7 @@ function initTest()
     document.body.appendChild(selectButton);
 }
 
-function restoreDOM()
+function restoreOriginalDOM()
 {
     document.getElementById('select').remove();
     document.getElementById('addRemove').remove();
@@ -95,7 +95,7 @@ describe('Testing enabling and disabling of buttons depending on pageType', ()=>
 
     afterEach(function()
     {
-        restoreDOM();
+        restoreOriginalDOM();
     });
 
     it('Should disable add/remove button on settings url for pageType 1', () => {
