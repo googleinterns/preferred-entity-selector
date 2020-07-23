@@ -34,8 +34,8 @@ function updateNames()
         const keys = Object.keys(data);
         for (let i = 0; i < keys.length; i++)
         {
-            var entityType = keys[i].split("-")[0];
-            if (entityType === "OU")
+            var entityType = keys[i].split('-')[0];
+            if (entityType === 'OU')
             {
                 continue;   //OUs do not have their own pages
             }
@@ -49,9 +49,17 @@ function updateNames()
             {
                 dp = new DOMParser();
                 dom = dp.parseFromString(result, 'text/html');
-                let cwiz = dom.getElementsByTagName("c-wiz");
-                var dataname = cwiz[3].firstChild.firstChild.children[1].children[1].firstChild.firstChild.innerText
-                storageObj.set({[keys[i]]: dataname});
+                let cwiz = dom.getElementsByTagName('c-wiz');
+                let error = dom.getElementById('af-error-container');//present in 404/500 page
+                if(error !== null)
+                {
+                    storageObj.remove(keys[i]);//entity must be removed as it has been deleted
+                }
+                else
+                {
+                    var dataname = cwiz[3].firstChild.firstChild.children[1].children[1].firstChild.firstChild.innerText;
+                    storageObj.set({[keys[i]]: dataname});
+                }
             });
         }
     });
