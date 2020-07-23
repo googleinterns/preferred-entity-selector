@@ -65,11 +65,11 @@ function onMessageFunction(request)
         document.execCommand('copy');
         document.body.removeChild(copyText);
         let parentDiv;
-        if (prefEntity === "group")
+        if (prefEntity === 'group')
         {
             parentDiv = document.querySelectorAll('[data-index=\'1\']')[0];
         }
-        else if (prefEntity === "user")
+        else if (prefEntity === 'user')
         {
             parentDiv = document.querySelectorAll('[data-index=\'0\']')[0]; 
         }
@@ -82,9 +82,6 @@ function onMessageFunction(request)
                 parentDiv.setAttribute('aria-expanded', 'true'); //mimic DOM behavior
             }
         }
-        
-
-        
     }
 }
 

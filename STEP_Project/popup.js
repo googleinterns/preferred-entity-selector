@@ -40,15 +40,15 @@ function updateNames()
                 continue;   //OUs do not have their own pages
             }
 
-            var dataId = keys[i].split("-")[1];
+            var dataId = keys[i].split('-')[1];
             var fetchLink = 'https://admin.google.com/ac/' + entityType + 's/' + dataId;
             fetch(fetchLink).then(r => 
             {
                 return r.text();
             }).then(result => 
             {
-                dp = new DOMParser();
-                dom = dp.parseFromString(result, 'text/html');
+                const dp = new DOMParser();
+                const dom = dp.parseFromString(result, 'text/html');
                 let cwiz = dom.getElementsByTagName('c-wiz');
                 let error = dom.getElementById('af-error-container');//present in 404/500 page
                 if(error !== null)
@@ -88,15 +88,15 @@ function findPageType(givenurl)
 
         if (entityPageOU !== null)
         {
-            addRemoveButton.innerHTML = "ADD/REMOVE PREFERRED ORG UNITS";
+            addRemoveButton.innerHTML = 'ADD/REMOVE PREFERRED ORG UNITS';
         }
         else if (entityPageUser !== null)
         {
-            addRemoveButton.innerHTML = "ADD/REMOVE PREFERRED USERS";
+            addRemoveButton.innerHTML = 'ADD/REMOVE PREFERRED USERS';
         }
         else if (entityPageGroup !== null)
         {
-            addRemoveButton.innerHTML = "ADD/REMOVE PREFERRED GROUPS";
+            addRemoveButton.innerHTML = 'ADD/REMOVE PREFERRED GROUPS';
         }
     }
     else if (settingspage !== null || onoffpage !== null)
@@ -155,7 +155,7 @@ function disableButtons(selectButton, addRemoveButton, pageType)
             addRemoveButton.classList.add('disabled');
             addRemoveButton.disabled = true;
         }
-        let buttonLink = document.createElement('a');
+        const buttonLink = document.createElement('a');
         buttonLink.setAttribute('href', 'entitySelect.html');
         selectButton.parentElement.appendChild(buttonLink);
         buttonLink.appendChild(selectButton);
