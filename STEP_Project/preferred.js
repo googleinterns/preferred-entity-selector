@@ -53,6 +53,7 @@ function createForm()
                     elt.setAttribute('type', 'radio');
                     elt.setAttribute('value', key);
                     elt.setAttribute('name', 'preferred');
+                    elt.setAttribute('id', data[key]);
 
                     let prefEntity = key.split('-')[0];
 
