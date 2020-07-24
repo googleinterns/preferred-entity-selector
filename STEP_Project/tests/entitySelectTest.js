@@ -1,4 +1,4 @@
-let selectForm;
+var selectForm;
 describe('Testing the identifyEntityClass function', ()=>
 {
     beforeEach(function()

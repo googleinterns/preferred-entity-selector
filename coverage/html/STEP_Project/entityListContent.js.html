@@ -1,0 +1,998 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for STEP_Project/entityListContent.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">STEP_Project/</a> entityListContent.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">77.93% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>113/145</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">57.69% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>30/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">78.47% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>113/144</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var storageObj;
+var testFlag = 'testing';
+<span class="missing-if-branch" title="if path not taken" >I</span>if (chrome.storage !== undefined)
+{
+<span class="cstat-no" title="statement not covered" >    storageObj = chrome.storage.sync;</span>
+<span class="cstat-no" title="statement not covered" >    testFlag = 'browser';</span>
+}
+var observer;
+&nbsp;
+/**
+ * This function is called when the DONE button is clicked
+ * It restores the DOM's buttons and their events.
+ */
+function restoreDOM()
+{
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (observer !== undefined)
+    {
+        observer.disconnect();
+    }
+    
+    let tabl = document.querySelector('table[role=grid]');
+    tabl.removeEventListener('click',addRemoveButtonClick);
+    const entities = tabl.rows;
+    let numEntities = entities.length;
+    for (let i = 1; i &lt; numEntities; i++) 
+    {
+        let row = entities[i];
+        const toDeleteButton = row.querySelectorAll('td[class$="Class"]')[0];
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (toDeleteButton !== undefined)
+        {
+            toDeleteButton.remove();
+        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (row.lastChild !== null)
+        {
+<span class="cstat-no" title="statement not covered" >            row.lastChild.setAttribute('style', row.lastChild.getAttribute('data-style'));</span>
+        }
+    }
+&nbsp;
+    document.getElementsByClassName('butterBar')[0].remove();
+}
+&nbsp;
+/**
+ * Adds a butterbar for better UX.
+ * Contains a DONE button that restores DOM.
+ */
+function addButterbar()
+{
+    const butterBar = document.createElement('div');
+    butterBar.classList.add('butterBar');
+    butterBar.style.backgroundColor = '#e8f0fe';
+    butterBar.style.minHeight = '45px';
+    butterBar.style.borderBottom = '1px solid #e0e0e0';
+    butterBar.style.width = '100%';
+    let cwiz = document.getElementsByTagName('c-wiz')[2].firstChild.firstChild.firstChild;
+    cwiz.insertBefore(butterBar, cwiz.lastChild);
+    const doneButton = document.createElement('p');
+    doneButton.innerHTML = 'DONE';
+    doneButton.style.float = 'right';
+    doneButton.style.paddingRight = '50px';
+    doneButton.style.color = '#3367d6';
+    const instructions = document.createElement('p');
+    instructions.innerHTML = 'Please use the +/- buttons to add/remove your preferred entities.';
+    instructions.style.float = 'left';
+    instructions.style.paddingLeft = '20px';
+    butterBar.appendChild(instructions);
+    butterBar.appendChild(doneButton);
+    doneButton.addEventListener('click', restoreDOM);
+}
+&nbsp;
+/**
+ * This function adds the selected entity to Chrome's storage
+ * @param {HTML tr object} row Each row in the table of entities
+ * @param {string} dataid The data-row-id for each entity
+ */
+function addEntity(row, dataid)
+{
+    let entityURL = document.getElementsByTagName('link')[0];
+    let entityPage = entityURL.getAttribute('href').split('ac/')[1];
+&nbsp;
+    event.target.innerHTML = '-';
+    event.target.setAttribute('class','mClass'); 
+    let dataname = ''; 
+    var key = dataid; 
+&nbsp;
+    //if DOM structure is not as expected
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (row === undefined || row.firstChild === undefined)
+    {
+<span class="cstat-no" title="statement not covered" >        alert('error in DOM');</span>
+    }
+&nbsp;
+    //if entity is a group
+    else <span class="missing-if-branch" title="if path not taken" >I</span>if (entityPage === 'groups')
+    {
+<span class="cstat-no" title="statement not covered" >        dataname = row.getAttribute('data-group-name');</span>
+<span class="cstat-no" title="statement not covered" >        key = 'group-' + dataid;</span>
+    }
+&nbsp;
+    //if entitiy is a user
+    else <span class="missing-if-branch" title="if path not taken" >I</span>if (entityPage === 'users')
+    {
+<span class="cstat-no" title="statement not covered" >        dataname = (row.children[1].children[1].firstChild.children[1].firstChild.getAttribute('title'));</span>
+<span class="cstat-no" title="statement not covered" >        key = 'user-' + dataid;</span>
+    }
+&nbsp;
+    //if entity is an OU
+    else <span class="missing-if-branch" title="if path not taken" >I</span>if (entityPage === 'orgunits')
+    {
+<span class="cstat-no" title="statement not covered" >        dataname = row.firstChild.firstChild.firstChild.children[1].innerHTML;</span>
+<span class="cstat-no" title="statement not covered" >        key = 'OU-' + dataid;  </span>
+    }
+    storageObj.set({[key]: dataname});
+}
+&nbsp;
+/**
+ * This function removes the selected entity from Chrome's storage
+ * @param {HTML tr object} row Each row in the table of entities
+ * @param {string} dataid The data-row-id for each entity
+ */
+function removeEntity(row, dataid)
+{
+    let entityURL = document.getElementsByTagName('link')[0];
+    let entityPage = entityURL.getAttribute('href').split('ac/')[1];
+&nbsp;
+    event.target.innerHTML = '+';
+    event.target.setAttribute('class','pClass');
+    var key = dataid;
+    
+    //entity is a group
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (entityPage === 'groups')
+    {
+<span class="cstat-no" title="statement not covered" >        key = 'group-' + dataid;</span>
+    }
+&nbsp;
+    //entity is a user
+    else <span class="missing-if-branch" title="if path not taken" >I</span>if (entityPage === 'users')
+    {
+<span class="cstat-no" title="statement not covered" >        key = 'user-' + dataid;</span>
+    }
+&nbsp;
+    //entitiy is an OU
+    else <span class="missing-if-branch" title="if path not taken" >I</span>if (entityPage === 'orgunits')
+    {
+<span class="cstat-no" title="statement not covered" >        key = 'OU-' + dataid;</span>
+    }
+    storageObj.remove(key);
+}
+&nbsp;
+/**
+ * Function that will later have Add/Remove functionality
+ * @param {JS event} event - expect click event
+ */
+function addRemoveButtonClick (event) 
+{
+    let classname = event.target.getAttribute('class');
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (classname !== 'pClass' &amp;&amp; classname !== 'mClass')
+    {
+<span class="cstat-no" title="statement not covered" >        return;</span>
+    }
+&nbsp;
+    let row = event.target.parentElement;
+    var dataid = row.getAttribute('data-row-id');
+&nbsp;
+    if (classname === 'pClass')
+    { 
+        addEntity(row, dataid);
+    }
+&nbsp;
+    else
+    {
+        removeEntity(row, dataid);
+    }
+}
+&nbsp;
+/**
+ * Adds +/- buttons to each row
+ * @param {dictionary} data - This is the collection of key-value pairs of preferred entities.
+ */
+function addButtonsToRows(data)
+{
+    let entityURL = document.getElementsByTagName('link')[0];
+    let entityPage = entityURL.getAttribute('href').split('ac/')[1];
+    
+    let tabl = document.querySelector('table[role=grid]');
+    let entities = tabl.rows;
+    let numEntities = entities.length;
+    let numRows = numEntities;
+  
+    //skip the first row as that's the heading row and does not represent an entity.
+    for (let i = 1; i &lt; numRows; i++) 
+    {
+        let row = entities[i];
+        let dataRowId = row.getAttribute('data-row-id');
+        if (dataRowId === null)
+        {
+            continue;
+        }
+        
+        let plusButtons = row.getElementsByClassName('pClass');
+        let minusButtons = row.getElementsByClassName('mClass');
+        if (plusButtons.length === 0 &amp;&amp; minusButtons.length === 0)
+        {
+            const button = document.createElement('td');
+            let dataid = row.getAttribute('data-row-id');
+            let dataname;
+&nbsp;
+            //entity is a group
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (entityPage === 'groups')
+            {
+<span class="cstat-no" title="statement not covered" >                dataname = data['group-' + dataid];</span>
+            }
+&nbsp;
+            //entity is a user
+            else <span class="missing-if-branch" title="if path not taken" >I</span>if (entityPage === 'users')
+            {
+<span class="cstat-no" title="statement not covered" >                dataname = data['user-' + dataid];</span>
+            }
+&nbsp;
+            //entity is an OU
+            else <span class="missing-if-branch" title="if path not taken" >I</span>if (entityPage === 'orgunits')
+            {
+<span class="cstat-no" title="statement not covered" >                dataname = data['OU-' + dataid];</span>
+            }
+            
+            button.setAttribute('class','pClass');
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (dataname !== undefined)
+            {
+<span class="cstat-no" title="statement not covered" >                button.innerHTML = '-';</span>
+<span class="cstat-no" title="statement not covered" >                button.setAttribute('class','mClass');</span>
+            }
+            else
+            {
+                button.innerHTML = '+';
+            }              
+            row = entities[i];
+            
+            //hide unnecessary buttons
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (row.lastChild !== null)
+            {
+<span class="cstat-no" title="statement not covered" >                row.lastChild.setAttribute('data-style', row.lastChild.getAttribute('style')); </span>               <span class="cstat-no" title="statement not covered" >restoreOpacity = row.lastChild.style.opacity;</span>
+<span class="cstat-no" title="statement not covered" >                row.lastChild.style.opacity = 0;</span>
+<span class="cstat-no" title="statement not covered" >                row.lastChild.style.pointerEvents = 'none';</span>
+            }
+        
+            //add +/- button to row
+            row.appendChild(button);
+&nbsp;
+            //styling
+            button.style.fontSize = '22px';
+            button.style.right = '20px';
+            button.style.color = 'rgba(0,0,0,0.87)';
+            button.style.position = 'relative';
+            button.style.border = 'none';
+            button.style.cursor = 'pointer';
+        }
+    }
+}
+&nbsp;
+/**
+ * This adds a button to every row in the table
+ * If the row already has a button, it skips that row
+ */
+function addButtons()
+{
+    storageObj.get(null, addButtonsToRows);
+}
+&nbsp;
+/**
+ * This function implements Mutation Observer
+ * It checks if new entities are visible and adds buttons to new rows if required
+ */
+function monitorChanges()
+{
+    let allRowNodes = document.querySelectorAll('tbody');
+&nbsp;
+    let rootNode = allRowNodes[0];
+&nbsp;
+    let MutationObserver = window.MutationObserver;
+&nbsp;
+    observer = new MutationObserver(function(mutations) 
+    {
+        addButtons();
+    });
+&nbsp;
+    observer.observe(rootNode, 
+        {
+            attributes: false,
+            childList: true,
+            characterData: false,
+            subtree: true
+        });
+}
+&nbsp;
+(function()
+{
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (testFlag != 'testing')
+    {
+<span class="cstat-no" title="statement not covered" >        addButterbar();</span>
+<span class="cstat-no" title="statement not covered" >        let p = document.getElementsByClassName('pClass');</span>
+<span class="cstat-no" title="statement not covered" >        let m = document.getElementsByClassName('mClass');</span>
+<span class="cstat-no" title="statement not covered" >        if (p.length !== 0 || m.length !== 0)</span>
+        {
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        let tabl = document.querySelector('table[role=grid]');</span>
+<span class="cstat-no" title="statement not covered" >        tabl.addEventListener('click',addRemoveButtonClick); </span>//event delegation
+<span class="cstat-no" title="statement not covered" >        addButtons();</span>
+<span class="cstat-no" title="statement not covered" >        monitorChanges();</span>
+    }
+}()
+);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 24 2020 11:25:17 GMT+0530 (India Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

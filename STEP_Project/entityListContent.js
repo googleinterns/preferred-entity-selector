@@ -1,7 +1,9 @@
 var storageObj;
+var testFlag = 'testing';
 if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
+    testFlag = 'browser';
 }
 var observer;
 
@@ -290,17 +292,20 @@ function monitorChanges()
 
 (function()
 {
-    addButterbar();
-    let p = document.getElementsByClassName('pClass');
-    let m = document.getElementsByClassName('mClass');
-    if (p.length !== 0 || m.length !== 0)
+    if (testFlag != 'testing')
     {
-        return;
-    }
+        addButterbar();
+        let p = document.getElementsByClassName('pClass');
+        let m = document.getElementsByClassName('mClass');
+        if (p.length !== 0 || m.length !== 0)
+        {
+            return;
+        }
 
-    let tabl = document.querySelector('table[role=grid]');
-    tabl.addEventListener('click',addRemoveButtonClick); //event delegation
-    addButtons();
-    monitorChanges();
+        let tabl = document.querySelector('table[role=grid]');
+        tabl.addEventListener('click',addRemoveButtonClick); //event delegation
+        addButtons();
+        monitorChanges();
+    }
 }()
 );

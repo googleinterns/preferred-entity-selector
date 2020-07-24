@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for STEP_Project/popup.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">STEP_Project/</a> popup.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">54.02% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>47/87</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">63.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>19/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.27% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">54.02% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>47/87</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var pageType = undefined;
+var storageObj;
+var testFlag = 'testing';
+<span class="missing-if-branch" title="if path not taken" >I</span>if (chrome.storage !== undefined)
+{
+<span class="cstat-no" title="statement not covered" >    storageObj = chrome.storage.sync;</span>
+<span class="cstat-no" title="statement not covered" >    testFlag = 'browswer';</span>
+}
+&nbsp;
+/** Enum for page types. */
+const PAGE_TYPES = {
+    ORG_LIST_PAGE: 0,
+    SETTINGS_PAGE: 1, // includes onoff page
+    OTHER: 2,
+};
+&nbsp;
+(function()
+{
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (testFlag != 'testing')
+    {
+<span class="cstat-no" title="statement not covered" >        checkTabUrl();</span>
+<span class="cstat-no" title="statement not covered" >        let addRemoveButton = document.getElementById('addRemove');</span>
+<span class="cstat-no" title="statement not covered" >        injectContent(addRemoveButton);</span>
+<span class="cstat-no" title="statement not covered" >        let selectButton = document.getElementById('select');</span>
+<span class="cstat-no" title="statement not covered" >        selectListener(selectButton);</span>
+<span class="cstat-no" title="statement not covered" >        updateNames();</span>
+    }
+}()
+);
+&nbsp;
+/**
+ * This function fetches the pages for each user and group in chrome's storage and checks name
+ * The name is then updated in chrome's storage, thus reflecting renamed entities.
+ */
+<span class="fstat-no" title="function not covered" >function updateNames()</span>
+{
+<span class="cstat-no" title="statement not covered" >    storageObj.get(null, <span class="fstat-no" title="function not covered" >function (data) </span></span>
+    {
+<span class="cstat-no" title="statement not covered" >        const keys = Object.keys(data);</span>
+<span class="cstat-no" title="statement not covered" >        for (let i = 0; i &lt; keys.length; i++)</span>
+        {
+<span class="cstat-no" title="statement not covered" >            var entityType = keys[i].split('-')[0];</span>
+<span class="cstat-no" title="statement not covered" >            if (entityType === 'OU')</span>
+            {
+<span class="cstat-no" title="statement not covered" >                continue; </span>  //OUs do not have their own pages
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var dataId = keys[i].split('-')[1];</span>
+<span class="cstat-no" title="statement not covered" >            var fetchLink = 'https://admin.google.com/ac/' + entityType + 's/' + dataId;</span>
+<span class="cstat-no" title="statement not covered" >            fetch(fetchLink).then(r =&gt; </span>
+            {
+<span class="cstat-no" title="statement not covered" >                return r.text();</span>
+            }).then(result =&gt; 
+            {
+<span class="cstat-no" title="statement not covered" >                const dp = new DOMParser();</span>
+<span class="cstat-no" title="statement not covered" >                const dom = dp.parseFromString(result, 'text/html');</span>
+<span class="cstat-no" title="statement not covered" >                let cwiz = dom.getElementsByTagName('c-wiz');</span>
+<span class="cstat-no" title="statement not covered" >                let error = dom.getElementById('af-error-container');/</span>/present in 404/500 page
+<span class="cstat-no" title="statement not covered" >                if(error !== null)</span>
+                {
+<span class="cstat-no" title="statement not covered" >                    storageObj.remove(keys[i]);/</span>/entity must be removed as it has been deleted
+                }
+                else
+                {
+<span class="cstat-no" title="statement not covered" >                    var dataname = cwiz[3].firstChild.firstChild.children[1].children[1].firstChild.firstChild.innerText;</span>
+<span class="cstat-no" title="statement not covered" >                    storageObj.set({[keys[i]]: dataname});</span>
+                }
+            });
+        }
+    });
+}
+&nbsp;
+/**
+ * Checks url of the current tab to detect settings or entity list page
+ * @param {string} givenurl - url of current page
+ */
+function findPageType(givenurl)
+{
+    let entitypage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/(orgunits)|(users)|(groups)/g);
+    let settingspage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/appsettings\/[0-9]+\/.+/g);
+    let onoffpage = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/settings\/serviceonoff.*/g);
+    pageType = PAGE_TYPES.OTHER;
+&nbsp;
+    if (entitypage !== null)
+    {
+        pageType = PAGE_TYPES.ORG_LIST_PAGE;
+&nbsp;
+        let entityPageOU = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/orgunits/g);
+        let entityPageUser = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/users/g);
+        let entityPageGroup = givenurl.match(/admin.google.com\/(u\/[0-9]\/)?ac\/groups/g);
+&nbsp;
+        let addRemoveButton = document.getElementById('addRemove');
+&nbsp;
+        if (entityPageOU !== null)
+        {
+            addRemoveButton.innerHTML = 'ADD/REMOVE PREFERRED ORG UNITS';
+        }
+        else if (entityPageUser !== null)
+        {
+            addRemoveButton.innerHTML = 'ADD/REMOVE PREFERRED USERS';
+        }
+        else <span class="missing-if-branch" title="else path not taken" >E</span>if (entityPageGroup !== null)
+        {
+            addRemoveButton.innerHTML = 'ADD/REMOVE PREFERRED GROUPS';
+        }
+    }
+    else if (settingspage !== null || onoffpage !== null)
+    {
+        pageType = PAGE_TYPES.SETTINGS_PAGE;
+    }
+    return pageType;
+}
+&nbsp;
+/**
+ * Asynchronous function, calls waitForPagecase for value to be defined
+ */
+<span class="fstat-no" title="function not covered" >function checkTabUrl()</span>
+{
+<span class="cstat-no" title="statement not covered" >    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs =&gt;</span>
+    {
+<span class="cstat-no" title="statement not covered" >        let url = tabs[0].url;</span>
+<span class="cstat-no" title="statement not covered" >        findPageType(url);</span>
+    });
+<span class="cstat-no" title="statement not covered" >    waitForPagecase();</span>
+}
+&nbsp;
+/**
+ * waits for pageType to become defined
+ * once value is defined, calls "disableButtons" to disable based on url
+ */
+<span class="fstat-no" title="function not covered" >function waitForPagecase()</span>
+{
+<span class="cstat-no" title="statement not covered" >    if( pageType === undefined)</span>
+    {
+<span class="cstat-no" title="statement not covered" >        setTimeout(waitForPagecase, 50);</span>
+    }
+    else
+    {
+<span class="cstat-no" title="statement not covered" >        let selectButton = document.getElementById('select');</span>
+<span class="cstat-no" title="statement not covered" >        let addRemoveButton = document.getElementById('addRemove');</span>
+<span class="cstat-no" title="statement not covered" >        disableButtons(selectButton, addRemoveButton, pageType);</span>
+    }
+}
+&nbsp;
+/**
+ * disable select or add/remove button based on url
+ * if neither url matches, background.js disables the extension.
+ * @param {button object} selectButton - the select button
+ * @param {button object} addRemoveButton - the add/remove button
+ * @param {integer} pageType - type of page user is on
+ */
+function disableButtons(selectButton, addRemoveButton, pageType)
+{
+&nbsp;
+    //Settings page case --&gt; disable Add/Remove
+    if (pageType === PAGE_TYPES.SETTINGS_PAGE)
+    {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(addRemoveButton !== null)
+        {
+            addRemoveButton.classList.add('disabled');
+            addRemoveButton.disabled = true;
+        }
+        const buttonLink = document.createElement('a');
+        buttonLink.setAttribute('href', 'entitySelect.html');
+        selectButton.parentElement.appendChild(buttonLink);
+        buttonLink.appendChild(selectButton);
+    }
+&nbsp;
+    //entity list page case --&gt; disable select
+    if (pageType === PAGE_TYPES.ORG_LIST_PAGE)
+    {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(selectButton !== null)
+        {
+            selectButton.classList.add('disabled');
+            selectButton.disabled = true;
+        }
+    }
+}
+&nbsp;
+/**
+ * attach listener to add/remove button
+ * @param {button object} addRemoveButton - add/remove button
+ */
+<span class="fstat-no" title="function not covered" >function injectContent(addRemoveButton)</span>
+{
+<span class="cstat-no" title="statement not covered" >    addRemoveButton.addEventListener('click', addRemovefunc);</span>
+}
+&nbsp;
+/**
+ * inject entityListContent.js into DOM on click of the add/remove button
+ */
+<span class="fstat-no" title="function not covered" >function addRemovefunc () </span>
+{
+<span class="cstat-no" title="statement not covered" >    window.close();</span>
+<span class="cstat-no" title="statement not covered" >    chrome.tabs.executeScript({</span>
+        file: 'entityListContent.js'
+    });
+}
+&nbsp;
+/**
+ * attach listener to select button
+ * @param {button object} selectButton
+ */
+<span class="fstat-no" title="function not covered" >function selectListener(selectButton)</span>
+{
+<span class="cstat-no" title="statement not covered" >    selectButton.addEventListener('click', selectFunc);</span>
+}
+&nbsp;
+/**
+ * inject entitySelectContent.js into DOM on click of the select button
+ */
+<span class="fstat-no" title="function not covered" >function selectFunc() </span>
+{
+<span class="cstat-no" title="statement not covered" >    chrome.tabs.executeScript({</span>
+        file: 'entitySelectContent.js'
+    });
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 24 2020 11:25:17 GMT+0530 (India Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

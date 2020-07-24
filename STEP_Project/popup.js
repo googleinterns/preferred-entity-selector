@@ -1,8 +1,10 @@
 var pageType = undefined;
 var storageObj;
+var testFlag = 'testing';
 if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
+    testFlag = 'browswer';
 }
 
 /** Enum for page types. */
@@ -14,12 +16,15 @@ const PAGE_TYPES = {
 
 (function()
 {
-    checkTabUrl();
-    let addRemoveButton = document.getElementById('addRemove');
-    injectContent(addRemoveButton);
-    let selectButton = document.getElementById('select');
-    selectListener(selectButton);
-    updateNames();
+    if (testFlag != 'testing')
+    {
+        checkTabUrl();
+        let addRemoveButton = document.getElementById('addRemove');
+        injectContent(addRemoveButton);
+        let selectButton = document.getElementById('select');
+        selectListener(selectButton);
+        updateNames();
+    }
 }()
 );
 
