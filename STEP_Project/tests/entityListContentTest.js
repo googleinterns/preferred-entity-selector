@@ -1,9 +1,9 @@
 /*global storageObj,addButtons,addRemoveButtonClick,monitorChanges*/
 /*eslint no-undef: "error"*/
 
-let tabl;
-let orgUnits;
-let numRows;
+var tabl;
+var orgUnits;
+var numRows;
 
 describe('Testing the addButtons function for OU list', ()=>
 {

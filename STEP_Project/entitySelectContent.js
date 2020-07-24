@@ -1,7 +1,9 @@
 var storageObj;
+var testFlag = 'testing';
 if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
+    testFlag = 'browser';
 }
 
 var runtimeObj;
@@ -100,7 +102,10 @@ function applySelect()
 
 (function()
 {
-    applySelect();
-    selectClick();
+    if (testFlag != 'testing')
+    {
+        applySelect();
+        selectClick();
+    }
 }()
 );

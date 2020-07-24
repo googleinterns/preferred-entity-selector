@@ -1,7 +1,7 @@
 /*global storageObj,applyFunc,createForm*/
 /*eslint no-undef: "error"*/
 
-let selectForm;
+var selectForm;
 describe('Testing the createForm function', ()=>{
     beforeEach(function()
     {

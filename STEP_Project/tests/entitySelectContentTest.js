@@ -1,6 +1,6 @@
-let tabl;
-let orgUnits;
-let numRows;
+var tabl;
+var orgUnits;
+var numRows;
 
 describe('Testing selectClick function called when "select" button is clicked', ()=>
 {

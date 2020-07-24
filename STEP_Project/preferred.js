@@ -1,9 +1,11 @@
 var storageObj;
 var localStorageObj;
+var testFlag = 'testing';
 if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
     localStorageObj = chrome.storage.local;
+    testFlag = 'browser';
 }
 
 var Tabs;
@@ -173,8 +175,11 @@ function applyFunc()
 
 (function()
 {
-    createForm();
-    let applyButton = document.getElementById('apply');
-    applyListener(applyButton);
+    if (testFlag != 'testing')
+    {
+        createForm();
+        let applyButton = document.getElementById('apply');
+        applyListener(applyButton);
+    }
 }()
 );

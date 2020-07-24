@@ -1,8 +1,16 @@
 var pageType = undefined;
 var storageObj;
+var testFlag = 'testing';
 if (chrome.storage !== undefined)
 {
     storageObj = chrome.storage.sync;
+    testFlag = 'browswer';
+}
+
+var Tabs;
+if (chrome.tabs !== undefined)
+{
+    Tabs = chrome.tabs;
 }
 
 /** Enum for page types. */
@@ -14,12 +22,15 @@ const PAGE_TYPES = {
 
 (function()
 {
-    checkTabUrl();
-    let addRemoveButton = document.getElementById('addRemove');
-    injectContent(addRemoveButton);
-    let selectButton = document.getElementById('select');
-    selectListener(selectButton);
-    updateNames();
+    if (testFlag != 'testing')
+    {
+        checkTabUrl();
+        let addRemoveButton = document.getElementById('addRemove');
+        injectContent(addRemoveButton);
+        let selectButton = document.getElementById('select');
+        selectListener(selectButton);
+        updateNames();
+    }
 }()
 );
 
@@ -31,37 +42,44 @@ function updateNames()
 {
     storageObj.get(null, function (data) 
     {
-        const keys = Object.keys(data);
-        for (let i = 0; i < keys.length; i++)
+        Tabs.query({active: true, lastFocusedWindow: true}, function(tabs) 
         {
-            var entityType = keys[i].split('-')[0];
-            if (entityType === 'OU')
+            const keys = Object.keys(data);
+            for (let i = 0; i < keys.length; i++)
             {
-                continue;   //OUs do not have their own pages
-            }
+                var entityType = keys[i].split('-')[0];
+                if (entityType === 'OU')
+                {
+                    continue;   //OUs do not have their own pages
+                }
 
-            var dataId = keys[i].split('-')[1];
-            var fetchLink = 'https://admin.google.com/ac/' + entityType + 's/' + dataId;
-            fetch(fetchLink).then(r => 
-            {
-                return r.text();
-            }).then(result => 
-            {
-                const dp = new DOMParser();
-                const dom = dp.parseFromString(result, 'text/html');
-                let cwiz = dom.getElementsByTagName('c-wiz');
-                let error = dom.getElementById('af-error-container');//present in 404/500 page
-                if(error !== null)
+                var dataId = keys[i].split('-')[1];
+                let url = tabs[0].url;
+                let urlRoot = url.split('/ac/')[0];
+                urlRoot = urlRoot + '/ac/';
+                let urlQueries = url.split('ac')[1].split('?')[1];
+                var fetchLink = urlRoot + entityType + 's/' + dataId + '?' + urlQueries;
+                fetch(fetchLink).then(r => 
                 {
-                    storageObj.remove(keys[i]);//entity must be removed as it has been deleted
-                }
-                else
+                    return r.text();
+                }).then(result => 
                 {
-                    var dataname = cwiz[3].firstChild.firstChild.children[1].children[1].firstChild.firstChild.innerText;
-                    storageObj.set({[keys[i]]: dataname});
-                }
-            });
-        }
+                    const dp = new DOMParser();
+                    const dom = dp.parseFromString(result, 'text/html');
+                    let cwiz = dom.getElementsByTagName('c-wiz');
+                    let error = dom.getElementById('af-error-container');//present in 404/500 page
+                    if(error !== null)
+                    {
+                        storageObj.remove(keys[i]);//entity must be removed as it has been deleted
+                    }
+                    else
+                    {
+                        var dataname = cwiz[3].firstChild.firstChild.children[1].children[1].firstChild.firstChild.innerText;
+                        storageObj.set({[keys[i]]: dataname});
+                    }
+                });
+            }
+        }); 
     });
 }
 
