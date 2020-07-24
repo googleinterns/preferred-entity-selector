@@ -64,6 +64,24 @@ function onMessageFunction(request)
         copyText.select();
         document.execCommand('copy');
         document.body.removeChild(copyText);
+        let parentDiv;
+        if (prefEntity === 'group')
+        {
+            parentDiv = document.querySelectorAll('[data-index=\'1\']')[0];
+        }
+        else if (prefEntity === 'user')
+        {
+            parentDiv = document.querySelectorAll('[data-index=\'0\']')[0]; 
+        }
+        if (parentDiv !== undefined)
+        {
+            let expandEntity = parentDiv.firstChild.firstChild.firstChild.firstChild;
+            if (parentDiv.getAttribute('aria-expanded') !== true) //if not already expanded
+            {
+                expandEntity.click();
+                parentDiv.setAttribute('aria-expanded', 'true'); //mimic DOM behavior
+            }
+        }
     }
 }
 
