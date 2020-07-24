@@ -59,7 +59,6 @@ function updateNames()
                 urlRoot = urlRoot + '/ac/';
                 let urlQueries = url.split('ac')[1].split('?')[1];
                 var fetchLink = urlRoot + entityType + 's/' + dataId + '?' + urlQueries;
-                console.log(fetchLink);
                 fetch(fetchLink).then(r => 
                 {
                     return r.text();
