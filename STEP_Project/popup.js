@@ -7,6 +7,12 @@ if (chrome.storage !== undefined)
     testFlag = 'browswer';
 }
 
+var Tabs;
+if (chrome.tabs !== undefined)
+{
+    Tabs = chrome.tabs;
+}
+
 /** Enum for page types. */
 const PAGE_TYPES = {
     ORG_LIST_PAGE: 0,
@@ -46,26 +52,35 @@ function updateNames()
             }
 
             var dataId = keys[i].split('-')[1];
-            var fetchLink = 'https://admin.google.com/ac/' + entityType + 's/' + dataId;
-            fetch(fetchLink).then(r => 
+
+            Tabs.query({active: true, lastFocusedWindow: true}, function(tabs) 
             {
-                return r.text();
-            }).then(result => 
-            {
-                const dp = new DOMParser();
-                const dom = dp.parseFromString(result, 'text/html');
-                let cwiz = dom.getElementsByTagName('c-wiz');
-                let error = dom.getElementById('af-error-container');//present in 404/500 page
-                if(error !== null)
+                let url = tabs[0].url;
+                let urlRoot = url.split('/ac/')[0];
+                urlRoot = urlRoot + '/ac/';
+                let urlQueries = url.split('ac')[1].split('?')[1];
+                var fetchLink = urlRoot + entityType + 's/' + dataId + '?' + urlQueries;
+                console.log(fetchLink);
+                fetch(fetchLink).then(r => 
                 {
-                    storageObj.remove(keys[i]);//entity must be removed as it has been deleted
-                }
-                else
+                    return r.text();
+                }).then(result => 
                 {
-                    var dataname = cwiz[3].firstChild.firstChild.children[1].children[1].firstChild.firstChild.innerText;
-                    storageObj.set({[keys[i]]: dataname});
-                }
-            });
+                    const dp = new DOMParser();
+                    const dom = dp.parseFromString(result, 'text/html');
+                    let cwiz = dom.getElementsByTagName('c-wiz');
+                    let error = dom.getElementById('af-error-container');//present in 404/500 page
+                    if(error !== null)
+                    {
+                        storageObj.remove(keys[i]);//entity must be removed as it has been deleted
+                    }
+                    else
+                    {
+                        var dataname = cwiz[3].firstChild.firstChild.children[1].children[1].firstChild.firstChild.innerText;
+                        storageObj.set({[keys[i]]: dataname});
+                    }
+                });
+            }); 
         }
     });
 }
