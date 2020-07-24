@@ -42,19 +42,18 @@ function updateNames()
 {
     storageObj.get(null, function (data) 
     {
-        const keys = Object.keys(data);
-        for (let i = 0; i < keys.length; i++)
+        Tabs.query({active: true, lastFocusedWindow: true}, function(tabs) 
         {
-            var entityType = keys[i].split('-')[0];
-            if (entityType === 'OU')
+            const keys = Object.keys(data);
+            for (let i = 0; i < keys.length; i++)
             {
-                continue;   //OUs do not have their own pages
-            }
+                var entityType = keys[i].split('-')[0];
+                if (entityType === 'OU')
+                {
+                    continue;   //OUs do not have their own pages
+                }
 
-            var dataId = keys[i].split('-')[1];
-
-            Tabs.query({active: true, lastFocusedWindow: true}, function(tabs) 
-            {
+                var dataId = keys[i].split('-')[1];
                 let url = tabs[0].url;
                 let urlRoot = url.split('/ac/')[0];
                 urlRoot = urlRoot + '/ac/';
@@ -80,8 +79,8 @@ function updateNames()
                         storageObj.set({[keys[i]]: dataname});
                     }
                 });
-            }); 
-        }
+            }
+        }); 
     });
 }
 
